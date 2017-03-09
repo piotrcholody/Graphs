@@ -5,10 +5,16 @@
 class vertex{
 public:
 	vertex();
+	//konstruktor wpisujący zadany wierzchołek
 	vertex( int );
+	//konstruktor kopiujący listę wierzchołków ( to-test )
 	vertex( std::vector< int > );
 
+	/*Metoda wypełniająca tablicę sąsiadów zadanego wierzchołka danymi
+	  pobranymi z klawiatury
+	*/
 	std::vector< int > getGraph( int );
+	//metoda zwracająca wierzchołek
 	int retVertVal();
 
 private:

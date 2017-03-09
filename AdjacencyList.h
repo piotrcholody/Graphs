@@ -7,8 +7,11 @@ class vertex;
 
 class AdjacencyList{
 public:
-
+	//konstruktor
 	AdjacencyList();
+	/*metoda tworząca listę wierzchołków, pobierająca dane z 
+	  klawiatury
+	*/
 	void getList();
 
 private:
