@@ -2,7 +2,7 @@
 
 //Macierz Indcydencji
 
-//to be continued kurwa
+//to be continued kurwa 
 
 
 class IncidenceMatrix
