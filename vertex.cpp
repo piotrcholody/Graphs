@@ -1,5 +1,5 @@
 #include <iostream>
-#include "vertex.h"
+#include "vertex.h" 
 
 vertex::vertex(){}
 /********************************************************************/
@@ -11,7 +11,7 @@ vertex::vertex( std::vector< int > fewVertices ){
 	_connectedVertices = fewVertices;
 }
 /********************************************************************/
-std::vector< int > vertex::getGraph( int vertCounter ){
+void vertex::getGraph( int vertCounter ){
 	int temp;
 	std::cin.clear();
 	std::cin.ignore();
@@ -28,12 +28,29 @@ std::vector< int > vertex::getGraph( int vertCounter ){
 	for( int i = 1; i < ( int )_connectedVertices.size(); ++i ){
 		std::cout << _connectedVertices[i] << "  " << std::endl;
 	}
-
-	return _connectedVertices;
 }
 /*******************************************************************/
 int vertex::retVertVal()
 {
 	return _connectedVertices.front();
+}
+/*******************************************************************/
+int vertex::retVertex( int index ){
+	if( index > ( int )_connectedVertices.size() )
+		return 0;
+	return _connectedVertices[ index ];
+}
+/*******************************************************************/
+void vertex::addVert( int index ){
+	for( int i = 0; i < ( int )_connectedVertices.size(); ++i ){
+		if( _connectedVertices[i] == index )
+			return;
+	}
+	_connectedVertices.push_back( index );
+}
+/*******************************************************************/
+void vertex::printNeig(){
+	for( int i = 1; i < ( int )_connectedVertices.size(); ++i )
+		std::cout << _connectedVertices[i] << " ";
 }
 /*******************************************************************/

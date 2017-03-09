@@ -13,9 +13,17 @@ public:
 	/*Metoda wypełniająca tablicę sąsiadów zadanego wierzchołka danymi
 	  pobranymi z klawiatury
 	*/
-	std::vector< int > getGraph( int );
+	void getGraph( int );
 	//metoda zwracająca wierzchołek
 	int retVertVal();
+	//metoda zwracająca rozmiar
+	int retSize(){ return _connectedVertices.size(); }
+	//metoda zwracająca element o podanym indeksie
+	int retVertex( int );
+	//metoda dodająca wierzchołek do sąsiadów
+	void addVert( int );
+	//metoda wypisująca sąsiadów
+	void printNeig();
 
 private:
 	std::vector< int > _connectedVertices;

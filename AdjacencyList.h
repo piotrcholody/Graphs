@@ -13,6 +13,10 @@ public:
 	  klawiatury
 	*/
 	void getList();
+	//metoda wypisująca całą listę grafu
+	void showList();
+	//metoda inicjująca powstanie listy
+	void initList();
 
 private:
 
