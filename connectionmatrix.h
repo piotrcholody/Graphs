@@ -1,6 +1,12 @@
+/**
+* czubala to pedal
+* @cholody
+*
+*/
+
 #include <vector>
 #include <iostream>
- 
+
 template <typename Type>
 class ConnectionMatrix{
 public:
