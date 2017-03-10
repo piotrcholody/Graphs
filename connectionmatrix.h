@@ -1,6 +1,6 @@
 /**
-* czubala to pedal
-* @author piotrcholody
+* czubala to pedal jp2gmd
+* @author piotr cholody
 *
 */
 
