@@ -28,5 +28,9 @@
 *.out
 *.app
 
+<<<<<<< HEAD
 #makefile
 makefile
+=======
+makefile
+>>>>>>> 3586c92b87dbb22fdfb9a5838d4ce402cef706c0
