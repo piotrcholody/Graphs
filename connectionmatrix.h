@@ -1,6 +1,6 @@
 /**
 * czubala to pedal
-* @cholody
+* @author piotrcholody
 *
 */
 
