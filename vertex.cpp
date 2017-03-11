@@ -23,11 +23,15 @@ void vertex::getGraph( int vertCounter ){
 		if( temp != _connectedVertices.front() && temp <= vertCounter && temp > 0 )
 			_connectedVertices.push_back( temp );
 	}
-		
-	std::cout << "Dodano następujących sąsiadów do wierzchołka nr " << _connectedVertices[0] << ": " << std::endl;
-	for( int i = 1; i < ( int )_connectedVertices.size(); ++i ){
-		std::cout << _connectedVertices[i] << "  " << std::endl;
+	
+	if( _connectedVertices.size() > 1 ){	
+		std::cout << "Dodano następujących sąsiadów do wierzchołka nr " << _connectedVertices[0] << ": " << std::endl;
+		for( int i = 1; i < ( int )_connectedVertices.size(); ++i ){
+			std::cout << _connectedVertices[i] << "  " << std::endl;
+		}
 	}
+	else
+		std::cout << "Nie dodano żadnych sąsiadów do wierzchołka nr " << _connectedVertices[0] << std::endl;
 }
 /*******************************************************************/
 int vertex::retVertVal()

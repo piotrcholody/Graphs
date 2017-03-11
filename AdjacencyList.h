@@ -17,10 +17,12 @@ public:
 	void showList();
 	//metoda inicjująca powstanie listy
 	void initList();
+	//metoda zwracająca listę
+	std::vector< vertex* > retAdjacencyList();
 
 private:
 
-	std::vector < vertex* > _vertTable;
+	std::vector< vertex* > _vertTable;
 };
 
 

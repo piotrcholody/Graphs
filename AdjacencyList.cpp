@@ -39,3 +39,11 @@ void AdjacencyList::showList(){
 	}
 }
 /******************************************************************/
+std::vector< vertex* > AdjacencyList::retAdjacencyList(){
+	if( _vertTable.size() )
+		return _vertTable;
+	else
+		std::cout << "Aby zwrócić listę należy najpierw ją utworzyć" << std::endl;
+	return _vertTable;
+}	
+/******************************************************************/
