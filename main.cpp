@@ -8,12 +8,11 @@ int main( void ){
 	ConnectionMatrix<int> *testCM;
 	try {
 		testCM = new ConnectionMatrix<int>();
-
-		std::cout << *testCM << std::endl;
 	}
 	catch (std::exception& e) {
 		std::cerr << e.what() << std::endl;
 	}
+	std::cout << *testCM << std::endl;
 	
 	//Testy przedstawienia grafu za pomocą listy:
 	AdjacencyList *test = new AdjacencyList();
