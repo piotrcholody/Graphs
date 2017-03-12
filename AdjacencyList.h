@@ -1,9 +1,6 @@
 #ifndef AdjacencyList_h
 #define AdjacencyList_h
 #include <vector>
-#include "vertex.h"
-
-class vertex;
 
 class AdjacencyList{
 public:
@@ -22,7 +19,9 @@ public:
 	//metoda inicjująca powstanie listy
 	void initList();
 	//metoda zwracająca listę
-	std::vector< vertex* > retAdjacencyList();
+	std::vector< std::vector< int > > retAdjacencyList();
+	//metoda zwracająca prawdę jeśli dana wartość nie wystąpiła w tablicy
+	bool isThisVal( int, int );
 
 private:
 
