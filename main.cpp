@@ -33,7 +33,7 @@ int main( void ){
 
 	test -> showList();
 	
-	delete[] testCM;
-	delete[] test;
+	delete testCM;
+	delete test;
 	return 0;
 }
