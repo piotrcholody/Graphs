@@ -5,10 +5,14 @@ int main( void ){
 
 
 	//Testy przedstawienia grafu za pomocą macierzy połączeń:
-	ConnectionMatrix<int> *testCM = new ConnectionMatrix<int>();
-
+	ConnectionMatrix<int> *testCM;
+	try {
+		testCM = new ConnectionMatrix<int>();
+	}
+	catch (std::exception& e) {
+		std::cerr << e.what() << std::endl;
+	}
 	std::cout << *testCM << std::endl;
-	
 	
 	//Testy przedstawienia grafu za pomocą listy:
 	AdjacencyList *test = new AdjacencyList();
@@ -27,6 +31,8 @@ int main( void ){
 	std::cout << std::endl;
 
 	test -> showList();
-
+	
+	delete testCM;
+	delete test;
 	return 0;
 }
