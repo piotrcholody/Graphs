@@ -9,13 +9,36 @@ void AdjacencyList::initList(){
 	std::cout << "Podaj liczbę wierchołków: ";
 	std::cin >> number;
 	for( int vert = 1; vert <= number; ++vert ){
-		vertex *temp = new vertex( vert );
-		_vertTable.push_back( temp );
-		std::cout << "Stworzyłem kolejną listę dla wierzchołka: " << _vertTable[ vert - 1 ] -> retVertVal() << std::endl;
+		_vertTable.push_back( std::vector< int >() );
+		_vertTable[ vert - 1 ].push_back( vert );
+		std::cout << "Stworzyłem kolejną listę dla wierzchołka: " << _vertTable[ vert - 1 ][0] << std::endl;
 	}
 	getList();
 }
 /******************************************************************/
+void AdjacencyList::getGraph( int vertCounter ){
+	int temp;
+	std::cin.clear();
+	std::cin.ignore();
+
+	std::cout << "Wpisz sąsiadów wierzchołka: " << _vertTable[ vertCounter ][0] << std::endl;
+
+	std::cout << "Wypisz jego sąsiadów: ";
+	while( std::cin >> temp ){
+		if( temp != _vertTable[ vertCounter ][0] && temp <= ( int )_vertTable.size() && temp > 0 )
+			_vertTable[ vertCounter ].push_back( temp );
+	}
+	
+	if( _vertTable[ vertCounter ].size() > 1 ){	
+		std::cout << "Dodano następujących sąsiadów do wierzchołka nr " << _vertTable[ vertCounter ][0] << ": " << std::endl;
+		for( int i = 1; i < ( int )_vertTable[ vertCounter ].size(); ++i ){
+			std::cout << _vertTable[ vertCounter ][i] << "  " << std::endl;
+		}
+	}
+	else
+		std::cout << "Nie dodano żadnych sąsiadów do wierzchołka nr " << _vertTable[ vertCounter ][0] << std::endl;
+}
+/*******************************************************************/
 void AdjacencyList::getList(){
 
 	for( int i = 0; i < ( int )_vertTable.size(); ++i ){
