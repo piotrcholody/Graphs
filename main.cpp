@@ -5,7 +5,7 @@ int main( void ){
 
 
 	//Testy przedstawienia grafu za pomocą macierzy połączeń:
-	try{
+	try {
 		ConnectionMatrix<int> *testCM = new ConnectionMatrix<int>();
 
 		std::cout << *testCM << std::endl;
