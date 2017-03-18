@@ -3,7 +3,7 @@
 * @author piotr cholody
 *
 */
- 
+#pragma once
 #include <vector>
 #include <iostream>
  
@@ -16,18 +16,22 @@ public:
     {
         std::cin >> *this;
     };
+    
     //destruktor
     ~ConnectionMatrix(){};
+    
     //operator zwracajacy dane pole macierzy
     Type& operator() (int row, int col)
     {
         return matrix[row][col];
     };
+    
     //operator zwracajacy dane pole macierzy - wersja const
     const Type& operator() (int row, int col) const
     {
         return matrix[row][col];
     };
+    
     //extraction operator
     friend std::istream& operator>> (std::istream& is, ConnectionMatrix& obj)
     {
@@ -67,6 +71,7 @@ public:
         }
         return is;
     };
+    
     //insertion operator
     friend std::ostream& operator<< (std::ostream& os, const ConnectionMatrix& obj)
     {
@@ -83,6 +88,7 @@ private:
  
     //liczba wierzcholkow - rozmiar macierzy
     int size;
+    
     //macierz
     std::vector< std::vector<Type> > matrix;
 };
