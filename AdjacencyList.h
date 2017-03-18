@@ -15,17 +15,32 @@ public:
 	/*Metoda wypełniająca tablicę sąsiadów zadanego wierzchołka danymi
 	  pobranymi z klawiatury
 	*/
-	void getGraph( int );
+	void getGraph(int);
 	//metoda inicjująca powstanie listy
 	void initList();
+	//metoda uzupełniająca listę
+	void fillList();
+	//metoda sprawdzająca warunki konieczne do dodania
+	//sąsiada
+	bool isAddingNeighbourPossible(int, int);
 	//metoda zwracająca listę
-	std::vector< std::vector< int > > retAdjacencyList();
-	//metoda zwracająca prawdę jeśli dana wartość nie wystąpiła w tablicy
-	bool isThisVal( int, int );
+	std::vector< std::vector<int> > retAdjacencyList();
+	//metoda zwracająca indeks jeśli dana wartość wystąpiła w 
+	//tablicy
+	int isThisVal(int, int);
+	/*metoda zwracająca prawdę jeśli podany wierzchołek
+	istnieje
+	*/
+	bool isThisVert(int);
+	/*metoda usuwająca krawędź między wierzchołkami, o
+	  ile takowa istnieje, w przeciwnym wypadku zwraca
+	  False
+	*/
+	bool delEdge(int, int);
 
 private:
 
-	std::vector< std::vector< int > > _vertTable;
+	std::vector< std::vector<int> > _vertTable;
 };
 
 
