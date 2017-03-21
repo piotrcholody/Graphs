@@ -1,4 +1,6 @@
 #include "connectionmatrix.h"
+#include "AdjacencyList.h"
+
 #ifndef IncidenceMatrix_h
 #define IncidenceMatrix_h
 
@@ -10,8 +12,6 @@
 	//zwraca 1 gdy sie udalo, 0 gdy sie nie udalo (ustawiono -2137)
 bool cinSelectedInt(int& selectedInt);
 
-
-//template <typename Type> class ConnectionMatrix;
 
 	//Macierz Indcydencji
 class IncidenceMatrix
