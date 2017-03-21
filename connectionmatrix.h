@@ -1,6 +1,6 @@
 /**
 * connection matrix
-* @author piotr cholody
+* @author Piotr Cholody
 *
 */
 #pragma once
