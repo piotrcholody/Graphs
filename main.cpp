@@ -32,7 +32,7 @@ int main( void ){
 
 	test -> showList();
 	
-	//delete testCM;
+	delete testCM;
 	delete test;
 	return 0;
 }
