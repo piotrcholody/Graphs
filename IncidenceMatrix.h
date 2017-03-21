@@ -1,3 +1,4 @@
+#include "connectionmatrix.h"
 #ifndef IncidenceMatrix_h
 #define IncidenceMatrix_h
 
@@ -10,6 +11,7 @@
 bool cinSelectedInt(int& selectedInt);
 
 
+//template <typename Type> class ConnectionMatrix;
 
 	//Macierz Indcydencji
 class IncidenceMatrix
@@ -23,6 +25,7 @@ public:
 		//wpisujesz po kolei pola do ca³ej macierzy, wiersz po wierszu
 		//zwraca 0 gdy jest poprawnie, 1 gdy jest niepoprawnie wpisana
 		//bledy w reprezentacji sa eliminowane; wypisywane jest co zostalo usuniete
+	IncidenceMatrix(const ConnectionMatrix<int> &conn);
 	bool setEntireMatrixByRows();
 		//ustawia elementy calej macierzy wpisanymi wartosciami
 		//wpisujesz po kolei pola do ca³ej macierzy, kolumna po kolumnie

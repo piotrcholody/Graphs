@@ -1,7 +1,10 @@
 #include <iostream>
 #include <fstream>
 #include "IncidenceMatrix.h"
+#include "AdjacencyList.h"
+#include "connectionmatrix.h"
 #include "vld.h"
+
 
 int** IncidenceMatrix::allocateMatrix(int top, int edge) {
 	int** matrix = new int*[top];
@@ -36,35 +39,38 @@ IncidenceMatrix::IncidenceMatrix()
 	matrix = allocateMatrix(top, edge);
 }
 /******************************************************************/
+IncidenceMatrix::IncidenceMatrix(const ConnectionMatrix<int> &conn) {
+
+
+
+
+
+
+}
+/******************************************************************/
 bool IncidenceMatrix::setTopsOfEdge(int selectedEdge, int newOwner1, int newOwner2) {
-	if (newOwner1 < top && newOwner2 < top && newOwner1 >= 0 && newOwner2 >= 0) {
+	if (possibleEdge(newOwner1, newOwner2)) {
 		if (edgeIndexExist(selectedEdge)) {
-			if (newOwner1 != newOwner2) {
-				if (!isThisEdgeFree(newOwner1, newOwner2)) {
-					for (int t = 0; t < top; t++)
-						matrix[t][selectedEdge] = 0;
-					matrix[newOwner1][selectedEdge] = 1;
-					matrix[newOwner2][selectedEdge] = 1;
-					return 0;
-				}
-				else {
-					std::cout << "setTopsOfEdge(" << selectedEdge << ", " << newOwner1 << ", " << newOwner2 << "): ";
-					std::cout << "Taka krawedz juz istnieje! Nie zmieniono wierzcholkow!" << std::endl;
-				}
+			if (!isThisEdgeFree(newOwner1, newOwner2)) {
+				for (int t = 0; t < top; t++)
+					matrix[t][selectedEdge] = 0;
+				matrix[newOwner1][selectedEdge] = 1;
+				matrix[newOwner2][selectedEdge] = 1;
+				return 0;
 			}
 			else {
 				std::cout << "setTopsOfEdge(" << selectedEdge << ", " << newOwner1 << ", " << newOwner2 << "): ";
-				std::cout << "Zadane wierzcholki maja ten sam indeks! (rowny " << newOwner1 << std::endl;
+				std::cout << "Taka krawedz juz istnieje! Nie zmieniono wierzcholkow!" << std::endl;
 			}
 		}
 		else {
 			std::cout << "setTopsOfEdge(" << selectedEdge << ", " << newOwner1 << ", " << newOwner2 << "): ";
-			std::cout << "Krawedz o indeksie " << selectedEdge << " nie istnieje!!!" << std::endl;
+			std::cout << "Indeks wierzcholka jest bledny!" << std::endl;
 		}
 	}
 	else {
 		std::cout << "setTopsOfEdge(" << selectedEdge << ", " << newOwner1 << ", " << newOwner2 << "): ";
-		std::cout << "Przynajmniej jeden z zadanych wierzcholkow nie istnieje!!!" << std::endl;
+		std::cout << "Podane indeksy nie stworza krawedzi!" << std::endl;
 	}
 	return 1;
 }

@@ -30,6 +30,12 @@
 
 # VS Files
 *.vs
+*.db
+*.sln
+Debug
+*.vcxproj
+*.opendb
+*.filters
 
 <<<<<<< HEAD
 #makefile
