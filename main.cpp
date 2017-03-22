@@ -5,7 +5,7 @@ int main( void ){
 
 
 	//Testy przedstawienia grafu za pomocą macierzy połączeń:
-	ConnectionMatrix<int> *testCM;
+	ConnectionMatrix<int> *testCM = nullptr;
 	try {
 		testCM = new ConnectionMatrix<int>();
 		std::cout << *testCM << std::endl;
@@ -38,7 +38,7 @@ int main( void ){
 	testAL_CM = new ConnectionMatrix<int>(*test);
 	std::cout << *testAL_CM << std::endl;
 
-	//delete testCM; to jeszcze musze naprawic
+	delete testCM;
 	delete testAL_CM;
 	delete test;
 	return 0;
