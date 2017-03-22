@@ -48,7 +48,12 @@ public:
     {
         return matrix[row][col];
     };
-    
+
+	//metoda zwracajaca referencje na macierz
+	const std::vector< std::vector<int> >& returnMatrix() const {
+		return matrix;
+	}
+
     //extraction operator
     friend std::istream& operator>> (std::istream& is, ConnectionMatrix& obj)
     {
