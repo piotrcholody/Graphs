@@ -8,12 +8,13 @@ int main( void ){
 	ConnectionMatrix<int> *testCM;
 	try {
 		testCM = new ConnectionMatrix<int>();
+		std::cout << *testCM << std::endl;
 	}
 	catch (std::exception& e) {
 		std::cerr << e.what() << std::endl;
 	}
-	std::cout << *testCM << std::endl;
-	
+
+
 	//Testy przedstawienia grafu za pomocą listy:
 	AdjacencyList *test = new AdjacencyList();
 	test -> initList();
@@ -32,7 +33,13 @@ int main( void ){
 
 	test -> showList();
 	
-	delete testCM;
+	//Testy przedstawienia listy za pomocą macierzy połączeń:
+	ConnectionMatrix<int> *testAL_CM;
+	testAL_CM = new ConnectionMatrix<int>(*test);
+	std::cout << *testAL_CM << std::endl;
+
+	//delete testCM; to jeszcze musze naprawic
+	delete testAL_CM;
 	delete test;
 	return 0;
 }

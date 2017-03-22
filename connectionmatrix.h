@@ -6,6 +6,7 @@
 #pragma once
 #include <vector>
 #include <iostream>
+#include "AdjacencyList.h"
  
 template <typename Type>
 class ConnectionMatrix {
@@ -16,6 +17,22 @@ public:
     {
         std::cin >> *this;
     };
+
+	//konstruktor przyjmujacy AdjacencyList
+	ConnectionMatrix(const AdjacencyList& lista)
+	{
+		std::vector< std::vector<int> > tmp;
+		tmp = lista.retAdjacencyList();
+		size = tmp.size();
+		matrix.resize(size);
+		for(int i = 0; i < size; ++i) {
+			matrix[i].resize(size);
+			for (int j = 1; j < tmp[i].size(); ++j) {
+				int tmpint = tmp[i][j];
+				matrix[i][tmpint-1] = 1;
+			}
+		}
+	};
     
     //destruktor
     ~ConnectionMatrix(){};
@@ -66,6 +83,9 @@ public:
             if (obj.matrix[first-1][second-1] == 1 || obj.matrix[second-1][first-1] == 1) {
                 throw std::runtime_error("podales dwa razy to samo polaczenie");
             }
+			if (first == second) {
+				throw std::runtime_error("podales bledne polaczenie");
+			}
             obj.matrix[first-1][second-1] = 1;
             obj.matrix[second-1][first-1] = 1;
         }
