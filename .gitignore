@@ -36,6 +36,7 @@ Debug
 *.vcxproj
 *.opendb
 *.filters
+*.TMP
 
 <<<<<<< HEAD
 #makefile
