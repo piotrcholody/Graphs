@@ -84,7 +84,7 @@ void AdjacencyList::showList() {
 	}
 }
 /******************************************************************/
-std::vector< std::vector<int> > AdjacencyList::retAdjacencyList() {
+std::vector< std::vector<int> > AdjacencyList::retAdjacencyList() const{
 	if(_vertTable.size())
 		return _vertTable;
 	else

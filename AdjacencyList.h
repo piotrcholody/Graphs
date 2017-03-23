@@ -24,7 +24,7 @@ public:
 	//sąsiada
 	bool isAddingNeighbourPossible(int, int);
 	//metoda zwracająca listę
-	std::vector< std::vector<int> > retAdjacencyList();
+	std::vector< std::vector<int> > retAdjacencyList() const;
 	//metoda zwracająca indeks jeśli dana wartość wystąpiła w 
 	//tablicy
 	int isThisVal(int, int);
