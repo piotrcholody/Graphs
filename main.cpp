@@ -6,6 +6,7 @@ int main( void ){
 	/*
 	std::cout << "Tworzenie macierzy konstruktorem domyslnym" << std::endl;
 	IncidenceMatrix imatrix;
+	imatrix.setGraphType(1);
 	std::cout << "setEntireMatrix...() zwraca: " << imatrix.setEntireMatrixByColumns() << std::endl;
 	imatrix.printEntireMatrix();
 	std::cout << "imatrix.setTopsOfEdge(1, 0, 1) zwraca: " << imatrix.setTopsOfEdge(1, 0, 1) << std::endl;
@@ -44,8 +45,8 @@ int main( void ){
 	lmat.setEntireMatrixFromFile("Plik1.txt", 4, 4);
 	lmat.printEntireMatrix();
 	
-	
 	*/
+	
 	//Testy przedstawienia grafu za pomocą macierzy połączeń:
 	ConnectionMatrix<int> *testCM = nullptr;
 	try {
@@ -80,11 +81,11 @@ int main( void ){
 	testAL_CM = new ConnectionMatrix<int>(*test);
 	std::cout << *testAL_CM << std::endl;
 
-
-
-	getchar();
 	delete testCM;
 	delete testAL_CM;
 	delete test;
+
+	
+	getchar();
 	return 0;
 }

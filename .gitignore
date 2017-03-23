@@ -37,6 +37,8 @@ Debug
 *.opendb
 *.filters
 *.TMP
+*.txt
+
 
 <<<<<<< HEAD
 #makefile
