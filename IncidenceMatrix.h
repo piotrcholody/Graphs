@@ -67,6 +67,7 @@ public:
 		//gdy operacja sie udaje zwraca 0
 	bool setTopsOfEdge(int selectedEdge, int newOwner1, int newOwner2);
 		//funckja zwraca indeksy wybranej krawedzi poprzez zmiane waratosci referowanych integerow
+		//jesli digraf, to pierwszy indeks jest poczatkiem, a drugi koncem krawedzi
 		//gdy indeksy wierzcholkow zostana poprawnie pobrane i wpisane pod referowane zmienne: zwraca 0
 		//gdy indeks krawedzi jest bledny zwraca 1, a pod referowane zmienne podstawia -2137
 	bool getTopsOfEdge(int selectedEdge, int& storageInt1, int& storageInt2);
@@ -82,17 +83,23 @@ public:
 	static int** IncidenceMatrix::allocateMatrix(int top, int edge);
 		//powoduje destrukcje wszechswiata oraz usuniecie macierzy
 	~IncidenceMatrix();
+		//ustawia typ grafu, zwraca 0 gdy sie udalo, zwraca 1 gdy sie nie udalo
+	bool setGraphType(int selectedType);
 		//zwraca liczbe wierzcholkow
 	const int getTop() const { return top; }
 		//zwraca liczbe krawedzi
 	const int getEdge() const { return edge; }
+		//zwraca liczbe informujaca o typie grafu
+	const int getGraphType() const { return gType; }
 private:
 		//wierzcholki
 	int top;  
 		//krawedzie
 	int	edge;	
 		//macierz incydencji
-	int** matrix;	
+	int** matrix;
+		//informuje o typie grafu (graf prosty, digraf)
+	int gType;
 };
 
 
