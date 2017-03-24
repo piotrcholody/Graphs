@@ -50,32 +50,44 @@ public:
     };
 
 	//metoda zwracajaca referencje na macierz
-	const std::vector< std::vector<int> >& returnMatrix() const {
+	const std::vector< std::vector<int> >& returnMatrix() const
+	{
 		return matrix;
+	}
+
+	//zwraca size
+	const int returnSize() 
+	{
+		return size;
+	}
+	//zwraca edges
+	const int returnEdges()
+	{
+		return edges;
 	}
 
     //extraction operator
     friend std::istream& operator>> (std::istream& is, ConnectionMatrix& obj)
     {
-        int first, second, n;
+		int first, second;
         std::cout << "Podaj ilosc wierzcholkow ";
         is >> obj.size;
         if (obj.size < 1) {
             throw std::runtime_error("graf musi miec wierzcholki");
         }
         std::cout << "Podaj ilosc krawedzi ";
-        is >> n;
-        if (n < 0) {
+        is >> obj.edges;
+        if (obj.edges < 0) {
             throw std::runtime_error("liczba krawedzi nie moze byc ujemna");
         }
-        if (n > obj.size * (obj.size - 1)/2) {
+        if (obj.edges > obj.size * (obj.size - 1)/2) {
             throw std::runtime_error("za duza ilosc krawedzi");
         }
         obj.matrix.resize(obj.size);
         for (int i = 0; i < obj.size; ++i) {
             obj.matrix[i].resize(obj.size);
         }
-        for (int j = 0; j < n; ++j) {
+        for (int j = 0; j < obj.edges; ++j) {
             std::cout << "Podaj numery polaczonych wierzcholkow ";
             is >> first;
             if (first < 1 || first > obj.size) {
@@ -113,6 +125,8 @@ private:
  
     //liczba wierzcholkow - rozmiar macierzy
     int size;
+	//liczba krawedzi
+	int edges;
     
     //macierz
     std::vector< std::vector<Type> > matrix;
