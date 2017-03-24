@@ -6,7 +6,7 @@
 #include "AdjacencyList.h"
 #include "connectionmatrix.h"
 #include "vld.h"
-
+ 
 
 /******************************************************************/
 bool IncidenceMatrix::setGraphType(int selectedType) {

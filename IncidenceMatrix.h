@@ -21,7 +21,7 @@ int** allEdgesMatrix(int numberOfTops);
 	//wypisuje macierz (nie obiektowa) na ekran
 void printNormalIncMatrix(int** matrix, int top, int edge);
 	//zwraca graf G(n, k)    gdzie k oznacza liczbe rzadanych przez nas losowych krawedzi
-IncidenceMatrix getRandomGraph(int numberOfTops, int numberofRandomEdges);
+IncidenceMatrix getRandomGraph(int numberOfTops, int numberofRandomEdges); 
 
 
 
