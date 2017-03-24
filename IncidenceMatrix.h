@@ -11,6 +11,19 @@
 	//jesli wpiszesz "123xxx..." to ustawi integer z poczatku strumienia
 	//zwraca 1 gdy sie udalo, 0 gdy sie nie udalo (ustawiono -2137)
 bool cinSelectedInt(int& selectedInt);
+	//alokuje pamiec na macierz incydencji o 'top' wierzcholkach i 'edge' krawedziach
+	//zwraca wskaznik na stworzona macierz
+static int** allocateMatrix(int top, int edge);
+	//zwraca tablice zawierajaca wszystkie mozliwe krawedzie w grafie prostym o podanej liczbie wierzcholkow
+	//tablica ta zawiera indeksy wierzcholkow do ktorych nalezy teoretyczna krawedz
+	//________________________________
+int** allEdgesMatrix(int numberOfTops);
+	//wypisuje macierz (nie obiektowa) na ekran
+void printNormalIncMatrix(int** matrix, int top, int edge);
+	//zwraca graf G(n, k)    gdzie k oznacza liczbe rzadanych przez nas losowych krawedzi
+IncidenceMatrix getRandomGraph(int numberOfTops, int numberofRandomEdges);
+
+
 
 
 	//Macierz Indcydencji
@@ -18,14 +31,17 @@ class IncidenceMatrix
 {
 public:
 		//tworzy macierz pytajac o ilosc wierzcholkow i krawedzi, wypelnia zerami
+	IncidenceMatrix(int taWartoscNicNieRobi);
+		//konstuktor domyslny
 	IncidenceMatrix();
 		//tworzy macierz o podanym rozmiarze, wypelnia zerami
 	IncidenceMatrix(int numberOfTops, int numberOfEdges); 
+		//konstruktor kopiujacy z klasy ConnectionMatrix
+	IncidenceMatrix(const ConnectionMatrix<int> &conn);
 		//ustawia elementy calej macierzy wpisanymi wartosciami
 		//wpisujesz po kolei pola do ca³ej macierzy, wiersz po wierszu
 		//zwraca 0 gdy jest poprawnie, 1 gdy jest niepoprawnie wpisana
 		//bledy w reprezentacji sa eliminowane; wypisywane jest co zostalo usuniete
-	IncidenceMatrix(const ConnectionMatrix<int> &conn);
 	bool setEntireMatrixByRows();
 		//ustawia elementy calej macierzy wpisanymi wartosciami
 		//wpisujesz po kolei pola do ca³ej macierzy, kolumna po kolumnie
@@ -78,9 +94,6 @@ public:
 		//gdy krawedz nie istnieje zwraca 1
 		//gdy usunie pomyslnie zwraca 0
 	bool deleteEdge(int selectedEdge);
-		//alokuje pamiec na macierz incydencji o 'top' wierzcholkach i 'edge' krawedziach
-		//zwraca wskaznik na stworzona macierz
-	static int** IncidenceMatrix::allocateMatrix(int top, int edge);
 		//powoduje destrukcje wszechswiata oraz usuniecie macierzy
 	~IncidenceMatrix();
 		//ustawia typ grafu, zwraca 0 gdy sie udalo, zwraca 1 gdy sie nie udalo

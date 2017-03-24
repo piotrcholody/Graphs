@@ -1,20 +1,13 @@
 #include <iostream>
 #include <fstream>
+#include <time.h>
+#include <stdlib.h>
 #include "IncidenceMatrix.h"
 #include "AdjacencyList.h"
 #include "connectionmatrix.h"
 #include "vld.h"
 
 
-int** IncidenceMatrix::allocateMatrix(int top, int edge) {
-	int** matrix = new int*[top];
-	for (int t = 0; t < top; t++) {
-		matrix[t] = new int[edge];
-		for (int e = 0; e < edge; e++)
-			matrix[t][e] = 0;
-	}
-	return matrix;
-}
 /******************************************************************/
 bool IncidenceMatrix::setGraphType(int selectedType) {
 	if (selectedType == 0) {
@@ -37,7 +30,7 @@ IncidenceMatrix::IncidenceMatrix(int numberOfTops, int numberOfEdges)
 	
 }
 /******************************************************************/
-IncidenceMatrix::IncidenceMatrix()
+IncidenceMatrix::IncidenceMatrix(int)
 	:top(1),
 	edge(0),
 	gType(0)
@@ -53,12 +46,24 @@ IncidenceMatrix::IncidenceMatrix()
 	matrix = allocateMatrix(top, edge);
 }
 /******************************************************************/
-IncidenceMatrix::IncidenceMatrix(const ConnectionMatrix<int> &conn) {
-
-
-
-
-
+IncidenceMatrix::IncidenceMatrix() {}
+/******************************************************************/
+IncidenceMatrix::IncidenceMatrix(const ConnectionMatrix<int> &conn)
+	//:top(_____),
+	//edge(_____),
+	//gType(0)
+{
+	/*
+	matrix = allocateMatrix(top, edge);
+	int i, j, e=0;
+	for (i = 0; i < _____; i++) {
+		for (j = i + 1; j < _____; j++) {
+			if (conn(i, j) == 1) {
+				setTopsOfEdge(e, i, j);
+			}
+		}
+	}
+	*/
 
 }
 /******************************************************************/
@@ -406,11 +411,11 @@ bool IncidenceMatrix::eliminateAllMistakes() {
 IncidenceMatrix::~IncidenceMatrix(){
 	for(int i=0;i<top;i++)
 		delete [] matrix[i];
-		delete [] matrix;
+	delete [] matrix;
 }
 /******************************************************************/
 void IncidenceMatrix::printEntireMatrix() const{
-	std::cout<<"Macierz Indcydencji: "<<std::endl;
+	std::cout<<"Macierz Incydencji: "<<std::endl;
 	if (edge) {
 		std::cout << "    ";
 		for (int e = 0; e < edge; e++) std::cout << "E" << e << " "; std::cout << std::endl;
@@ -485,4 +490,75 @@ bool cinSelectedInt(int& destination) {
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		return true;
 	}
+}
+/******************************************************************/
+float randomfloat(int A, int B) {
+	srand((unsigned int)time(NULL));
+	return (float)(rand() / (RAND_MAX + 1.0)*(B - A) + A);
+}
+/******************************************************************/
+int randomint(int A, int B) {
+	srand((unsigned int)time(NULL));
+	return (int)(rand() / (RAND_MAX + 1.0)*(B - A) + A);
+}
+/******************************************************************/
+int** allocateMatrix(int top, int edge) {
+	int** matrix = new int*[top];
+	for (int t = 0; t < top; t++) {
+		matrix[t] = new int[edge];
+		for (int e = 0; e < edge; e++)
+			matrix[t][e] = 0;
+	}
+	return matrix;
+}
+/******************************************************************/
+void printNormalIncMatrix(int** matrix, int top, int edge) {
+	std::cout << "Macierz Incydencji: " << std::endl;
+	if (edge) {
+		std::cout << "    ";
+		for (int e = 0; e < edge; e++) std::cout << "E" << e << " "; std::cout << std::endl;
+		for (int t = 0; t < top; t++) {
+			std::cout << t << " |";
+			for (int e = 0; e < edge; e++) {
+				if (matrix[t][e] >= 0)
+					std::cout << " " << matrix[t][e] << " ";
+				else
+					std::cout << "" << matrix[t][e] << " ";
+			}
+			std::cout << "|" << std::endl;
+		}
+	}
+	else std::cout << " nie posiada wierzcholkow!" << std::endl;
+}
+/******************************************************************/
+IncidenceMatrix getRandomGraph(int tops, int edges) {
+	int maxedges = (tops*(tops - 1) / 2);
+	IncidenceMatrix *graph = new IncidenceMatrix(tops, edges);
+	int** temp = allocateMatrix(2, maxedges);
+	int *losowe = new int[maxedges];
+	int i, counter = 0, rand, j, e = 0;
+	for (i = 0; i < edges; i++) {
+		losowe[i] = 0;
+	}
+	while (counter < edges) {
+		rand = randomint(0, maxedges - 1);
+		if (losowe[rand] == 0) {
+			losowe[rand] = 1;
+			counter++;
+		}
+	}
+
+	for (i = 0; i < tops; i++) {
+		for (j = i + 1; j < tops && e < maxedges; j++) {
+			if (losowe[e])
+				graph->setTopsOfEdge(e, i, j);			
+			e++;
+		}
+	}
+
+	delete[] temp[0];
+	delete[] temp[1];
+	delete[] temp;
+	delete[] losowe;
+	return *graph;
 }
