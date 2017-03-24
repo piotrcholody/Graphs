@@ -49,22 +49,19 @@ IncidenceMatrix::IncidenceMatrix(int)
 IncidenceMatrix::IncidenceMatrix() {}
 /******************************************************************/
 IncidenceMatrix::IncidenceMatrix(const ConnectionMatrix<int> &conn)
-	//:top(_____),
-	//edge(_____),
-	//gType(0)
+	:gType(0)
 {
-	/*
+	top = conn.returnSize();
+	edge = conn.returnEdges();
 	matrix = allocateMatrix(top, edge);
 	int i, j, e=0;
-	for (i = 0; i < _____; i++) {
-		for (j = i + 1; j < _____; j++) {
+	for (i = 0; i < top; i++) {
+		for (j = i + 1; j < edge; j++) {
 			if (conn(i, j) == 1) {
 				setTopsOfEdge(e, i, j);
 			}
 		}
 	}
-	*/
-
 }
 /******************************************************************/
 bool IncidenceMatrix::setTopsOfEdge(int selectedEdge, int newOwner1, int newOwner2) {
@@ -531,6 +528,7 @@ void printNormalIncMatrix(int** matrix, int top, int edge) {
 	else std::cout << " nie posiada wierzcholkow!" << std::endl;
 }
 /******************************************************************/
+/*
 IncidenceMatrix getRandomGraph(int tops, int edges) {
 	int maxedges = (tops*(tops - 1) / 2);
 	IncidenceMatrix *graph = new IncidenceMatrix(tops, edges);
@@ -562,3 +560,4 @@ IncidenceMatrix getRandomGraph(int tops, int edges) {
 	delete[] losowe;
 	return *graph;
 }
+*/

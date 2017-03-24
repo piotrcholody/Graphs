@@ -14,14 +14,10 @@ bool cinSelectedInt(int& selectedInt);
 	//alokuje pamiec na macierz incydencji o 'top' wierzcholkach i 'edge' krawedziach
 	//zwraca wskaznik na stworzona macierz
 static int** allocateMatrix(int top, int edge);
-	//zwraca tablice zawierajaca wszystkie mozliwe krawedzie w grafie prostym o podanej liczbie wierzcholkow
-	//tablica ta zawiera indeksy wierzcholkow do ktorych nalezy teoretyczna krawedz
-	//________________________________
-int** allEdgesMatrix(int numberOfTops);
 	//wypisuje macierz (nie obiektowa) na ekran
 void printNormalIncMatrix(int** matrix, int top, int edge);
 	//zwraca graf G(n, k)    gdzie k oznacza liczbe rzadanych przez nas losowych krawedzi
-IncidenceMatrix getRandomGraph(int numberOfTops, int numberofRandomEdges); 
+//IncidenceMatrix& getRandomGraph(int numberOfTops, int numberofRandomEdges); 
 
 
 

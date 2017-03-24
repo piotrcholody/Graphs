@@ -56,12 +56,12 @@ public:
 	}
 
 	//zwraca size
-	const int returnSize() 
+	const int returnSize() const
 	{
 		return size;
 	}
 	//zwraca edges
-	const int returnEdges()
+	const int returnEdges() const
 	{
 		return edges;
 	}
