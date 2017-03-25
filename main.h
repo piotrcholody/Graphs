@@ -4,5 +4,6 @@
 #include "connectionmatrix.h"
 #include "IncidenceMatrix.h"
 #include "probGraph.h"
+#include "edgeGraph.h"
 
 #endif // main_h

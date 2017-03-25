@@ -1,4 +1,6 @@
+#include <cstdlib>
 #include <iostream>
+#include <ctime>
 #include "main.h"
 
 int main( void ){
@@ -46,6 +48,16 @@ int main( void ){
 	lmat.printEntireMatrix();
 	
 	*/
+	srand(time(NULL));
+
+	edgeGraph<int> *testKG = nullptr;
+	try {
+		testKG = new edgeGraph<int>();
+		std::cout << *testKG << std::endl;
+	}
+	catch (std::exception& e) {
+		std::cerr << e.what() << std::endl;
+	}
 	//Testy przedstawienia grafu losowego podajac prawdopodobienstwo:
 	probGraph<int> *testPG = nullptr;
 	try {
@@ -90,6 +102,7 @@ int main( void ){
 	testAL_CM = new ConnectionMatrix<int>(*test);
 	std::cout << *testAL_CM << std::endl;
 
+	delete testKG;
 	delete testPG;
 	delete testCM;
 	delete testAL_CM;
