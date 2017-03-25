@@ -46,7 +46,16 @@ int main( void ){
 	lmat.printEntireMatrix();
 	
 	*/
-	
+	//Testy przedstawienia grafu losowego podajac prawdopodobienstwo:
+	probGraph<int> *testPG = nullptr;
+	try {
+		testPG = new probGraph<int>();
+		std::cout << *testPG << std::endl;
+	}
+	catch (std::exception& e) {
+		std::cerr << e.what() << std::endl;
+	}
+
 	//Testy przedstawienia grafu za pomocą macierzy połączeń:
 	ConnectionMatrix<int> *testCM = nullptr;
 	try {
@@ -81,6 +90,7 @@ int main( void ){
 	testAL_CM = new ConnectionMatrix<int>(*test);
 	std::cout << *testAL_CM << std::endl;
 
+	delete testPG;
 	delete testCM;
 	delete testAL_CM;
 	delete test;

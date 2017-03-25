@@ -3,6 +3,6 @@
 #include "AdjacencyList.h"
 #include "connectionmatrix.h"
 #include "IncidenceMatrix.h"
-
+#include "probGraph.h"
 
 #endif // main_h
