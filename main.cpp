@@ -1,18 +1,9 @@
+#include <cstdlib>
 #include <iostream>
+#include <ctime>
 #include "main.h"
 
 int main( void ){
-
-	/*
-	IncidenceMatrix losowy;
-	losowy = getRandomGraph(10, 5);
-	losowy.printEntireMatrix();
-	*/
-
-	ConnectionMatrix<int> test1;
-	IncidenceMatrix test = IncidenceMatrix(test1);
-	test.printEntireMatrix();
-
 
 	/*
 	std::cout << "Tworzenie macierzy konstruktorem domyslnym" << std::endl;
@@ -55,11 +46,28 @@ int main( void ){
 	IncidenceMatrix lmat(4, 4);
 	lmat.setEntireMatrixFromFile("Plik1.txt", 4, 4);
 	lmat.printEntireMatrix();
-	*/
 	
+	*/
+	srand(time(NULL));
 
+	edgeGraph<int> *testKG = nullptr;
+	try {
+		testKG = new edgeGraph<int>();
+		std::cout << *testKG << std::endl;
+	}
+	catch (std::exception& e) {
+		std::cerr << e.what() << std::endl;
+	}
+	//Testy przedstawienia grafu losowego podajac prawdopodobienstwo:
+	probGraph<int> *testPG = nullptr;
+	try {
+		testPG = new probGraph<int>();
+		std::cout << *testPG << std::endl;
+	}
+	catch (std::exception& e) {
+		std::cerr << e.what() << std::endl;
+	}
 
-	/*
 	//Testy przedstawienia grafu za pomocą macierzy połączeń:
 	ConnectionMatrix<int> *testCM = nullptr;
 	try {
@@ -94,10 +102,12 @@ int main( void ){
 	testAL_CM = new ConnectionMatrix<int>(*test);
 	std::cout << *testAL_CM << std::endl;
 
+	delete testKG;
+	delete testPG;
 	delete testCM;
 	delete testAL_CM;
 	delete test;
-	*/
+
 	
 	getchar();
 	return 0;

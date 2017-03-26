@@ -4,6 +4,15 @@
 
 AdjacencyList::AdjacencyList() {}
 /******************************************************************/
+AdjacencyList::AdjacencyList(const IncidenceMatrix& matrix) {
+	int vertex_one, vertex_two;
+	int vertex_counter = matrix.getTop();
+	for (int i = 0; i < matrix.getEdge(); ++i) {
+		matrix.getTopsOfEdge(i, vertex_one, vertex_two);
+		addNeighbours(vertex_one, vertex_two);
+	}
+}
+/******************************************************************/
 void AdjacencyList::initList() {
 	int number;
 
@@ -15,6 +24,24 @@ void AdjacencyList::initList() {
 		std::cout << "Stworzyłem kolejną listę dla wierzchołka: " << _vertTable[vert - 1][0] << std::endl;
 	}
 	getList();
+}
+/******************************************************************/
+void AdjacencyList::initList(int number) {
+	for (int vert = 1; vert <= number; ++vert) {
+		_vertTable.push_back(std::vector< int >());
+		_vertTable[vert - 1].push_back(vert);
+		std::cout << "Stworzyłem kolejną listę dla wierzchołka: " << _vertTable[vert - 1][0] << std::endl;
+	}
+	getList();
+}
+/******************************************************************/
+void addNeighbours(int vertex_one, int vertex_two) {
+	if (isThisVert(vertex_one) && isThisVert(vertex_two)) {
+		if (isAddingNeighbourPossible(vertex_one, vertex_two) && isAddingNeighbourPossible(vertex_two, vertex_one)) {
+			_vertTable[vertex_one - 1].push_back(vertex_two);
+			_vertTable[vertex_two - 1].push_back(vertex_one);
+		}
+	}
 }
 /******************************************************************/
 bool AdjacencyList::isAddingNeighbourPossible(int vert, int toAdd) {
