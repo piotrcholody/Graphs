@@ -6,6 +6,7 @@
 #pragma once
 #include <vector>
 #include <iostream>
+#include <stdexcept>
 #include "AdjacencyList.h"
 
 template <typename Type>
