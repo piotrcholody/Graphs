@@ -7,7 +7,7 @@
 #include <vector>
 #include <iostream>
 #include "AdjacencyList.h"
- 
+
 template <typename Type>
 class ConnectionMatrix {
 public:

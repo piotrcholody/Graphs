@@ -1,8 +1,8 @@
-#include "connectionmatrix.h"
 //#include "AdjacencyList.h"
 
 #ifndef IncidenceMatrix_h
 #define IncidenceMatrix_h
+#include "connectionmatrix.h"
 
 	//podstawia wpisana wartosc pod int tylko wtedy gdy strumien jest dobry
 	//zaleta1: nie stanie siê nic czego sie nie bedziemy spodziewac
@@ -47,7 +47,7 @@ public:
 		//ustawia elementy calej macierzy wartosciami wczytanymi z pliku 'Filename'
 		//zwraca 0 gdy wczyta poprawnie, 1 gdy wystapil jakis blad i wypisuje komunikat bledu
 		//bledy w reprezentacji sa eliminowane; wypisywane jest co zostalo usuniete
-	bool setEntireMatrixFromFile(std::string Filename, int numberOfTops, int numberOfEdges);
+	bool setEntireMatrixFromFile(const char* Filename, int numberOfTops, int numberOfEdges);
 		//usuwa bledy w reprezentacji macierzy incydencji, takie jak
 		//krawedzie z bledna liczba wierzcholkow lub zmultiplikowane krawedzie
 		//zwraca 1 gdy wystapily jakiekolwiek bledy (na pewno je naprawiono)
@@ -62,7 +62,7 @@ public:
 		//zwraca 0 gdy nie bylo blednych krawedzi; zwraca 1 gdy usunieto bledne i wypisuje komunikat
 	bool eliminateInvalidEdges();
 		//inforumuje o istnieniu indeksu krawedzi (gdy istnieje zwraca 1)
-	bool edgeIndexExist(int questionedEdge);
+	bool edgeIndexExist(int questionedEdge) const;
 		//informuje o mozliwosci istnienia/stworzenia krawedzi (poprawnosc indeksow wierzcholkow)
 		//zwraca 0 gdy nie moze istniec taka krawedz
 		//zwraca 1 gdy taka krawedz moze istniec
@@ -82,7 +82,7 @@ public:
 		//jesli digraf, to pierwszy indeks jest poczatkiem, a drugi koncem krawedzi
 		//gdy indeksy wierzcholkow zostana poprawnie pobrane i wpisane pod referowane zmienne: zwraca 0
 		//gdy indeks krawedzi jest bledny zwraca 1, a pod referowane zmienne podstawia -2137
-	bool getTopsOfEdge(int selectedEdge, int& storageInt1, int& storageInt2);
+	bool getTopsOfEdge(int selectedEdge, int& storageInt1, int& storageInt2) const;
 	//dodaje nowa krawedz nalezaca do zadanych wierzcholkow (realokacja pamieci)
 		//gdy uzyjesz zlych nieporawnych indeksow lub taka krawedz juz istnieje: zwraca 1 i wypisuje blad
 		//gdy pomyslnie doda krawedz zwraca 0

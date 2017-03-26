@@ -50,7 +50,7 @@ int main( void ){
 	*/
 	srand(time(NULL));
 
-	edgeGraph<int> *testKG = nullptr;
+	edgeGraph<int> *testKG = NULL;
 	try {
 		testKG = new edgeGraph<int>();
 		std::cout << *testKG << std::endl;
@@ -59,7 +59,7 @@ int main( void ){
 		std::cerr << e.what() << std::endl;
 	}
 	//Testy przedstawienia grafu losowego podajac prawdopodobienstwo:
-	probGraph<int> *testPG = nullptr;
+	probGraph<int> *testPG = NULL;
 	try {
 		testPG = new probGraph<int>();
 		std::cout << *testPG << std::endl;
@@ -69,7 +69,7 @@ int main( void ){
 	}
 
 	//Testy przedstawienia grafu za pomocą macierzy połączeń:
-	ConnectionMatrix<int> *testCM = nullptr;
+	ConnectionMatrix<int> *testCM = NULL;
 	try {
 		testCM = new ConnectionMatrix<int>();
 		std::cout << *testCM << std::endl;

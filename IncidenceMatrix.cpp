@@ -3,8 +3,10 @@
 #include <time.h>
 #include <stdlib.h>
 #include "IncidenceMatrix.h"
-#include "AdjacencyList.h"
-#include "connectionmatrix.h"
+//#include "AdjacencyList.h"
+//#include "connectionmatrix.h"
+#include <limits>
+#include <cstdlib>
 //#include "vld.h"
  
 
@@ -128,7 +130,7 @@ bool IncidenceMatrix::isThisEdgeFree(int firstTop, int secondTop) {
 		return true;
 }
 /******************************************************************/
-bool IncidenceMatrix::edgeIndexExist(int questionedEdge) {
+bool IncidenceMatrix::edgeIndexExist(int questionedEdge) const {
 	return (questionedEdge < edge && questionedEdge >= 0);
 }
 /******************************************************************/
@@ -319,7 +321,7 @@ bool IncidenceMatrix::eliminateInvalidEdges() {
 	return errorOccured;
 }
 /******************************************************************/
-bool IncidenceMatrix::getTopsOfEdge(int selectedEdge, int& first, int& second) {
+bool IncidenceMatrix::getTopsOfEdge(int selectedEdge, int& first, int& second) const {
 	if (!edgeIndexExist(selectedEdge)) {
 		std::cout << "getTopsOfEdge(" << selectedEdge << ", ..., ...): Krawedz nie istnieje!!!" << std::endl;
 		std::cout << "Pobranie wierzcholkow nie powiodlo sie!" << std::endl;
@@ -434,7 +436,7 @@ void IncidenceMatrix::printEntireMatrix() const{
 	else std::cout << " nie posiada wierzcholkow!" << std::endl;
 }
 /******************************************************************/
-bool IncidenceMatrix::setEntireMatrixFromFile(std::string Filename, int numberOfTops, int numberOfEdges) {
+bool IncidenceMatrix::setEntireMatrixFromFile(const char* Filename, int numberOfTops, int numberOfEdges) {
 	std::ifstream mystream;
 	if (top == numberOfTops && edge == numberOfEdges) {
 		mystream.close();

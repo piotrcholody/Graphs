@@ -1,7 +1,7 @@
 #ifndef AdjacencyList_h
 #define AdjacencyList_h
-#include "IncidenceMatrix.h"
 #include <vector>
+//#include "IncidenceMatrix.h"
 
 class IncidenceMatrix;
 

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <limits>
 #include "AdjacencyList.h"
+#include "IncidenceMatrix.h"
 
 AdjacencyList::AdjacencyList() {}
 /******************************************************************/
@@ -35,7 +36,7 @@ void AdjacencyList::initList(int number) {
 	getList();
 }
 /******************************************************************/
-void addNeighbours(int vertex_one, int vertex_two) {
+void AdjacencyList::addNeighbours(int vertex_one, int vertex_two) {
 	if (isThisVert(vertex_one) && isThisVert(vertex_two)) {
 		if (isAddingNeighbourPossible(vertex_one, vertex_two) && isAddingNeighbourPossible(vertex_two, vertex_one)) {
 			_vertTable[vertex_one - 1].push_back(vertex_two);
