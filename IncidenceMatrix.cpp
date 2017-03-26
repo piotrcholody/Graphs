@@ -48,9 +48,11 @@ IncidenceMatrix::IncidenceMatrix(int)
 /******************************************************************/
 IncidenceMatrix::IncidenceMatrix() {}
 /******************************************************************/
-IncidenceMatrix::IncidenceMatrix(const ConnectionMatrix<int> &conn)
-	:gType(0)
+/*
+IncidenceMatrix::IncidenceMatrix(ConnectionMatrix<int> &conn)
 {
+	
+	gType = 0;
 	top = conn.returnSize();
 	edge = conn.returnEdges();
 	matrix = allocateMatrix(top, edge);
@@ -62,7 +64,9 @@ IncidenceMatrix::IncidenceMatrix(const ConnectionMatrix<int> &conn)
 			}
 		}
 	}
+
 }
+*/
 /******************************************************************/
 bool IncidenceMatrix::setTopsOfEdge(int selectedEdge, int newOwner1, int newOwner2) {
 	if (possibleEdge(newOwner1, newOwner2)) {

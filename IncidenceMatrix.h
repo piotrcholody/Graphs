@@ -1,5 +1,5 @@
 #include "connectionmatrix.h"
-#include "AdjacencyList.h"
+//#include "AdjacencyList.h"
 
 #ifndef IncidenceMatrix_h
 #define IncidenceMatrix_h
@@ -33,7 +33,7 @@ public:
 		//tworzy macierz o podanym rozmiarze, wypelnia zerami
 	IncidenceMatrix(int numberOfTops, int numberOfEdges); 
 		//konstruktor kopiujacy z klasy ConnectionMatrix
-	IncidenceMatrix(const ConnectionMatrix<int> &conn);
+// IncidenceMatrix(ConnectionMatrix<int> &conn);
 		//ustawia elementy calej macierzy wpisanymi wartosciami
 		//wpisujesz po kolei pola do ca³ej macierzy, wiersz po wierszu
 		//zwraca 0 gdy jest poprawnie, 1 gdy jest niepoprawnie wpisana
