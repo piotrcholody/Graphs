@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-=======
-//#include "connectionmatrix.h"
->>>>>>> a10bd80b327ad67b79038e15a4ffd1c7c5b8fad0
-//#include "AdjacencyList.h"
-
 #ifndef IncidenceMatrix_h
 #define IncidenceMatrix_h
 #include "connectionmatrix.h"

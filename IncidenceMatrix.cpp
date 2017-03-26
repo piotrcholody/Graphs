@@ -130,11 +130,7 @@ bool IncidenceMatrix::isThisEdgeFree(int firstTop, int secondTop) const{
 		return true;
 }
 /******************************************************************/
-<<<<<<< HEAD
 bool IncidenceMatrix::edgeIndexExist(int questionedEdge) const {
-=======
-bool IncidenceMatrix::edgeIndexExist(int questionedEdge) const{
->>>>>>> a10bd80b327ad67b79038e15a4ffd1c7c5b8fad0
 	return (questionedEdge < edge && questionedEdge >= 0);
 }
 /******************************************************************/
@@ -325,11 +321,7 @@ bool IncidenceMatrix::eliminateInvalidEdges() {
 	return errorOccured;
 }
 /******************************************************************/
-<<<<<<< HEAD
 bool IncidenceMatrix::getTopsOfEdge(int selectedEdge, int& first, int& second) const {
-=======
-bool IncidenceMatrix::getTopsOfEdge(int selectedEdge, int& first, int& second) const{
->>>>>>> a10bd80b327ad67b79038e15a4ffd1c7c5b8fad0
 	if (!edgeIndexExist(selectedEdge)) {
 		std::cout << "getTopsOfEdge(" << selectedEdge << ", ..., ...): Krawedz nie istnieje!!!" << std::endl;
 		std::cout << "Pobranie wierzcholkow nie powiodlo sie!" << std::endl;
