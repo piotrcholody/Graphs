@@ -50,6 +50,7 @@ int main( void ){
 	*/
 	srand(time(NULL));
 
+	//Testy przedstawienia grafu losowego podajac liczbe krawedzi:
 	edgeGraph<int> *testKG = NULL;
 	try {
 		testKG = new edgeGraph<int>();
@@ -58,6 +59,7 @@ int main( void ){
 	catch (std::exception& e) {
 		std::cerr << e.what() << std::endl;
 	}
+
 	//Testy przedstawienia grafu losowego podajac prawdopodobienstwo:
 	probGraph<int> *testPG = NULL;
 	try {
