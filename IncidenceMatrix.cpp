@@ -5,7 +5,7 @@
 #include "IncidenceMatrix.h"
 #include "AdjacencyList.h"
 #include "connectionmatrix.h"
-#include "vld.h"
+//#include "vld.h"
  
 
 /******************************************************************/
