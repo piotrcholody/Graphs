@@ -1,11 +1,16 @@
 #ifndef AdjacencyList_h
 #define AdjacencyList_h
+#include "IncidenceMatrix.h"
 #include <vector>
+
+class IncidenceMatrix;
 
 class AdjacencyList{
 public:
 	//konstruktor
 	AdjacencyList();
+	//kontruktor kopiujący
+	AdjacencyList(const IncidenceMatrix&);
 	/*metoda tworząca listę wierzchołków, pobierająca dane z 
 	  klawiatury
 	*/
@@ -16,8 +21,15 @@ public:
 	  pobranymi z klawiatury
 	*/
 	void getGraph(int);
+	/*Metoda wypełniająca tablicę podanych wierzchołków
+	  wzajemnie sobą nawzajem, no miłość
+	*/
+	void addNeighbours(int, int);
 	//metoda inicjująca powstanie listy
 	void initList();
+	//metoda inicjująca powstanie listy o określonej liczbie
+	//wierzchołków
+	void initList(int);
 	//metoda uzupełniająca listę
 	void fillList();
 	//metoda sprawdzająca warunki konieczne do dodania
