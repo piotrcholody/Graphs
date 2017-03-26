@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+//#include "connectionmatrix.h"
+>>>>>>> a10bd80b327ad67b79038e15a4ffd1c7c5b8fad0
 //#include "AdjacencyList.h"
 
 #ifndef IncidenceMatrix_h
@@ -66,11 +70,11 @@ public:
 		//informuje o mozliwosci istnienia/stworzenia krawedzi (poprawnosc indeksow wierzcholkow)
 		//zwraca 0 gdy nie moze istniec taka krawedz
 		//zwraca 1 gdy taka krawedz moze istniec
-	bool possibleEdge(int firstTop, int secondTop);
+	bool possibleEdge(int firstTop, int secondTop) const;
 		//informuje o mozliwosci dodania krawedzi o zadanych indeksach wierzcholkow
 		//zwraca 0 gdy nie ma takiej krawedzi (mozna taka dodac)
 		//zwraca 1 gdy taka krawedz istnieje lub podano zle indeksy etc. (NIE mozna takiej dodac)
-	bool isThisEdgeFree(int firstTop, int secondTop);
+	bool isThisEdgeFree(int firstTop, int secondTop) const;
 		//wypisuje na ekran cala macierz
 	void printEntireMatrix() const;
 		//ustala(badz zmienia) wierzcho³ki do których nale¿y zadana krawêdŸ

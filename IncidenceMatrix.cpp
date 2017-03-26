@@ -103,11 +103,11 @@ bool IncidenceMatrix::setTopsOfEdge(int selectedEdge, int newOwner1, int newOwne
 	return 1;
 }
 /******************************************************************/
-bool IncidenceMatrix::possibleEdge(int firstTop, int secondTop) {
+bool IncidenceMatrix::possibleEdge(int firstTop, int secondTop) const{
 	return (firstTop < top && secondTop < top && firstTop >= 0 && secondTop >= 0 && firstTop != secondTop);
 }
 /******************************************************************/
-bool IncidenceMatrix::isThisEdgeFree(int firstTop, int secondTop) {
+bool IncidenceMatrix::isThisEdgeFree(int firstTop, int secondTop) const{
 	if (possibleEdge(firstTop, secondTop)) {
 		bool ValueOccured = false;
 		if (gType == 0) {
@@ -130,7 +130,11 @@ bool IncidenceMatrix::isThisEdgeFree(int firstTop, int secondTop) {
 		return true;
 }
 /******************************************************************/
+<<<<<<< HEAD
 bool IncidenceMatrix::edgeIndexExist(int questionedEdge) const {
+=======
+bool IncidenceMatrix::edgeIndexExist(int questionedEdge) const{
+>>>>>>> a10bd80b327ad67b79038e15a4ffd1c7c5b8fad0
 	return (questionedEdge < edge && questionedEdge >= 0);
 }
 /******************************************************************/
@@ -321,7 +325,11 @@ bool IncidenceMatrix::eliminateInvalidEdges() {
 	return errorOccured;
 }
 /******************************************************************/
+<<<<<<< HEAD
 bool IncidenceMatrix::getTopsOfEdge(int selectedEdge, int& first, int& second) const {
+=======
+bool IncidenceMatrix::getTopsOfEdge(int selectedEdge, int& first, int& second) const{
+>>>>>>> a10bd80b327ad67b79038e15a4ffd1c7c5b8fad0
 	if (!edgeIndexExist(selectedEdge)) {
 		std::cout << "getTopsOfEdge(" << selectedEdge << ", ..., ...): Krawedz nie istnieje!!!" << std::endl;
 		std::cout << "Pobranie wierzcholkow nie powiodlo sie!" << std::endl;
@@ -515,7 +523,7 @@ int** allocateMatrix(int top, int edge) {
 	return matrix;
 }
 /******************************************************************/
-void printNormalIncMatrix(int** matrix, int top, int edge) {
+void printNormalIncMatrix(int** matrix, int top, int edge){
 	std::cout << "Macierz Incydencji: " << std::endl;
 	if (edge) {
 		std::cout << "    ";
