@@ -32,6 +32,7 @@
 *.vs
 *.db
 *.sln
+*.user
 Debug
 *.vcxproj
 *.opendb
