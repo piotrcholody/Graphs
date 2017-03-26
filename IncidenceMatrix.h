@@ -1,4 +1,4 @@
-#include "connectionmatrix.h"
+//#include "connectionmatrix.h"
 //#include "AdjacencyList.h"
 
 #ifndef IncidenceMatrix_h
@@ -62,15 +62,15 @@ public:
 		//zwraca 0 gdy nie bylo blednych krawedzi; zwraca 1 gdy usunieto bledne i wypisuje komunikat
 	bool eliminateInvalidEdges();
 		//inforumuje o istnieniu indeksu krawedzi (gdy istnieje zwraca 1)
-	bool edgeIndexExist(int questionedEdge);
+	bool edgeIndexExist(int questionedEdge) const;
 		//informuje o mozliwosci istnienia/stworzenia krawedzi (poprawnosc indeksow wierzcholkow)
 		//zwraca 0 gdy nie moze istniec taka krawedz
 		//zwraca 1 gdy taka krawedz moze istniec
-	bool possibleEdge(int firstTop, int secondTop);
+	bool possibleEdge(int firstTop, int secondTop) const;
 		//informuje o mozliwosci dodania krawedzi o zadanych indeksach wierzcholkow
 		//zwraca 0 gdy nie ma takiej krawedzi (mozna taka dodac)
 		//zwraca 1 gdy taka krawedz istnieje lub podano zle indeksy etc. (NIE mozna takiej dodac)
-	bool isThisEdgeFree(int firstTop, int secondTop);
+	bool isThisEdgeFree(int firstTop, int secondTop) const;
 		//wypisuje na ekran cala macierz
 	void printEntireMatrix() const;
 		//ustala(badz zmienia) wierzcho³ki do których nale¿y zadana krawêdŸ
@@ -82,7 +82,7 @@ public:
 		//jesli digraf, to pierwszy indeks jest poczatkiem, a drugi koncem krawedzi
 		//gdy indeksy wierzcholkow zostana poprawnie pobrane i wpisane pod referowane zmienne: zwraca 0
 		//gdy indeks krawedzi jest bledny zwraca 1, a pod referowane zmienne podstawia -2137
-	bool getTopsOfEdge(int selectedEdge, int& storageInt1, int& storageInt2);
+	bool getTopsOfEdge(int selectedEdge, int& storageInt1, int& storageInt2) const;
 	//dodaje nowa krawedz nalezaca do zadanych wierzcholkow (realokacja pamieci)
 		//gdy uzyjesz zlych nieporawnych indeksow lub taka krawedz juz istnieje: zwraca 1 i wypisuje blad
 		//gdy pomyslnie doda krawedz zwraca 0
