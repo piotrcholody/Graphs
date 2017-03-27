@@ -49,6 +49,12 @@ public:
 	  False
 	*/
 	bool delEdge(int, int);
+	//metoda zwracająca ilość wierzchołków
+	int getN() { return _vertTable.size(); }
+	//metoda zwracająca ilość krawędzi
+	int getL();
+	//metoda zwracająca wektor
+	std::vector< std::vector<int> > getMatrix() { return retAdjacencyList(); }
 
 private:
 

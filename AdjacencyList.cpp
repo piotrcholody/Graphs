@@ -143,3 +143,10 @@ bool AdjacencyList::delEdge (int vert1, int vert2) {
 	return 0;
 }
 /******************************************************************/
+int AdjacencyList::getL() {
+	int counter = 0;
+	for (int i = 0; i < _vertTable.size(); ++i)
+		counter += _vertTable[i].size();
+	return counter / 2;
+}
+/******************************************************************/
