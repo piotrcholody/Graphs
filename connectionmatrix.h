@@ -54,18 +54,19 @@ public:
 	const std::vector< std::vector<int> >& returnMatrix() const
 	{
 		return matrix;
-	}
+	};
 
 	//zwraca size
-	const int returnSize() const
+	const int getN() const
 	{
 		return size;
-	}
+	};
+
 	//zwraca edges
-	const int returnEdges() const
+	const int getL() const
 	{
 		return edges;
-	}
+	};
 
     //extraction operator
     friend std::istream& operator>> (std::istream& is, ConnectionMatrix& obj)

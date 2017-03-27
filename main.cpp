@@ -100,7 +100,7 @@ int main( void ){
 	test -> showList();
 	
 	//Testy przedstawienia listy za pomocą macierzy połączeń:
-	ConnectionMatrix<int> *testAL_CM;
+	ConnectionMatrix<int> *testAL_CM = NULL;
 	testAL_CM = new ConnectionMatrix<int>(*test);
 	std::cout << *testAL_CM << std::endl;
 	

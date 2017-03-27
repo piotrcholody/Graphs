@@ -53,8 +53,8 @@ IncidenceMatrix::IncidenceMatrix() {}
 IncidenceMatrix::IncidenceMatrix(const ConnectionMatrix<int>& conn)
 {
 	gType = 0;
-	top = conn.returnSize();
-	edge = conn.returnEdges();
+	top = conn.getN();
+	edge = conn.getL();
 	matrix = allocateMatrix(top, edge);
 	int i, j, e=0;
 	for (i = 0; i < top; i++)

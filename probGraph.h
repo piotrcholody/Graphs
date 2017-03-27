@@ -37,13 +37,13 @@ public:
 	const std::vector< std::vector<int> >& returnMatrix() const
 	{
 		return matrix;
-	}
+	};
 
 	//zwraca size
-	const int returnSize() const
+	const int getN() const
 	{
 		return size;
-	}
+	};
 
 	//extraction operator
 	friend std::istream& operator>> (std::istream& is, probGraph& obj)
