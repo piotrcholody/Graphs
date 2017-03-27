@@ -16,8 +16,68 @@ public:
     //konstruktor
     ConnectionMatrix()
     {
-        std::cin >> *this;
+       // std::cin >> *this;
     };
+
+	//metoda do grafu losowego z krawedziami
+	void edgeGraph(const int n, const int l)
+	{
+		if (n < 1) {
+			throw std::runtime_error("graf musi miec wierzcholki");
+		}
+		if (l < 0) {
+			throw std::runtime_error("liczba krawedzi nie moze byc ujemna");
+		}
+		if (l > n * (n - 1) / 2) {
+			throw std::runtime_error("za duza ilosc krawedzi");
+		}
+		size = n;
+		edges = l;
+		matrix.resize(n);
+		for (int i = 0; i < n; ++i) {
+			matrix[i].resize(n);
+		}
+
+		for (int j = 0; j < l; ++j) {
+			int first = 0;
+			int second = 0;
+			while (first == second || matrix[first][second] == 1) {
+				first = std::rand() % n;
+				second = std::rand() % n;
+			}
+			matrix[first][second] = 1;
+			matrix[second][first] = 1;
+		}
+	};
+
+	//metoda do grafu losowego z prawdopodobienstwem
+	void probGraph(const int n, const double p)
+	{
+		if (n < 1) {
+			throw std::runtime_error("graf musi miec wierzcholki");
+		}
+		if (p < 0) {
+			throw std::runtime_error("prawdopodobienstwo musi byc dodatnie");
+		}
+		if (p > 1) {
+			throw std::runtime_error("prawdopodbienstwo musi byc mniejsze od 1");
+		}
+		size = n;
+		edges = 0;
+		matrix.resize(n);
+		for (int i = 0; i < n; ++i) {
+			matrix[i].resize(n);
+		}
+		for (int i = 0; i < n - 1; ++i) {
+			for (int j = i + 1; j < n; ++j) {
+				if (((double)(std::rand() % 1000)) / 1000 < p) {
+					matrix[j][i] = 1;
+					matrix[i][j] = 1;
+					edges++;
+				}
+			}
+		}
+	};
 
 	//konstruktor przyjmujacy AdjacencyList
 	ConnectionMatrix(const AdjacencyList& lista)
@@ -69,7 +129,7 @@ public:
 	};
 
     //extraction operator
-    friend std::istream& operator>> (std::istream& is, ConnectionMatrix& obj)
+   /* friend std::istream& operator>> (std::istream& is, ConnectionMatrix& obj)
     {
 		int first, second;
         std::cout << "Podaj ilosc wierzcholkow ";
@@ -109,7 +169,7 @@ public:
             obj.matrix[second-1][first-1] = 1;
         }
         return is;
-    };
+    };*/
     
     //insertion operator
     friend std::ostream& operator<< (std::ostream& os, const ConnectionMatrix& obj)
