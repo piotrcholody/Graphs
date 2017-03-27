@@ -55,6 +55,9 @@ public:
 	int getL();
 	//metoda zwracająca wektor
 	std::vector< std::vector<int> > getMatrix() { return retAdjacencyList(); }
+	//metoda zwracająca największą ilość krawędzi wychodzącą od jednego 
+	//wierzchołka
+	int maxL();
 
 private:
 

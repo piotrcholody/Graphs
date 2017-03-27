@@ -7,7 +7,6 @@ AdjacencyList::AdjacencyList() {}
 /******************************************************************/
 AdjacencyList::AdjacencyList(const IncidenceMatrix& matrix) {
 	int vertex_one, vertex_two;
-	int vertex_counter = matrix.getTop();
 	for (int i = 0; i < matrix.getEdge(); ++i) {
 		matrix.getTopsOfEdge(i, vertex_one, vertex_two);
 		addNeighbours(vertex_one, vertex_two);
@@ -16,8 +15,10 @@ AdjacencyList::AdjacencyList(const IncidenceMatrix& matrix) {
 /******************************************************************/
 void AdjacencyList::initList() {
 	int number;
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits <std::streamsize>::max(), '\n');
 
-	std::cout << "Podaj liczbę wierchołków: ";
+	std::cout << "Podaj liczbę wierzchołków: ";
 	std::cin >> number;
 	for (int vert = 1; vert <= number; ++vert) {
 		_vertTable.push_back(std::vector< int >());
@@ -145,8 +146,18 @@ bool AdjacencyList::delEdge (int vert1, int vert2) {
 /******************************************************************/
 int AdjacencyList::getL() {
 	int counter = 0;
-	for (int i = 0; i < _vertTable.size(); ++i)
+	for (int i = 0; i < (int)_vertTable.size(); ++i)
 		counter += _vertTable[i].size();
 	return counter / 2;
+}
+/******************************************************************/
+int AdjacencyList::maxL() {
+	int max = 0;
+	for (int i = 0; i < (int)_vertTable.size() && max != (int)_vertTable.size(); i++) {
+		if ((int)_vertTable[i].size() > max)
+			max = _vertTable[i].size();
+
+	}
+	return max;
 }
 /******************************************************************/
