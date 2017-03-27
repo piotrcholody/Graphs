@@ -35,7 +35,7 @@ public:
 	};
 
 	//metoda zwracajaca referencje na macierz
-	const std::vector< std::vector<int> >& returnMatrix() const
+	const std::vector< std::vector<int> >& getMatrix() const
 	{
 		return matrix;
 	};
