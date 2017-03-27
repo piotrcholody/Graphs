@@ -158,6 +158,6 @@ int AdjacencyList::maxL() {
 			max = _vertTable[i].size();
 
 	}
-	return max;
+	return max - 1;
 }
 /******************************************************************/

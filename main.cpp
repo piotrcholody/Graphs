@@ -98,6 +98,8 @@ int main( void ){
 	std::cout << std::endl;
 
 	test -> showList();
+
+	std::cout << test -> maxL() << std::endl;
 	
 	//Testy przedstawienia listy za pomocą macierzy połączeń:
 	ConnectionMatrix<int> *testAL_CM = NULL;
