@@ -96,7 +96,12 @@ public:
 	const int getTop() const { return top; }
 		//zwraca liczbe krawedzi
 	const int getEdge() const { return edge; }
+		//te¿ zwraca liczbe wierzcholkow
+	const int getN() const { return top; }
+		//te¿ zwraca liczbe krawedzi
+	const int getL() const { return edge; }
 		//zwraca liczbe informujaca o typie grafu
+	int** getMatrix() const { return matrix; }
 	const int getGraphType() const { return gType; }
 private:
 		//wierzcholki
