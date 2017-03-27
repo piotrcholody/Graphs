@@ -40,13 +40,5 @@ Debug
 *.TMP
 *.txt
 
-
-<<<<<<< HEAD
 #makefile
 makefile
-=======
-makefile
->>>>>>> 3586c92b87dbb22fdfb9a5838d4ce402cef706c0
-/Graphs.vcxproj.filters
-/Graphs.vcxproj
-/Graphs.sln
