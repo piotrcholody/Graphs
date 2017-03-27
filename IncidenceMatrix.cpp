@@ -50,25 +50,20 @@ IncidenceMatrix::IncidenceMatrix(int)
 /******************************************************************/
 IncidenceMatrix::IncidenceMatrix() {}
 /******************************************************************/
-/*
-IncidenceMatrix::IncidenceMatrix(ConnectionMatrix<int> &conn)
+IncidenceMatrix::IncidenceMatrix(const ConnectionMatrix<int>& conn)
 {
-	
 	gType = 0;
 	top = conn.returnSize();
 	edge = conn.returnEdges();
 	matrix = allocateMatrix(top, edge);
 	int i, j, e=0;
-	for (i = 0; i < top; i++) {
-		for (j = i + 1; j < edge; j++) {
+	for (i = 0; i < top; i++)
+		for (j = i + 1; j < top; j++)
 			if (conn(i, j) == 1) {
 				setTopsOfEdge(e, i, j);
+				e++;
 			}
-		}
-	}
-
 }
-*/
 /******************************************************************/
 bool IncidenceMatrix::setTopsOfEdge(int selectedEdge, int newOwner1, int newOwner2) {
 	if (possibleEdge(newOwner1, newOwner2)) {

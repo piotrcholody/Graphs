@@ -4,8 +4,7 @@
 #include "main.h"
 
 int main( void ){
-
-	/*
+/*
 	std::cout << "Tworzenie macierzy konstruktorem domyslnym" << std::endl;
 	IncidenceMatrix imatrix;
 	imatrix.setGraphType(1);
@@ -48,6 +47,7 @@ int main( void ){
 	lmat.printEntireMatrix();
 	
 	*/
+
 	srand(time(NULL));
 
 	//Testy przedstawienia grafu losowego podajac liczbe krawedzi:
@@ -103,12 +103,20 @@ int main( void ){
 	ConnectionMatrix<int> *testAL_CM;
 	testAL_CM = new ConnectionMatrix<int>(*test);
 	std::cout << *testAL_CM << std::endl;
-
+	
 	delete testKG;
 	delete testPG;
 	delete testCM;
 	delete testAL_CM;
 	delete test;
+
+
+	//Przejscie z Macierzy Polaczen na Macierz Incydencji
+	ConnectionMatrix<int> testconn;
+	std::cout << testconn << std::endl;
+	IncidenceMatrix testinci(testconn);
+	testinci.printEntireMatrix();
+	
 
 	
 	getchar();

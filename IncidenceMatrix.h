@@ -1,6 +1,7 @@
 #ifndef IncidenceMatrix_h
 #define IncidenceMatrix_h
 #include "connectionmatrix.h"
+//#include "vld.h"
 
 	//podstawia wpisana wartosc pod int tylko wtedy gdy strumien jest dobry
 	//zaleta1: nie stanie siê nic czego sie nie bedziemy spodziewac
@@ -31,7 +32,7 @@ public:
 		//tworzy macierz o podanym rozmiarze, wypelnia zerami
 	IncidenceMatrix(int numberOfTops, int numberOfEdges); 
 		//konstruktor kopiujacy z klasy ConnectionMatrix
-// IncidenceMatrix(ConnectionMatrix<int> &conn);
+	IncidenceMatrix(const ConnectionMatrix<int>& conn);
 		//ustawia elementy calej macierzy wpisanymi wartosciami
 		//wpisujesz po kolei pola do ca³ej macierzy, wiersz po wierszu
 		//zwraca 0 gdy jest poprawnie, 1 gdy jest niepoprawnie wpisana
@@ -100,8 +101,9 @@ public:
 	const int getN() const { return top; }
 		//te¿ zwraca liczbe krawedzi
 	const int getL() const { return edge; }
-		//zwraca liczbe informujaca o typie grafu
+		//zwraca graf dla QT
 	int** getMatrix() const { return matrix; }
+		//zwraca liczbe informujaca o typie grafu
 	const int getGraphType() const { return gType; }
 private:
 		//wierzcholki
