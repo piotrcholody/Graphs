@@ -50,6 +50,17 @@ int main( void ){
 
 	srand(time(NULL));
 
+
+	/* juz nieaktualne
+	//Testy przedstawienia grafu za pomocą macierzy połączeń:
+	ConnectionMatrix<int> *testCM = NULL;
+	try {
+		testCM = new ConnectionMatrix<int>();
+		std::cout << *testCM << std::endl;
+	}
+	catch (std::exception& e) {
+		std::cerr << e.what() << std::endl;
+	}*/
 	//Testy przedstawienia grafu losowego podajac liczbe krawedzi:
 	edgeGraph<int> *testKG = NULL;
 	try {
@@ -69,17 +80,6 @@ int main( void ){
 	catch (std::exception& e) {
 		std::cerr << e.what() << std::endl;
 	}
-
-	//Testy przedstawienia grafu za pomocą macierzy połączeń:
-	ConnectionMatrix<int> *testCM = NULL;
-	try {
-		testCM = new ConnectionMatrix<int>();
-		std::cout << *testCM << std::endl;
-	}
-	catch (std::exception& e) {
-		std::cerr << e.what() << std::endl;
-	}
-
 
 	//Testy przedstawienia grafu za pomocą listy:
 	AdjacencyList *test = new AdjacencyList();
@@ -106,19 +106,21 @@ int main( void ){
 	testAL_CM = new ConnectionMatrix<int>(*test);
 	std::cout << *testAL_CM << std::endl;
 	
+
+
 	delete testKG;
 	delete testPG;
-	delete testCM;
+	//delete testCM;
 	delete testAL_CM;
 	delete test;
 
-
+	/*
 	//Przejscie z Macierzy Polaczen na Macierz Incydencji
 	ConnectionMatrix<int> testconn;
 	std::cout << testconn << std::endl;
 	IncidenceMatrix testinci(testconn);
 	testinci.printEntireMatrix();
-	
+	*/
 
 	
 	getchar();
