@@ -8,7 +8,7 @@ AdjacencyList::AdjacencyList() {}
 AdjacencyList::AdjacencyList(const IncidenceMatrix& matrix) {
 	int vertex_one, vertex_two;
 	for (int i = 0; i < matrix.getEdge(); ++i) {
-		matrix.getTopsOfEdge(i, vertex_one, vertex_two);
+		matrix.getTopsOfEdge(i, &vertex_one, &vertex_two);
 		addNeighbours(vertex_one, vertex_two);
 	}
 }

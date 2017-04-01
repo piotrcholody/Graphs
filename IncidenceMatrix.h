@@ -81,7 +81,7 @@ public:
 		//jesli digraf, to pierwszy indeks jest poczatkiem, a drugi koncem krawedzi
 		//gdy indeksy wierzcholkow zostana poprawnie pobrane i wpisane pod referowane zmienne: zwraca 0
 		//gdy indeks krawedzi jest bledny zwraca 1, a pod referowane zmienne podstawia -2137
-	bool getTopsOfEdge(int selectedEdge, int& storageInt1, int& storageInt2) const;
+	bool getTopsOfEdge(int selectedEdge, int* storageInt1, int* storageInt2) const;
 	//dodaje nowa krawedz nalezaca do zadanych wierzcholkow (realokacja pamieci)
 		//gdy uzyjesz zlych nieporawnych indeksow lub taka krawedz juz istnieje: zwraca 1 i wypisuje blad
 		//gdy pomyslnie doda krawedz zwraca 0

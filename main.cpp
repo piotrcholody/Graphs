@@ -4,12 +4,14 @@
 #include "main.h"
 
 int main( void ){
-/*
-	std::cout << "Tworzenie macierzy konstruktorem domyslnym" << std::endl;
-	IncidenceMatrix imatrix;
-	imatrix.setGraphType(1);
+
+	/*
+	std::cout << "Tworzenie macierzy konstruktorem pytajacym o wymiary macierzy" << std::endl;
+	IncidenceMatrix imatrix(1432432);
+	imatrix.setGraphType(0);
 	std::cout << "setEntireMatrix...() zwraca: " << imatrix.setEntireMatrixByColumns() << std::endl;
 	imatrix.printEntireMatrix();
+	std::cout << "edgeIndexExist(0) zwraca: " << imatrix.edgeIndexExist(0) << std::endl;
 	std::cout << "imatrix.setTopsOfEdge(1, 0, 1) zwraca: " << imatrix.setTopsOfEdge(1, 0, 1) << std::endl;
 	imatrix.printEntireMatrix();
 	std::cout << "imatrix.setTopsOfEdge(1, 100, 99) zwraca: " << imatrix.setTopsOfEdge(1, 100, 99) << std::endl;
@@ -29,9 +31,9 @@ int main( void ){
 	std::cout << "imatrix.deleteEdge(100) zwraca: " << imatrix.deleteEdge(100) << std::endl;
 	imatrix.printEntireMatrix();
 	int x, y;
-	std::cout << "imatrix.getTopsOfEdge(10, x, y) zwraca: " << imatrix.getTopsOfEdge(10, x, y) << std::endl;
+	std::cout << "imatrix.getTopsOfEdge(10, x, y) zwraca: " << imatrix.getTopsOfEdge(10, &x, &y) << std::endl;
 	std::cout << "getTopsOfEdge(10, x, y): x: " << x << " y: " << y << std::endl;
-	std::cout << "imatrix.getTopsOfEdge(0, x, y) zwraca: " << imatrix.getTopsOfEdge(0, x, y) << std::endl;
+	std::cout << "imatrix.getTopsOfEdge(0, x, y) zwraca: " << imatrix.getTopsOfEdge(0, &x, &y) << std::endl;
 	std::cout << "getTopsOfEdge(0, x, y) x: " << x << " y: " << y << std::endl;
 	std::cout << "imatrix.isThisEdgeFree(0, 1) zwraca: " << imatrix.isThisEdgeFree(0, 1) << std::endl;
 	std::cout << "imatrix.isThisEdgeFree(2, 1) zwraca: " << imatrix.isThisEdgeFree(2, 1) << std::endl;
@@ -50,7 +52,7 @@ int main( void ){
 
 	srand(time(NULL));
 
-
+	
 	/* juz nieaktualne
 	//Testy przedstawienia grafu za pomocą macierzy połączeń:
 	ConnectionMatrix<int> *testCM = NULL;
@@ -60,7 +62,10 @@ int main( void ){
 	}
 	catch (std::exception& e) {
 		std::cerr << e.what() << std::endl;
-	}*/
+	}
+	*/
+
+	
 	//Testy przedstawienia grafu losowego podajac liczbe krawedzi:
 	edgeGraph<int> *testKG = NULL;
 	try {
@@ -113,14 +118,14 @@ int main( void ){
 	//delete testCM;
 	delete testAL_CM;
 	delete test;
-
-	/*
+	
+	
 	//Przejscie z Macierzy Polaczen na Macierz Incydencji
 	ConnectionMatrix<int> testconn;
 	std::cout << testconn << std::endl;
 	IncidenceMatrix testinci(testconn);
 	testinci.printEntireMatrix();
-	*/
+	
 
 	
 	getchar();
