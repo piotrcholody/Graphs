@@ -48,7 +48,7 @@ IncidenceMatrix::IncidenceMatrix(int)
 	matrix = allocateMatrix(top, edge);
 }
 /******************************************************************/
-IncidenceMatrix::IncidenceMatrix() {}
+//IncidenceMatrix::IncidenceMatrix() {}
 /******************************************************************/
 IncidenceMatrix::IncidenceMatrix(const ConnectionMatrix<int>& conn)
 {
@@ -316,11 +316,11 @@ bool IncidenceMatrix::eliminateInvalidEdges() {
 	return errorOccured;
 }
 /******************************************************************/
-bool IncidenceMatrix::getTopsOfEdge(int selectedEdge, int* first, int* second) const {
+bool IncidenceMatrix::getTopsOfEdge(int selectedEdge, int& first, int& second) const {
+	first = second = -2137;
 	if (!edgeIndexExist(selectedEdge)) {
 		std::cout << "getTopsOfEdge(" << selectedEdge << ", ..., ...): Krawedz nie istnieje!!!" << std::endl;
 		std::cout << "Pobranie wierzcholkow nie powiodlo sie!" << std::endl;
-		*first = *second = -2137;
 		return true;
 	}
 	else {
@@ -328,12 +328,12 @@ bool IncidenceMatrix::getTopsOfEdge(int selectedEdge, int* first, int* second) c
 		for (int t = 0; t < top; t++) {
 			if (matrix[t][selectedEdge]) {
 				if (counter == 0) {
-					*first = t;
+					first = t;
 					counter++;
 				}
 				else {
-					if (counter==1) {
-						*second = t;
+					if (counter == 1) {
+						second = t;
 						counter++;
 					}
 					else {
@@ -343,8 +343,13 @@ bool IncidenceMatrix::getTopsOfEdge(int selectedEdge, int* first, int* second) c
 				}
 			}
 		}
-		if (*second > *first) { //obsula digrafu
-			int* temp = first;
+		if (counter <= 1) {
+			std::cout << "Korzystasz z popsutej (pustej) macierzy incydencji! Nie mozesz pobrac wierzcholkow!" << std::endl;
+			std::abort();
+		}
+		if (second > first) { //obsula digrafu
+			int temp;
+			temp = first;
 			first = second;
 			second = temp;
 		}
@@ -358,7 +363,7 @@ bool IncidenceMatrix::eliminateDuplicates() {
 		if (edge >= 1) {
 			int e, k, index1, index2, EdgeOccured;
 			for (e = edge - 1; e >= 1; e--) {
-				getTopsOfEdge(e, &index1, &index2);
+				getTopsOfEdge(e, index1, index2);
 				k = e - 1;
 				EdgeOccured = false;
 				while (k >= 0 && !EdgeOccured) {
@@ -378,7 +383,7 @@ bool IncidenceMatrix::eliminateDuplicates() {
 		if (edge >= 1) {
 			int e, k, index1, index2, EdgeOccured;
 			for (e = edge - 1; e >= 1; e--) {
-				getTopsOfEdge(e, &index1, &index2);
+				getTopsOfEdge(e, index1, index2);
 				k = e - 1;
 				EdgeOccured = false;
 				while (k >= 0 && !EdgeOccured) {

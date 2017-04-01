@@ -25,11 +25,14 @@ void printNormalIncMatrix(int** matrix, int top, int edge);
 class IncidenceMatrix
 {
 public:
-		//tworzy macierz pytajac o ilosc wierzcholkow i krawedzi, wypelnia zerami
-	IncidenceMatrix(int taWartoscNicNieRobi);
 		//konstuktor domyslny
-	IncidenceMatrix();
+	//IncidenceMatrix();
+
+		//tworzy macierz pytajac o ilosc wierzcholkow i krawedzi, wypelnia zerami
+		//CHCESZ JEJ UZYC TO JA WYPELNIJ!!!!!!!!
+	IncidenceMatrix(int taWartoscNicNieRobi);
 		//tworzy macierz o podanym rozmiarze, wypelnia zerami
+		//CHCESZ JEJ UZYC TO JA WYPELNIJ!!!!!!!!
 	IncidenceMatrix(int numberOfTops, int numberOfEdges); 
 		//konstruktor kopiujacy z klasy ConnectionMatrix
 	IncidenceMatrix(const ConnectionMatrix<int>& conn);
@@ -78,11 +81,14 @@ public:
 		//gdy operacja sie udaje zwraca 0
 	bool setTopsOfEdge(int selectedEdge, int newOwner1, int newOwner2);
 		//funckja zwraca indeksy wybranej krawedzi poprzez zmiane waratosci referowanych integerow
+		//jesli graf prosty, to pierwszy indeks bedzie wiekszy od drugiego
 		//jesli digraf, to pierwszy indeks jest poczatkiem, a drugi koncem krawedzi
 		//gdy indeksy wierzcholkow zostana poprawnie pobrane i wpisane pod referowane zmienne: zwraca 0
 		//gdy indeks krawedzi jest bledny zwraca 1, a pod referowane zmienne podstawia -2137
-	bool getTopsOfEdge(int selectedEdge, int* storageInt1, int* storageInt2) const;
-	//dodaje nowa krawedz nalezaca do zadanych wierzcholkow (realokacja pamieci)
+		//gdy macierz ma bledna lub pusta reprezentacje zwraca 1 i postawia -2137
+		//cokolwiek niespodziewanego sie zdazy : podstawi -2137
+	bool getTopsOfEdge(int selectedEdge, int& storageInt1, int& storageInt2) const;
+		//dodaje nowa krawedz nalezaca do zadanych wierzcholkow (realokacja pamieci)
 		//gdy uzyjesz zlych nieporawnych indeksow lub taka krawedz juz istnieje: zwraca 1 i wypisuje blad
 		//gdy pomyslnie doda krawedz zwraca 0
 	bool addNewEdge(int newOwner1, int newOwner2);
