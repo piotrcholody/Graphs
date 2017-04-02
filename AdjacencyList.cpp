@@ -15,24 +15,24 @@ AdjacencyList::AdjacencyList(const IncidenceMatrix& matrix) {
 /******************************************************************/
 void AdjacencyList::initList() {
 	int number;
-	std::cin.clear();
-	std::cin.ignore(std::numeric_limits <std::streamsize>::max(), '\n');
+	//std::cin.clear();
+	//std::cin.ignore(std::numeric_limits <std::streamsize>::max(), '\n');
 
 	std::cout << "Podaj liczbę wierzchołków: ";
 	std::cin >> number;
-	for (int vert = 1; vert <= number; ++vert) {
+	for (int vert = 0; vert < number; ++vert) {
 		_vertTable.push_back(std::vector< int >());
-		_vertTable[vert - 1].push_back(vert);
-		std::cout << "Stworzyłem kolejną listę dla wierzchołka: " << _vertTable[vert - 1][0] << std::endl;
+		_vertTable[vert].push_back(vert);
+		std::cout << "Stworzyłem kolejną listę dla wierzchołka: " << _vertTable[vert][0] << std::endl;
 	}
 	getList();
 }
 /******************************************************************/
 void AdjacencyList::initList(int number) {
-	for (int vert = 1; vert <= number; ++vert) {
+	for (int vert = 0; vert < number; ++vert) {
 		_vertTable.push_back(std::vector< int >());
-		_vertTable[vert - 1].push_back(vert);
-		std::cout << "Stworzyłem kolejną listę dla wierzchołka: " << _vertTable[vert - 1][0] << std::endl;
+		_vertTable[vert].push_back(vert);
+		std::cout << "Stworzyłem kolejną listę dla wierzchołka: " << _vertTable[vert][0] << std::endl;
 	}
 	getList();
 }
@@ -40,8 +40,8 @@ void AdjacencyList::initList(int number) {
 void AdjacencyList::addNeighbours(int vertex_one, int vertex_two) {
 	if (isThisVert(vertex_one) && isThisVert(vertex_two)) {
 		if (isAddingNeighbourPossible(vertex_one, vertex_two) && isAddingNeighbourPossible(vertex_two, vertex_one)) {
-			_vertTable[vertex_one - 1].push_back(vertex_two);
-			_vertTable[vertex_two - 1].push_back(vertex_one);
+			_vertTable[vertex_one].push_back(vertex_two);
+			_vertTable[vertex_two].push_back(vertex_one);
 		}
 	}
 }
@@ -96,7 +96,7 @@ void AdjacencyList::fillList() {
 			  != indeks w tablicy
 			*/
 			if (!(isThisVal(_vertTable[j][k], _vertTable[j][0])))
-				_vertTable[_vertTable[j][k] - 1].push_back(j + 1);
+				_vertTable[_vertTable[j][k]].push_back(j);
 		}
 	}
 }
@@ -122,8 +122,8 @@ std::vector< std::vector<int> > AdjacencyList::retAdjacencyList() const{
 }	
 /******************************************************************/
 int AdjacencyList::isThisVal(int vert, int val) {
-	for(int i = 1; i < (int)_vertTable[vert - 1].size(); ++i) {
-		if(_vertTable[vert - 1][i] == val)
+	for(int i = 1; i < (int)_vertTable[vert].size(); ++i) {
+		if(_vertTable[vert][i] == val)
 			return i;
 	}
 	return 0;
@@ -137,8 +137,8 @@ bool AdjacencyList::isThisVert(int vert) {
 /******************************************************************/
 bool AdjacencyList::delEdge (int vert1, int vert2) {
 	if (isThisVal( vert1, vert2 )) {
-		_vertTable[vert1 - 1].erase(_vertTable[vert1 - 1].begin() + isThisVal(vert1, vert2));
-		_vertTable[vert2 - 1].erase(_vertTable[vert2 - 1].begin() + isThisVal(vert2, vert1));
+		_vertTable[vert1].erase(_vertTable[vert1].begin() + isThisVal(vert1, vert2));
+		_vertTable[vert2].erase(_vertTable[vert2].begin() + isThisVal(vert2, vert1));
 		return 1;
 	}
 	return 0;
