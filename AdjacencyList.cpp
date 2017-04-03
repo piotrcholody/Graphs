@@ -7,8 +7,10 @@ AdjacencyList::AdjacencyList() {}
 /******************************************************************/
 AdjacencyList::AdjacencyList(const IncidenceMatrix& matrix) {
 	int vertex_one, vertex_two;
+	initList(matrix.getTop());
 	for (int i = 0; i < matrix.getEdge(); ++i) {
 		matrix.getTopsOfEdge(i, vertex_one, vertex_two);
+		std::cout << "Parowanie wierzchołków: " << vertex_one << " oraz " << vertex_two << std::endl; 
 		addNeighbours(vertex_one, vertex_two);
 	}
 }
@@ -34,7 +36,6 @@ void AdjacencyList::initList(int number) {
 		_vertTable[vert].push_back(vert);
 		std::cout << "Stworzyłem kolejną listę dla wierzchołka: " << _vertTable[vert][0] << std::endl;
 	}
-	getList();
 }
 /******************************************************************/
 void AdjacencyList::addNeighbours(int vertex_one, int vertex_two) {
@@ -47,7 +48,7 @@ void AdjacencyList::addNeighbours(int vertex_one, int vertex_two) {
 }
 /******************************************************************/
 bool AdjacencyList::isAddingNeighbourPossible(int vert, int toAdd) {
-	if (!(toAdd != _vertTable[vert][0] && toAdd <= (int)_vertTable.size() && toAdd > 0))
+	if (!(toAdd != _vertTable[vert][0] && toAdd <= (int)_vertTable.size() && toAdd >= 0))
 		return 0;
 	for (int i = 0; i < (int)_vertTable[vert].size(); ++i) {
 		if (toAdd == _vertTable[vert][i])
