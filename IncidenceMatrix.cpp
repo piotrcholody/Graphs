@@ -484,7 +484,7 @@ bool IncidenceMatrix::setEntireMatrixFromFile(const char* Filename, int numberOf
 
 bool IncidenceMatrix::isSafe(int candidat, int* path, int pos)
 {
-	if ((isThisEdgeFree(path[pos - 1], candidat) == 0))
+	if (possibleEdge(path[pos - 1], candidat) && (isThisEdgeFree(path[pos - 1], candidat) == 0))
 		return false;
 	for (int i = 0; i <= pos; i++)
 		if (path[i] == candidat)
@@ -497,7 +497,7 @@ bool IncidenceMatrix::hamCycleUtil(int* path, int pos)
 	path[0] = 0;
 	if (pos == top)
 	{
-		if ((isThisEdgeFree(path[pos - 1], path[0]) == 1) ) {
+		if ((isThisEdgeFree(path[pos - 1], path[0]) == 1) && possibleEdge(path[pos -1], path[0])) {
 			path[top] = 0;
 			return true;
 		}
@@ -550,13 +550,15 @@ int* IncidenceMatrix::findHamiltionianGraph()
 	for (int i = 0; i < top + 1; i++)
 		path[i] = -1;
 	if (top < 3) {
-		std::cout << "Graf hamiltonowski, sciezka 0,1." << std::endl;
+		std::cout << "Graf polhamiltonowski, sciezka 0,1." << std::endl;
 		path[0] = 0;
 		path[1] = 1;
 		return path;
 	}
 	if (edge < top - 1) {
 		std::cout << "Nie mozna utworzyc z tego grafu ani sciezki, ani cyklu (edge < top - 1)" << std::endl;
+		for (int i = 0; i < top + 1; i++)
+			path[i] = -100;
 		return path;
 	}
 
@@ -573,6 +575,7 @@ int* IncidenceMatrix::findHamiltionianGraph()
 		}
 		if (c[i] < 2) {
 			canBeHamilton = false;
+			std::cout << "Graf NIE moze byc hamiltonowski (liczba krawedzi przy choc 1 wierzcholku <2)" << std::endl;
 			break; //nie wiem czy to zadziala tak jak chce
 			break; //xd
 		}
@@ -580,6 +583,7 @@ int* IncidenceMatrix::findHamiltionianGraph()
 	delete[] c;
 
 	if (canBeHamilton) {
+		std::cout << "Graf moze byc hamiltonowski!" << std::endl;
 		if (hamCycleUtil(path, 0) == false) {
 			std::cout << "Graf NIE jest hamiltonowski (nie posiada cyklu Hamiltona)!" << std::endl;
 			isHamilton = false;
@@ -644,8 +648,8 @@ int* IncidenceMatrix::findHamiltionianGraph()
 
 	if (!isHalf && !isHamilton) {
 		std::cout << "Nie jest tez jednak polhamiltonowski" << std::endl;
-		delete[] path;
-		path = NULL;
+		for (int i = 0; i < top + 1; i++)
+			path[i] = -100;
 	}
 	return path;
 }
