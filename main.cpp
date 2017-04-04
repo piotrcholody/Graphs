@@ -4,6 +4,61 @@
 #include "main.h"
 
 int main( void ){
+	
+	IncidenceMatrix dohamiltona(6, 9);
+	dohamiltona.setEntireMatrixFromFile("Plik1.txt", 6, 9);
+	dohamiltona.printEntireMatrix();
+	std::cout << "____ma byc hamiltonowski" << std::endl;
+	int* rpath = dohamiltona.findHamiltionianGraph();
+	delete[] rpath;
+	
+	
+	IncidenceMatrix dohamiltona2(6, 8);
+	dohamiltona2.setEntireMatrixFromFile("Plik2.txt", 6, 8);
+	dohamiltona2.printEntireMatrix();
+	std::cout << "____ma byc POLhamiltonowski" << std::endl;
+	int* rpath2 = dohamiltona2.findHamiltionianGraph();
+	delete[] rpath2;
+	
+	IncidenceMatrix dohamiltona3(6, 6);
+	dohamiltona3.setEntireMatrixFromFile("Plik3.txt", 6, 6);
+	dohamiltona3.printEntireMatrix();
+	std::cout << "____ma byc hamiltonowski" << std::endl;
+	int* rpath3 = dohamiltona3.findHamiltionianGraph();
+	delete[] rpath3;
+	
+	IncidenceMatrix dohamiltona4(6, 5);
+	dohamiltona4.setEntireMatrixFromFile("Plik4.txt", 6, 5);
+	dohamiltona4.printEntireMatrix();
+	std::cout << "____ma byc POLhamiltonowski" << std::endl;
+	int* rpath4 = dohamiltona4.findHamiltionianGraph();
+	delete[] rpath4;
+	
+	IncidenceMatrix dohamiltona5(2, 1);
+	dohamiltona5.setTopsOfEdge(0, 0, 1);
+	dohamiltona5.printEntireMatrix();
+	int* rpath5 = dohamiltona5.findHamiltionianGraph();
+	delete[] rpath5;
+
+	IncidenceMatrix dohamiltona6(6, 7);
+	dohamiltona6.setEntireMatrixFromFile("Plik6.txt", 6, 7);
+	dohamiltona6.printEntireMatrix();
+	std::cout << "_____ma byc POLhamiltonowski" << std::endl;
+	int* rpath6 = dohamiltona6.findHamiltionianGraph();
+	delete[] rpath6;
+
+	IncidenceMatrix dohamiltona7(3, 1);
+	dohamiltona7.setTopsOfEdge(0, 0, 1);
+	dohamiltona7.printEntireMatrix();
+	int* rpath7 = dohamiltona7.findHamiltionianGraph();
+	delete[] rpath7;
+	
+	IncidenceMatrix dohamiltona8(6, 5);
+	dohamiltona8.setEntireMatrixFromFile("Plik7.txt", 6, 5);
+	dohamiltona8.printEntireMatrix();
+	std::cout << "_____ma byc POLhamiltonowski" << std::endl;
+	int* rpath8 = dohamiltona8.findHamiltionianGraph();
+	delete[] rpath8;
 
 	/*
 	std::cout << "Tworzenie macierzy konstruktorem pytajacym o wymiary macierzy" << std::endl;
@@ -42,7 +97,6 @@ int main( void ){
 	std::cout << "imatrix.isThisEdgeFree(100, 100) zwraca: " << imatrix.isThisEdgeFree(100, 100) << std::endl;
 	std::cout << "imatrix.isThisEdgeFree(0, 100) zwraca: " << imatrix.isThisEdgeFree(0, 100) << std::endl;
 		
-	
 
 	IncidenceMatrix lmat(4, 4);
 	lmat.setEntireMatrixFromFile("Plik1.txt", 4, 4);
@@ -65,7 +119,7 @@ int main( void ){
 	}
 	*/
 
-	
+	/*
 	//Testy przedstawienia grafu losowego podajac liczbe krawedzi:
 	edgeGraph<int> *testKG = NULL;
 	try {
@@ -126,7 +180,7 @@ int main( void ){
 	IncidenceMatrix testinci(testconn);
 	testinci.printEntireMatrix();
 	
-
+	*/
 	
 	getchar();
 	return 0;

@@ -28,6 +28,19 @@ public:
 		//konstuktor domyslny
 	//IncidenceMatrix();
 
+		//sprawdza rekurencyjna metoda Brute Force czy graf jest Hamiltonowski
+		//zwraca tablice o dlugosci (getTop()+1)z numerami kolejnych indeksow wierzcholkow,
+		//     ktore tworza cykl Hamiltona lub polHamiltona
+		//gdy jest polhamiltonowski, ostatenie pole tablicy wynikowej == -1
+		//zwraca NULL, gdy nie jest to ani graf hamiltonowski ani polhamiltonowski
+		//pamietaj o usuniecie tablicy wynikowej
+	int* findHamiltionianGraph();
+					//sprawdza czy nie bylo juz wartosci 'v' w tablicy 'path' ponizej indeksu 'pos'
+				bool isSafe(int v, int * path, int pos);
+					//do rekurencji dla cyklu
+				bool hamCycleUtil(int * path, int pos);
+					//do rekurencji dla sciezki
+				bool hamPathUtil(int * path, int pos, int first);
 		//tworzy macierz pytajac o ilosc wierzcholkow i krawedzi, wypelnia zerami
 		//CHCESZ JEJ UZYC TO JA WYPELNIJ!!!!!!!!
 	IncidenceMatrix(int taWartoscNicNieRobi);

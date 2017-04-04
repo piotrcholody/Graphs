@@ -38,7 +38,7 @@ IncidenceMatrix::IncidenceMatrix(int)
 	gType(0)
 {
 	while (top <= 1) {
-		std::cout << "Podaj ilosc wierzcholkow (liczbe >= 2): ";
+		std::cout << "\nPodaj ilosc wierzcholkow (liczbe >= 2): ";
 		cinSelectedInt(top);
 	}
 	while (edge <= 0) {
@@ -417,7 +417,7 @@ IncidenceMatrix::~IncidenceMatrix(){
 }
 /******************************************************************/
 void IncidenceMatrix::printEntireMatrix() const{
-	std::cout<<"Macierz Incydencji: "<<std::endl;
+	std::cout<<"\nMacierz Incydencji: "<<std::endl;
 	if (edge) {
 		std::cout << "    ";
 		for (int e = 0; e < edge; e++) std::cout << "E" << e << " "; std::cout << std::endl;
@@ -453,11 +453,14 @@ bool IncidenceMatrix::setEntireMatrixFromFile(const char* Filename, int numberOf
 						error++;
 			}
 			if (i == top && j == edge && error == 0) {
-				std::cout << "Plik zostal wczytany poprawnie; sprawdzam bledy w reprezentacji" << std::endl;
+				std::cout << "\nPlik zostal wczytany poprawnie; sprawdzam bledy w reprezentacji..." << std::endl;
 				if (!eliminateAllMistakes()) {
-					std::cout << "W reprezentacji nie bylo zadnych bledow" << std::endl;
+					std::cout << "W reprezentacji nie bylo zadnych bledow." << std::endl;
 				}
-				else std::cout << "W reprezentacji byly bledy" << std::endl;
+				else {
+					std::cout << "W reprezentacji byly bledy; plik zle wczytany; wylaczam program!" << std::endl;
+					std::abort();
+				}
 				return 0;
 			}
 			else {
@@ -473,6 +476,186 @@ bool IncidenceMatrix::setEntireMatrixFromFile(const char* Filename, int numberOf
 	mystream.close();
 	return 1;
 }
+/******************************************************************/
+
+
+
+
+
+bool IncidenceMatrix::isSafe(int candidat, int* path, int pos)
+{
+	if ((isThisEdgeFree(path[pos - 1], candidat) == 0))
+		return false;
+	for (int i = 0; i <= pos; i++)
+		if (path[i] == candidat)
+			return false;
+	return true;
+}
+
+bool IncidenceMatrix::hamCycleUtil(int* path, int pos)
+{
+	path[0] = 0;
+	if (pos == top)
+	{
+		if ((isThisEdgeFree(path[pos - 1], path[0]) == 1) ) {
+			path[top] = 0;
+			return true;
+		}
+		else
+			return false;
+	}
+
+	for (int v = 1; v < top; v++)
+	{
+		if (isSafe(v, path, pos))
+		{
+			path[pos] = v;
+			if (hamCycleUtil(path, pos + 1) == true) {
+				return true;
+			path[pos] = -1;
+			}
+		}
+	}
+	return false;
+
+}
+
+bool IncidenceMatrix::hamPathUtil(int* path, int pos, int first)
+{
+	path[0] = first;
+	if (pos == top)
+	{
+		return true;
+	}
+
+	for (int v = 0; v < top; v++)
+	{
+		if (isSafe(v, path, pos))
+		{
+			path[pos] = v;
+			if (hamPathUtil(path, pos + 1, first) == true) {
+				return true;
+				path[pos] = -1;
+			}
+		}
+	}
+	return false;
+
+}
+
+int* IncidenceMatrix::findHamiltionianGraph()
+{
+	std::cout << std::endl;
+	int *path = new int[top + 1];
+	for (int i = 0; i < top + 1; i++)
+		path[i] = -1;
+	if (top < 3) {
+		std::cout << "Graf hamiltonowski, sciezka 0,1." << std::endl;
+		path[0] = 0;
+		path[1] = 1;
+		return path;
+	}
+	if (edge < top - 1) {
+		std::cout << "Nie mozna utworzyc z tego grafu ani sciezki, ani cyklu (edge < top - 1)" << std::endl;
+		return path;
+	}
+
+
+	int i = 0, first = 0;
+	int *c = new int[top];
+	bool canBeHamilton = true;
+	bool isHamilton = true;
+	bool isHalf = false;
+	for (int i = 0; i < top; i++) {
+		c[i] = 0;
+		for (int j = 0; j < edge; j++) {
+			c[i] += matrix[i][j];
+		}
+		if (c[i] < 2) {
+			canBeHamilton = false;
+			break; //nie wiem czy to zadziala tak jak chce
+			break; //xd
+		}
+	}
+	delete[] c;
+
+	if (canBeHamilton) {
+		if (hamCycleUtil(path, 0) == false) {
+			std::cout << "Graf NIE jest hamiltonowski (nie posiada cyklu Hamiltona)!" << std::endl;
+			isHamilton = false;
+		}
+	}
+
+	if (!canBeHamilton || !isHamilton) { //polhamiltonowski
+		int first = 0;
+		std::cout << "Graf moze byc polhamiltonowski!" << std::endl;
+		isHalf = false;
+
+	//  delete[] path;
+	// jak dodasz te 2 linijki to zmien w forze na i<top bez +1
+	//	path = new int[top];
+	
+		for (int i = 0; i < top+1; i++)
+			path[i] = -1;
+
+		while ((first < top) && (!isHalf)) {
+			std::cout << "while dla first="<<first<< std::endl;
+			if (hamPathUtil(path, 1, first) == false) {
+				isHalf = false;
+				std::cout << "poszedl if" << std::endl;
+			}
+			else {
+				isHalf = true;
+				std::cout << "poszedl else" << std::endl;
+				break;
+			}
+			first++;
+		}
+	}
+
+
+
+
+	if (isHamilton && canBeHamilton) {
+		std::cout << "Graf jest hamiltonowski." << std::endl;
+		std::cout << "Cykl Hamiltona:  ";
+		for (int i = 0; i < top + 1; i++) {
+			std::cout << path[i];
+			if (i < top)
+				std::cout << ",";
+		}
+		std::cout << std::endl;
+	}
+
+	if (isHalf) {
+		std::cout << "Graf jest POLhamiltonowski." << std::endl;
+		std::cout << "Sciezka Hamiltona:  ";
+		for (int i = 0; i < top+1; i++) {
+			std::cout << path[i];
+			if (path[i + 1] < 0)
+				break;
+			if (i < top)
+				std::cout << ",";
+		}
+		std::cout << std::endl;
+	}
+
+	if (!isHalf && !isHamilton) {
+		std::cout << "Nie jest tez jednak polhamiltonowski" << std::endl;
+		delete[] path;
+		path = NULL;
+	}
+	return path;
+}
+
+
+
+
+
+
+
+
+
 /******************************************************************/
 /*Funkcje spoza klasy IncidenceMatrix*/
 /******************************************************************/
