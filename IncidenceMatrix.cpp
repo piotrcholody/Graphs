@@ -585,6 +585,8 @@ int* IncidenceMatrix::findHamiltionianGraph()
 			isHamilton = false;
 		}
 	}
+	else
+		isHamilton = false;
 
 	if (!canBeHamilton || !isHamilton) { //polhamiltonowski
 		int first = 0;
@@ -599,14 +601,14 @@ int* IncidenceMatrix::findHamiltionianGraph()
 			path[i] = -1;
 
 		while ((first < top) && (!isHalf)) {
-			std::cout << "while dla first="<<first<< std::endl;
+			//std::cout << "while dla first="<<first<< std::endl;
 			if (hamPathUtil(path, 1, first) == false) {
 				isHalf = false;
-				std::cout << "poszedl if" << std::endl;
+				//std::cout << "poszedl if" << std::endl;
 			}
 			else {
 				isHalf = true;
-				std::cout << "poszedl else" << std::endl;
+				//std::cout << "poszedl else" << std::endl;
 				break;
 			}
 			first++;

@@ -60,6 +60,12 @@ int main( void ){
 	int* rpath8 = dohamiltona8.findHamiltionianGraph();
 	delete[] rpath8;
 
+	IncidenceMatrix dohamiltona9(6, 5);
+	dohamiltona9.setEntireMatrixFromFile("hamiltonTest/Plik8.txt", 6, 5);
+	dohamiltona9.printEntireMatrix();
+	std::cout << "_____ma byc POLhamiltonowski" << std::endl;
+	int* rpath9 = dohamiltona9.findHamiltionianGraph();
+	delete[] rpath9;
 	/*
 	std::cout << "Tworzenie macierzy konstruktorem pytajacym o wymiary macierzy" << std::endl;
 	IncidenceMatrix imatrix(1432432);
