@@ -6,7 +6,7 @@
 int main( void ){
 	
 	IncidenceMatrix dohamiltona(6, 9);
-	dohamiltona.setEntireMatrixFromFile("Plik1.txt", 6, 9);
+	dohamiltona.setEntireMatrixFromFile("hamiltonTest/Plik1.txt", 6, 9);
 	dohamiltona.printEntireMatrix();
 	std::cout << "____ma byc hamiltonowski" << std::endl;
 	int* rpath = dohamiltona.findHamiltionianGraph();
@@ -14,21 +14,21 @@ int main( void ){
 	
 	
 	IncidenceMatrix dohamiltona2(6, 8);
-	dohamiltona2.setEntireMatrixFromFile("Plik2.txt", 6, 8);
+	dohamiltona2.setEntireMatrixFromFile("hamiltonTest/Plik2.txt", 6, 8);
 	dohamiltona2.printEntireMatrix();
 	std::cout << "____ma byc POLhamiltonowski" << std::endl;
 	int* rpath2 = dohamiltona2.findHamiltionianGraph();
 	delete[] rpath2;
 	
 	IncidenceMatrix dohamiltona3(6, 6);
-	dohamiltona3.setEntireMatrixFromFile("Plik3.txt", 6, 6);
+	dohamiltona3.setEntireMatrixFromFile("hamiltonTest/Plik3.txt", 6, 6);
 	dohamiltona3.printEntireMatrix();
 	std::cout << "____ma byc hamiltonowski" << std::endl;
 	int* rpath3 = dohamiltona3.findHamiltionianGraph();
 	delete[] rpath3;
 	
 	IncidenceMatrix dohamiltona4(6, 5);
-	dohamiltona4.setEntireMatrixFromFile("Plik4.txt", 6, 5);
+	dohamiltona4.setEntireMatrixFromFile("hamiltonTest/Plik4.txt", 6, 5);
 	dohamiltona4.printEntireMatrix();
 	std::cout << "____ma byc POLhamiltonowski" << std::endl;
 	int* rpath4 = dohamiltona4.findHamiltionianGraph();
@@ -41,7 +41,7 @@ int main( void ){
 	delete[] rpath5;
 
 	IncidenceMatrix dohamiltona6(6, 7);
-	dohamiltona6.setEntireMatrixFromFile("Plik6.txt", 6, 7);
+	dohamiltona6.setEntireMatrixFromFile("hamiltonTest/Plik6.txt", 6, 7);
 	dohamiltona6.printEntireMatrix();
 	std::cout << "_____ma byc POLhamiltonowski" << std::endl;
 	int* rpath6 = dohamiltona6.findHamiltionianGraph();
@@ -54,7 +54,7 @@ int main( void ){
 	delete[] rpath7;
 	
 	IncidenceMatrix dohamiltona8(6, 5);
-	dohamiltona8.setEntireMatrixFromFile("Plik7.txt", 6, 5);
+	dohamiltona8.setEntireMatrixFromFile("hamiltonTest/Plik7.txt", 6, 5);
 	dohamiltona8.printEntireMatrix();
 	std::cout << "_____ma byc POLhamiltonowski" << std::endl;
 	int* rpath8 = dohamiltona8.findHamiltionianGraph();
