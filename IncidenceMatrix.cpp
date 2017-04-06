@@ -99,10 +99,12 @@ bool IncidenceMatrix::setTopsOfEdge(int selectedEdge, int newOwner1, int newOwne
 }
 /******************************************************************/
 bool IncidenceMatrix::possibleEdge(int firstTop, int secondTop) const{
+	//std::cout << "possibleedge" << std::endl; //fdssdf
 	return (firstTop < top && secondTop < top && firstTop >= 0 && secondTop >= 0 && firstTop != secondTop);
 }
 /******************************************************************/
 bool IncidenceMatrix::isThisEdgeFree(int firstTop, int secondTop) const{
+	//std::cout << "isthisedgefree" << std::endl; //fdssdf
 	if (possibleEdge(firstTop, secondTop)) {
 		bool ValueOccured = false;
 		if (gType == 0) {
@@ -482,21 +484,29 @@ bool IncidenceMatrix::setEntireMatrixFromFile(const char* Filename, int numberOf
 
 
 
-bool IncidenceMatrix::isSafe(int candidat, int* path, int pos)
+bool IncidenceMatrix::isSafe(int candidat, std::vector<int> path, int pos)
 {
-	if (possibleEdge(path[pos - 1], candidat) && (isThisEdgeFree(path[pos - 1], candidat) == 0))
+	//std::cout << "przed if:" << std::endl; //fdssdf
+	int debug = path[pos - 1];
+	//std::cout << "debug:" << debug << std::endl; //fdssdf
+	if (isThisEdgeFree(debug, candidat) == 0)
 		return false;
-	for (int i = 0; i <= pos; i++)
+	//std::cout << "po if:" << std::endl; //fdssdf
+
+	for (int i = 0; i <= pos; i++) {
+		//std::cout << "w ifsafe for nr:" << i << std::endl; //fdssdf
 		if (path[i] == candidat)
 			return false;
+	}
 	return true;
 }
 
-bool IncidenceMatrix::hamCycleUtil(int* path, int pos)
+bool IncidenceMatrix::hamCycleUtil(std::vector<int>& path, int pos)
 {
 	path[0] = 0;
 	if (pos == top)
 	{
+		//std::cout << "if" << std::endl;//fdssdf
 		if ((isThisEdgeFree(path[pos - 1], path[0]) == 1) && possibleEdge(path[pos -1], path[0])) {
 			path[top] = 0;
 			return true;
@@ -507,8 +517,10 @@ bool IncidenceMatrix::hamCycleUtil(int* path, int pos)
 
 	for (int v = 1; v < top; v++)
 	{
+		//std::cout << "for nr:"<<v << std::endl; //fdssdf
 		if (isSafe(v, path, pos))
 		{
+			//std::cout << "is safe" << v << std::endl; //fdssdf
 			path[pos] = v;
 			if (hamCycleUtil(path, pos + 1) == true) {
 				return true;
@@ -520,7 +532,7 @@ bool IncidenceMatrix::hamCycleUtil(int* path, int pos)
 
 }
 
-bool IncidenceMatrix::hamPathUtil(int* path, int pos, int first)
+bool IncidenceMatrix::hamPathUtil(std::vector<int>& path, int pos, int first)
 {
 	path[0] = first;
 	if (pos == top)
@@ -543,12 +555,12 @@ bool IncidenceMatrix::hamPathUtil(int* path, int pos, int first)
 
 }
 
-int* IncidenceMatrix::findHamiltionianGraph()
+std::vector<int> IncidenceMatrix::findHamiltionianGraph()
 {
 	std::cout << std::endl;
-	int *path = new int[top + 1];
+	std::vector<int> path;
 	for (int i = 0; i < top + 1; i++)
-		path[i] = -1;
+		path.push_back(-1);
 	if (top < 3) {
 		std::cout << "Graf polhamiltonowski, sciezka 0,1." << std::endl;
 		path[0] = 0;
@@ -576,15 +588,15 @@ int* IncidenceMatrix::findHamiltionianGraph()
 		if (c[i] < 2) {
 			canBeHamilton = false;
 			std::cout << "Graf NIE moze byc hamiltonowski (liczba krawedzi przy choc 1 wierzcholku <2)" << std::endl;
-			break; //nie wiem czy to zadziala tak jak chce
-			break; //xd
+			i = top;
+			break;
 		}
 	}
 	delete[] c;
 
 	if (canBeHamilton) {
 		std::cout << "Graf moze byc hamiltonowski!" << std::endl;
-		if (hamCycleUtil(path, 0) == false) {
+		if (hamCycleUtil(path, 1) == false) {
 			std::cout << "Graf NIE jest hamiltonowski (nie posiada cyklu Hamiltona)!" << std::endl;
 			isHamilton = false;
 		}
@@ -648,8 +660,7 @@ int* IncidenceMatrix::findHamiltionianGraph()
 
 	if (!isHalf && !isHamilton) {
 		std::cout << "Nie jest tez jednak polhamiltonowski" << std::endl;
-		for (int i = 0; i < top + 1; i++)
-			path[i] = -100;
+		path.erase(path.begin(), path.end());
 	}
 	return path;
 }

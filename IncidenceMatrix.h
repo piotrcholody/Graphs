@@ -1,7 +1,7 @@
 #ifndef IncidenceMatrix_h
 #define IncidenceMatrix_h
 #include "connectionmatrix.h"
-//#include "vld.h"
+#include "vld.h"
 
 	//podstawia wpisana wartosc pod int tylko wtedy gdy strumien jest dobry
 	//zaleta1: nie stanie siê nic czego sie nie bedziemy spodziewac
@@ -35,13 +35,13 @@ public:
 		//zwraca tablice z wszystkimi polami ==-100, gdy nie jest to ani graf hamiltonowski ani polhamiltonowski
 		//  wiec przez uzyciem "if(nazwatablicy[0] >=0)" lub skonsultuj sie z lekarzem lub farmaceuta
 		//pamietaj o usunieciu tablicy wynikowej
-	int* findHamiltionianGraph();
+	std::vector<int> findHamiltionianGraph();
 					//sprawdza czy nie bylo juz wartosci 'v' w tablicy 'path' ponizej indeksu 'pos'
-				bool isSafe(int v, int * path, int pos);
+				bool isSafe(int v, std::vector<int> path, int pos);
 					//do rekurencji dla cyklu
-				bool hamCycleUtil(int * path, int pos);
+				bool hamCycleUtil(std::vector<int>& path, int pos);
 					//do rekurencji dla sciezki
-				bool hamPathUtil(int * path, int pos, int first);
+				bool hamPathUtil(std::vector<int>& path, int pos, int first);
 		//tworzy macierz pytajac o ilosc wierzcholkow i krawedzi, wypelnia zerami
 		//CHCESZ JEJ UZYC TO JA WYPELNIJ!!!!!!!!
 	IncidenceMatrix(int taWartoscNicNieRobi);

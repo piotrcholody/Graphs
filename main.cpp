@@ -9,119 +9,110 @@ int main( void ){
 	dohamiltona.setEntireMatrixFromFile("hamiltonTest/Plik1.txt", 6, 9);
 	dohamiltona.printEntireMatrix();
 	std::cout << "____ma byc hamiltonowski" << std::endl;
-	int* rpath = dohamiltona.findHamiltionianGraph();
-	for (int i = 0; i < dohamiltona.getTop() + 1; i++) {
+	std::vector<int> rpath = dohamiltona.findHamiltionianGraph();
+	for (int i = 0; i < rpath.size(); i++) {
 		std::cout << rpath[i];
-		if (i < dohamiltona.getTop())
+		if (i < rpath.size() - 1)
 			std::cout << ",";
 	}
 	std::cout << std::endl;
-	delete[] rpath;
 	
 	
 	IncidenceMatrix dohamiltona2(6, 8);
 	dohamiltona2.setEntireMatrixFromFile("hamiltonTest/Plik2.txt", 6, 8);
 	dohamiltona2.printEntireMatrix();
 	std::cout << "____ma byc POLhamiltonowski" << std::endl;
-	int* rpath2 = dohamiltona2.findHamiltionianGraph();
-	for (int i = 0; i < dohamiltona2.getTop() + 1; i++) {
+	std::vector<int> rpath2 = dohamiltona2.findHamiltionianGraph();
+	for (int i = 0; i < rpath2.size(); i++) {
 		std::cout << rpath2[i];
-		if (i < dohamiltona2.getTop())
+		if (i < rpath2.size() - 1)
 			std::cout << ",";
 	}
 	std::cout << std::endl;
-	delete[] rpath2;
 	
 	IncidenceMatrix dohamiltona3(6, 6);
 	dohamiltona3.setEntireMatrixFromFile("hamiltonTest/Plik3.txt", 6, 6);
 	dohamiltona3.printEntireMatrix();
 	std::cout << "____ma byc hamiltonowski" << std::endl;
-	int* rpath3 = dohamiltona3.findHamiltionianGraph();
-	for (int i = 0; i < dohamiltona3.getTop() + 1; i++) {
+	std::vector<int> rpath3 = dohamiltona3.findHamiltionianGraph();
+	for (int i = 0; i < rpath3.size(); i++) {
 		std::cout << rpath3[i];
-		if (i < dohamiltona3.getTop())
+		if (i < rpath3.size() - 1)
 			std::cout << ",";
 	}
 	std::cout << std::endl; 
-	delete[] rpath3;
 	
 	IncidenceMatrix dohamiltona4(6, 5);
 	dohamiltona4.setEntireMatrixFromFile("hamiltonTest/Plik4.txt", 6, 5);
 	dohamiltona4.printEntireMatrix();
 	std::cout << "____ma byc POLhamiltonowski" << std::endl;
-	int* rpath4 = dohamiltona4.findHamiltionianGraph();
-	for (int i = 0; i < dohamiltona4.getTop() + 1; i++) {
+	std::vector<int> rpath4 = dohamiltona4.findHamiltionianGraph();
+	for (int i = 0; i < rpath4.size(); i++) {
 		std::cout << rpath4[i];
-		if (i < dohamiltona4.getTop())
+		if (i < rpath4.size() - 1)
 			std::cout << ",";
 	}
 	std::cout << std::endl; 
-	delete[] rpath4;
 	
 	IncidenceMatrix dohamiltona5(2, 1);
 	dohamiltona5.setTopsOfEdge(0, 0, 1);
 	dohamiltona5.printEntireMatrix();
 	std::cout << "_____musi byc polhamiltonowski bo jest tylko jedna krawedz" << std::endl;
-	int* rpath5 = dohamiltona5.findHamiltionianGraph();
-	for (int i = 0; i < dohamiltona5.getTop() + 1; i++) {
+	std::vector<int> rpath5 = dohamiltona5.findHamiltionianGraph();
+	for (int i = 0; i < rpath5.size(); i++) {
 		std::cout << rpath5[i];
-		if (i < dohamiltona5.getTop())
+		if (i < rpath5.size() - 1)
 			std::cout << ",";
 	}
 	std::cout << std::endl; 
-	delete[] rpath5;
 
 	IncidenceMatrix dohamiltona6(6, 7);
 	dohamiltona6.setEntireMatrixFromFile("hamiltonTest/Plik6.txt", 6, 7);
 	dohamiltona6.printEntireMatrix();
 	std::cout << "_____ma byc POLhamiltonowski" << std::endl;
-	int* rpath6 = dohamiltona6.findHamiltionianGraph();
-	for (int i = 0; i < dohamiltona6.getTop() + 1; i++) {
+	std::vector<int> rpath6 = dohamiltona6.findHamiltionianGraph();
+	for (int i = 0; i <  rpath6.size(); i++) {
 		std::cout << rpath6[i];
-		if (i < dohamiltona6.getTop())
+		if (i < rpath6.size() - 1)
 			std::cout << ",";
 	}
 	std::cout << std::endl; 
-	delete[] rpath6;
 
 	IncidenceMatrix dohamiltona7(3, 1);
 	dohamiltona7.setTopsOfEdge(0, 0, 1);
 	dohamiltona7.printEntireMatrix();
 	std::cout << "_____nie moze byc czymkolwiek z powodu ilosci wierzcholkow i krawedzi" << std::endl;
-	int* rpath7 = dohamiltona7.findHamiltionianGraph();
-	for (int i = 0; i < dohamiltona7.getTop() + 1; i++) {
+	std::vector<int> rpath7 = dohamiltona7.findHamiltionianGraph();
+	for (int i = 0; i <  rpath7.size(); i++) {
 		std::cout << rpath7[i];
-		if (i < dohamiltona7.getTop())
+		if (i <  rpath7.size()-1)
 			std::cout << ",";
 	}
 	std::cout << std::endl;
-	delete[] rpath7;
 	
 	IncidenceMatrix dohamiltona8(6, 5);
 	dohamiltona8.setEntireMatrixFromFile("hamiltonTest/Plik7.txt", 6, 5);
 	dohamiltona8.printEntireMatrix();
 	std::cout << "_____ma byc POLhamiltonowski" << std::endl;
-	int* rpath8 = dohamiltona8.findHamiltionianGraph();
-	for (int i = 0; i < dohamiltona8.getTop() + 1; i++) {
+	std::vector<int> rpath8 = dohamiltona8.findHamiltionianGraph();
+	for (int i = 0; i <  rpath8.size(); i++) {
 		std::cout << rpath8[i];
-		if (i < dohamiltona8.getTop())
+		if (i <  rpath8.size()-1)
 			std::cout << ",";
 	}
 	std::cout << std::endl; 
-	delete[] rpath8;
 
 	IncidenceMatrix dohamiltona9(6, 5);
 	dohamiltona9.setEntireMatrixFromFile("hamiltonTest/Plik8.txt", 6, 5);
 	dohamiltona9.printEntireMatrix();
 	std::cout << "_____ma NIE BYC NICZYM" << std::endl;
-	int* rpath9 = dohamiltona9.findHamiltionianGraph();
-	for (int i = 0; i < dohamiltona9.getTop() + 1; i++) {
+	std::vector<int> rpath9 = dohamiltona9.findHamiltionianGraph();
+	for (int i = 0; i < rpath9.size(); i++) {
 		std::cout << rpath9[i];
-		if (i < dohamiltona9.getTop())
+		if (i <  rpath9.size()-1)
 			std::cout << ",";
 	}
 	std::cout << std::endl; 
-	delete[] rpath9;
 	/*
 	std::cout << "Tworzenie macierzy konstruktorem pytajacym o wymiary macierzy" << std::endl;
 	IncidenceMatrix imatrix(1432432);
