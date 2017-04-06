@@ -569,8 +569,7 @@ std::vector<int> IncidenceMatrix::findHamiltionianGraph()
 	}
 	if (edge < top - 1) {
 		std::cout << "Nie mozna utworzyc z tego grafu ani sciezki, ani cyklu (edge < top - 1)" << std::endl;
-		for (int i = 0; i < top + 1; i++)
-			path[i] = -100;
+		path.erase(path.begin(), path.end());
 		return path;
 	}
 

@@ -32,9 +32,7 @@ public:
 		//zwraca tablice o dlugosci (getTop()+1)z numerami kolejnych indeksow wierzcholkow,
 		//     ktore tworza cykl Hamiltona lub polHamiltona
 		//gdy jest polhamiltonowski, ostatenie pole tablicy wynikowej == -1
-		//zwraca tablice z wszystkimi polami ==-100, gdy nie jest to ani graf hamiltonowski ani polhamiltonowski
-		//  wiec przez uzyciem "if(nazwatablicy[0] >=0)" lub skonsultuj sie z lekarzem lub farmaceuta
-		//pamietaj o usunieciu tablicy wynikowej
+		//zwraca pusty vector, gdy nie jest to ani graf hamiltonowski ani polhamiltonowski
 	std::vector<int> findHamiltionianGraph();
 					//sprawdza czy nie bylo juz wartosci 'v' w tablicy 'path' ponizej indeksu 'pos'
 				bool isSafe(int v, std::vector<int> path, int pos);
