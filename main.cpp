@@ -6,9 +6,15 @@
 int main( void ){
 	
 	std::vector<int> t1;
-	t1.push_back(2);
-	checkIfSequenceIsGraphic(t1);
+	t1.push_back(3);
+	t1.push_back(3);
+	t1.push_back(3);
+	t1.push_back(3);
+	t1.push_back(3);
+	t1.push_back(3);
 
+	IncidenceMatrix seq1(t1);
+	seq1.printEntireMatrix();
 
 	/*
 	IncidenceMatrix dohamiltona(6, 9);

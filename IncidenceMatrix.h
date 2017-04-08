@@ -3,6 +3,14 @@
 #include "connectionmatrix.h"
 //#include "vld.h"
 
+
+struct node1
+{
+	int val;
+	int num;
+};
+
+
 	//podstawia wpisana wartosc pod int tylko wtedy gdy strumien jest dobry
 	//zaleta1: nie stanie siê nic czego sie nie bedziemy spodziewac
 	//zaleta2: bez dodatkowych bibliotek (tylko <iostream> potrzebny)
@@ -15,9 +23,8 @@ bool cinSelectedInt(int& selectedInt);
 static int** allocateMatrix(int top, int edge);
 	//wypisuje macierz (nie obiektowa) na ekran
 void printNormalIncMatrix(int** matrix, int top, int edge);
-	//zwraca graf G(n, k)    gdzie k oznacza liczbe rzadanych przez nas losowych krawedzi
-	//IncidenceMatrix& getRandomGraph(int numberOfTops, int numberofRandomEdges); 
-
+	//porownanie dla sortowania struktur "node1" rosnaco
+bool compareToSortNodes(node1& a, node1& b);
 
 
 	//sprawdza czy sekwencja liczb jest ciagiem graficznym
@@ -53,6 +60,10 @@ public:
 	IncidenceMatrix(int numberOfTops, int numberOfEdges); 
 		//konstruktor kopiujacy z klasy ConnectionMatrix
 	IncidenceMatrix(const ConnectionMatrix<int>& conn);
+		//kontruktor macierzy z podanej sekwencji graficznej
+		//jesli to nie bedzie sekwencja graficzna i tworzenie sie nie powiedzie: std::abort()
+		//najlepiej sprawdzic przedtem checkIfSequenceIsGraphic()
+	IncidenceMatrix(std::vector<int> sequence);
 		//ustawia elementy calej macierzy wpisanymi wartosciami
 		//wpisujesz po kolei pola do ca³ej macierzy, wiersz po wierszu
 		//zwraca 0 gdy jest poprawnie, 1 gdy jest niepoprawnie wpisana

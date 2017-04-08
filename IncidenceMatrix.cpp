@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <algorithm>
 #include "IncidenceMatrix.h"
+#include <cmath>
 //#include "AdjacencyList.h"
 //#include "connectionmatrix.h"
 #include <limits>
@@ -64,6 +65,54 @@ IncidenceMatrix::IncidenceMatrix(const ConnectionMatrix<int>& conn)
 				setTopsOfEdge(e, i, j);
 				e++;
 			}
+}
+/******************************************************************/
+IncidenceMatrix::IncidenceMatrix(std::vector<int> original)
+{
+	if (checkIfSequenceIsGraphic(original)) {
+		std::vector<node1> sequence;
+		node1 tempnode;
+		int sum = 0;
+		for (size_t i = 0; i < original.size(); i++) {
+			sum += original[i];
+			tempnode.num = i;
+			tempnode.val = original[i];
+			sequence.push_back(tempnode);
+		}
+		gType = 0;
+		top = original.size();
+		edge = sum / 2;
+		matrix = allocateMatrix(top, edge);
+		std::sort(sequence.begin(), sequence.end(), compareToSortNodes);
+		int i = sequence.size() - 1;
+		int enumber = 0;
+		while (i > 0) {
+			while (sequence.size() && sequence.front().val == 0) {
+				sequence.erase(sequence.begin());
+				i--;
+			}
+			if (!sequence.size()) {
+				break;
+			}
+
+			int j = i - 1;
+			int value = sequence[i].val;
+	
+			sequence[i].val = 0;
+			while (value>0) {
+				sequence[j].val -= 1;
+				//std::cout << "set:  enumber" << enumber<< " seq[i]=="<<sequence[i].num<<std::endl;
+				setTopsOfEdge(enumber++, sequence[i].num, sequence[j].num);
+				--j;
+				--value;
+			}
+			std::sort(sequence.begin(), sequence.end(), compareToSortNodes);
+		}
+	}
+	else{
+		std::cout << "SEKWENCJA NIE BYLA GRAFICZNA!" << std::endl;
+		std::abort();
+	}
 }
 /******************************************************************/
 bool IncidenceMatrix::setTopsOfEdge(int selectedEdge, int newOwner1, int newOwner2) {
@@ -422,15 +471,25 @@ IncidenceMatrix::~IncidenceMatrix(){
 void IncidenceMatrix::printEntireMatrix() const{
 	std::cout<<"\nMacierz Incydencji: "<<std::endl;
 	if (edge) {
-		std::cout << "    ";
+		int edgelenght = (int)log10(edge) + 1;
+		int toplenght = (int)log10(top) + 1;
+		for (int j = 0; j < toplenght + 2; j++) std::cout << " ";
 		for (int e = 0; e < edge; e++) std::cout << "E" << e << " "; std::cout << std::endl;
 		for (int t = 0; t < top; t++) {
-			std::cout << t << " |";
+			
+			int actualtoplenght = (int)log10(t) + 1;
+			if (actualtoplenght < 0) actualtoplenght = 1;
+			std::cout << t;
+			for (int i = 0; i <= toplenght-actualtoplenght; i++) std::cout << " ";
+			std::cout << "|";
 			for (int e = 0; e < edge; e++) {
+				int actualedgelenght = (int)log10(e+1) + 1;
+				if (actualedgelenght < 0) actualedgelenght = 1;
 				if (matrix[t][e] >= 0)
 					std::cout << " " << matrix[t][e] << " ";
 				else
 					std::cout << "" << matrix[t][e] << " ";
+				for (int i = 0; i < actualedgelenght - 1; i++) std::cout << " ";
 			}
 			std::cout << "|" << std::endl;
 		}
@@ -749,7 +808,8 @@ IncidenceMatrix getRandomGraph(int tops, int edges) {
 }
 */
 
-bool checkIfSequenceIsGraphic(std::vector<int> sequence) {
+bool checkIfSequenceIsGraphic(std::vector<int> originalsequence) {
+	std::vector<int> sequence(originalsequence);
 	int sum = 0;
 	for (size_t i = 0; i < sequence.size(); i++)
 		sum += sequence[i];
@@ -810,3 +870,6 @@ bool checkIfSequenceIsGraphic(std::vector<int> sequence) {
 	return false;
 }
 /******************************************************************/
+bool compareToSortNodes(node1& a, node1& b) {
+	return a.val < b.val;
+}
