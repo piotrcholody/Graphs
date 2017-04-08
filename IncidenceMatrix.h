@@ -23,6 +23,10 @@ bool cinSelectedInt(int& selectedInt);
 static int** allocateMatrix(int top, int edge);
 	//wypisuje macierz (nie obiektowa) na ekran
 void printNormalIncMatrix(int** matrix, int top, int edge);
+	//zwraca losowy int z przedzialu <A,B>
+int randomint(int A, int B);
+	//zwraca losowy float z przedzalu <A,B>
+float randomfloat(int A, int B);
 	//porownanie dla sortowania struktur "node1" rosnaco
 bool compareToSortNodes(node1& a, node1& b);
 
@@ -46,6 +50,10 @@ public:
 		//gdy jest polhamiltonowski, ostatenie pole tablicy wynikowej == -1
 		//zwraca pusty vector, gdy nie jest to ani graf hamiltonowski ani polhamiltonowski
 	std::vector<int> findHamiltionianGraph();
+		//randomizacja dwoch krawedzi grafu
+		//zwraca 1 gdy tego grafu nie da sie randomizowac (po 100.000 losowan krawedzi nadal nie dalo sie niczego przepiac)
+		//zwraca 0 gdy sie udalo
+	bool graphRandomization();
 					//sprawdza czy nie bylo juz wartosci 'v' w tablicy 'path' ponizej indeksu 'pos'
 				bool isSafe(int v, std::vector<int> path, int pos);
 					//do rekurencji dla cyklu

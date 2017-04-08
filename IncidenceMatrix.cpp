@@ -5,6 +5,7 @@
 #include <algorithm>
 #include "IncidenceMatrix.h"
 #include <cmath>
+#include <random>
 //#include "AdjacencyList.h"
 //#include "connectionmatrix.h"
 #include <limits>
@@ -709,9 +710,59 @@ std::vector<int> IncidenceMatrix::findHamiltionianGraph()
 	return path;
 }
 /******************************************************************/
-
-
-
+bool IncidenceMatrix::graphRandomization() {
+	if (edge >= 2) {
+		std::cout << "\nRandomizacja..." << std::endl;
+		int a, b, c, d, rand1, rand2, count = 0;
+		a = b = c = d = 0;
+		bool error1, error2, error3, error4;
+		while ((isThisEdgeFree(a, d) || isThisEdgeFree(b, c)) || (isThisEdgeFree(a, c) || isThisEdgeFree(b, d))) {
+			if (count < 100000) {
+				count++;
+				rand1 = randomint(0, edge - 1);
+				rand2 = randomint(0, edge - 1);
+				while (rand1 == rand2) {
+					rand2 = randomint(0, edge - 1);
+				}
+				error1 = getTopsOfEdge(rand1, a, b);
+				error2 = getTopsOfEdge(rand2, c, d);
+				if (error1 || error2)
+					return 1;
+			}
+			else {
+				std::cout << "Nie da sie randomizowac tego grafu!" << std::endl;
+				return 1;
+			}
+		}
+		error3 = setTopsOfEdge(rand1, a, d);
+		error4 = setTopsOfEdge(rand2, b, c);
+		if (error3 || error4) {
+			setTopsOfEdge(rand2, c, d);
+			setTopsOfEdge(rand1, a, b);
+		}
+		else {
+			std::cout << "Randomizacja powiodla sie (przepieto krawedzie o indeksach " << rand1 << " i " << rand2 << ")\n" << std::endl;
+			return 0;
+		}
+		error3 = setTopsOfEdge(rand1, a, c);
+		error4 = setTopsOfEdge(rand2, b, d);
+		if (error3 || error4) {
+			setTopsOfEdge(rand2, c, d);
+			setTopsOfEdge(rand1, a, b);
+		}
+		else {
+			std::cout << "Randomizacja powiodla sie (przepieto krawedzie o indeksach " << rand1 << " i " << rand2 << ")\n" << std::endl;
+			return 0;
+		}
+		std::cout << "Wylosowana para krawedzi nie mogla zostac zamieniona" << std::endl;
+	}
+	else {
+		std::cout << "Nie da sie randomizowac grafu z mniej niz 2 krawedziami" << std::endl;
+		return 1;
+	}
+	return 1;
+}
+/******************************************************************/
 
 
 /******************************************************************/
@@ -736,13 +787,11 @@ bool cinSelectedInt(int& destination) {
 }
 /******************************************************************/
 float randomfloat(int A, int B) {
-	srand((unsigned int)time(NULL));
-	return (float)(rand() / (RAND_MAX + 1.0)*(B - A) + A);
+	return (float)((double)rand() / (RAND_MAX + 1.0)*(B - A + 1) + A);
 }
 /******************************************************************/
 int randomint(int A, int B) {
-	srand((unsigned int)time(NULL));
-	return (int)(rand() / (RAND_MAX + 1.0)*(B - A) + A);
+	return (int)((double)rand() / (RAND_MAX + 1.0)*(B - A + 1) + A);
 }
 /******************************************************************/
 int** allocateMatrix(int top, int edge) {

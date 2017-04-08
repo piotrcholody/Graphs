@@ -4,16 +4,20 @@
 #include "main.h"
 
 int main( void ){
-	
+	srand(static_cast<unsigned int>(time(NULL)));
 	std::vector<int> t1;
-	t1.push_back(3);
-	t1.push_back(3);
-	t1.push_back(3);
-	t1.push_back(3);
+	t1.push_back(1);
+	t1.push_back(1);
+	t1.push_back(2);
+	t1.push_back(2);
 	t1.push_back(3);
 	t1.push_back(3);
 
+
 	IncidenceMatrix seq1(t1);
+	seq1.printEntireMatrix();
+
+	seq1.graphRandomization();
 	seq1.printEntireMatrix();
 
 	/*
@@ -169,7 +173,6 @@ int main( void ){
 	
 	*/
 
-	srand(static_cast<unsigned int>(time(NULL)));
 
 	
 	/* juz nieaktualne
