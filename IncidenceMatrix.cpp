@@ -2,6 +2,7 @@
 #include <fstream>
 #include <time.h>
 #include <stdlib.h>
+#include <algorithm>
 #include "IncidenceMatrix.h"
 //#include "AdjacencyList.h"
 //#include "connectionmatrix.h"
@@ -479,11 +480,6 @@ bool IncidenceMatrix::setEntireMatrixFromFile(const char* Filename, int numberOf
 	return 1;
 }
 /******************************************************************/
-
-
-
-
-
 bool IncidenceMatrix::isSafe(int candidat, std::vector<int> path, int pos)
 {
 	//std::cout << "przed if:" << std::endl; //fdssdf
@@ -500,7 +496,7 @@ bool IncidenceMatrix::isSafe(int candidat, std::vector<int> path, int pos)
 	}
 	return true;
 }
-
+/******************************************************************/
 bool IncidenceMatrix::hamCycleUtil(std::vector<int>& path, int pos)
 {
 	path[0] = 0;
@@ -531,7 +527,7 @@ bool IncidenceMatrix::hamCycleUtil(std::vector<int>& path, int pos)
 	return false;
 
 }
-
+/******************************************************************/
 bool IncidenceMatrix::hamPathUtil(std::vector<int>& path, int pos, int first)
 {
 	path[0] = first;
@@ -554,7 +550,7 @@ bool IncidenceMatrix::hamPathUtil(std::vector<int>& path, int pos, int first)
 	return false;
 
 }
-
+/******************************************************************/
 std::vector<int> IncidenceMatrix::findHamiltionianGraph()
 {
 	std::cout << std::endl;
@@ -607,14 +603,6 @@ std::vector<int> IncidenceMatrix::findHamiltionianGraph()
 		int first = 0;
 		std::cout << "Graf moze byc polhamiltonowski!" << std::endl;
 		isHalf = false;
-
-	//  delete[] path;
-	// jak dodasz te 2 linijki to zmien w forze na i<top bez +1
-	//	path = new int[top];
-	
-		for (int i = 0; i < top+1; i++)
-			path[i] = -1;
-
 		while ((first < top) && (!isHalf)) {
 			//std::cout << "while dla first="<<first<< std::endl;
 			if (hamPathUtil(path, 1, first) == false) {
@@ -629,8 +617,6 @@ std::vector<int> IncidenceMatrix::findHamiltionianGraph()
 			first++;
 		}
 	}
-
-
 
 
 	if (isHamilton && canBeHamilton) {
@@ -663,10 +649,7 @@ std::vector<int> IncidenceMatrix::findHamiltionianGraph()
 	}
 	return path;
 }
-
-
-
-
+/******************************************************************/
 
 
 
@@ -765,3 +748,65 @@ IncidenceMatrix getRandomGraph(int tops, int edges) {
 	return *graph;
 }
 */
+
+bool checkIfSequenceIsGraphic(std::vector<int> sequence) {
+	int sum = 0;
+	for (size_t i = 0; i < sequence.size(); i++)
+		sum += sequence[i];
+	if (sum % 2 == 1) {
+		std::cout << "Sekwencja nie jest graficzna; nieparzysta liczba krawedzi" << std::endl;
+		return false;
+	}
+	if (!sequence.size()) {
+		std::cout << "Nie podano zadnych liczb do sekwencji!" << std::endl;
+		return false;
+	}
+	if (sequence.size() == 1) {
+		std::cout << "Jeden wierzcholek nie moze byc sekwencja graficzna!" << std::endl;
+		return false;
+	}
+	int i = sequence.size() - 1;
+	std::sort(sequence.begin(), sequence.end());
+	while (i > 0) {
+		//std::cout << "start while dla i=="<<i<<", size=="<< sequence.size()<<std::endl;
+		//for (size_t iter = 0; iter < (sequence.size()); iter++) {
+		//	std::cout << sequence[iter] << ", ";
+		//}
+		//std::cout << std::endl;
+
+		while (sequence.size() && sequence.front() == 0) {
+			sequence.erase(sequence.begin());
+			i--;
+		}
+		if (!sequence.size()) {
+			std::cout << "Sekwencja jest graficzna!" << std::endl;
+			return true;
+		}
+
+		if (sequence.back() > static_cast<int>(sequence.size() - 1)) {
+			std::cout << "Sekwencja NIE jest graficzna!" << std::endl;
+			//std::cout << "Ostatni element (" << sequence.back() << ") ma wieksza wartosc niz jest pozostalych wartosci (" << sequence.size() - 1 << ")" << std::endl;
+			return false;
+		}
+		int j = i - 1;
+		int val = sequence[i];
+		sequence[i] = 0;
+		while (val>0) {
+			sequence[j] -= 1;
+			--j;
+			--val;
+		}
+
+		//std::cout << "koniec while dla i==" << i << std::endl;
+		//for (size_t iter = 0; iter < (sequence.size()); iter++) {
+		//	std::cout << sequence[iter] << ", ";
+		//}
+		//std::cout << std::endl;
+
+		std::sort(sequence.begin(), sequence.end());
+	}
+
+	std::cout << "W sprawdzaniu sekwencji cos poszlo nie tak" << std::endl;
+	return false;
+}
+/******************************************************************/

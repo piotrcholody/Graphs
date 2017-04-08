@@ -1,7 +1,7 @@
 #ifndef IncidenceMatrix_h
 #define IncidenceMatrix_h
 #include "connectionmatrix.h"
-#include "vld.h"
+//#include "vld.h"
 
 	//podstawia wpisana wartosc pod int tylko wtedy gdy strumien jest dobry
 	//zaleta1: nie stanie siê nic czego sie nie bedziemy spodziewac
@@ -19,6 +19,11 @@ void printNormalIncMatrix(int** matrix, int top, int edge);
 	//IncidenceMatrix& getRandomGraph(int numberOfTops, int numberofRandomEdges); 
 
 
+
+	//sprawdza czy sekwencja liczb jest ciagiem graficznym
+	//zwraca 1 gdy jest ciagiem graficznym
+	//zwraca 0 gdy nie jest ciagiem graficznym
+bool checkIfSequenceIsGraphic(std::vector<int> sequence);
 
 
 	//Macierz Indcydencji
@@ -68,13 +73,13 @@ public:
 		//zwraca 0 gdy w nie bylo bledow w reprezentacji
 		//gdy bledow nie uda sie naprawic (jakims cudem) to wczesniej wysypie sie program
 	bool eliminateAllMistakes();
-		//usuwa krawedzie ktore sie powtarzaja
-		//zwraca 0 gdy nie bylo zmultiplikowanych krawedzi
-		//nie wywoluj gdy moga istniec bledne krawedzie, nie usunie wtedy wszystkich
-	bool eliminateDuplicates();
-		//usuwa krawedzie z bledna liczba wierzcholkow lub liczbami wiekszymi niz 1
-		//zwraca 0 gdy nie bylo blednych krawedzi; zwraca 1 gdy usunieto bledne i wypisuje komunikat
-	bool eliminateInvalidEdges();
+					//usuwa krawedzie ktore sie powtarzaja
+					//zwraca 0 gdy nie bylo zmultiplikowanych krawedzi
+					//nie wywoluj gdy moga istniec bledne krawedzie, nie usunie wtedy wszystkich
+				bool eliminateDuplicates();
+					//usuwa krawedzie z bledna liczba wierzcholkow lub liczbami wiekszymi niz 1
+					//zwraca 0 gdy nie bylo blednych krawedzi; zwraca 1 gdy usunieto bledne i wypisuje komunikat
+				bool eliminateInvalidEdges();
 		//inforumuje o istnieniu indeksu krawedzi (gdy istnieje zwraca 1)
 	bool edgeIndexExist(int questionedEdge) const;
 		//informuje o mozliwosci istnienia/stworzenia krawedzi (poprawnosc indeksow wierzcholkow)

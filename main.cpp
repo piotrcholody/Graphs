@@ -5,6 +5,12 @@
 
 int main( void ){
 	
+	std::vector<int> t1;
+	t1.push_back(2);
+	checkIfSequenceIsGraphic(t1);
+
+
+	/*
 	IncidenceMatrix dohamiltona(6, 9);
 	dohamiltona.setEntireMatrixFromFile("hamiltonTest/Plik1.txt", 6, 9);
 	dohamiltona.printEntireMatrix();
@@ -113,7 +119,7 @@ int main( void ){
 			std::cout << ",";
 	}
 	std::cout << std::endl; 
-	/*
+	
 	std::cout << "Tworzenie macierzy konstruktorem pytajacym o wymiary macierzy" << std::endl;
 	IncidenceMatrix imatrix(1432432);
 	imatrix.setGraphType(0);
@@ -157,7 +163,7 @@ int main( void ){
 	
 	*/
 
-	srand(time(NULL));
+	srand(static_cast<unsigned int>(time(NULL)));
 
 	
 	/* juz nieaktualne
