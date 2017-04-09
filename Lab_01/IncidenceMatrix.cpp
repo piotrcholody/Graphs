@@ -1,13 +1,12 @@
+#include "IncidenceMatrix.h"
 #include <iostream>
 #include <fstream>
 #include <time.h>
 #include <stdlib.h>
 #include <algorithm>
-#include "IncidenceMatrix.h"
 #include <cmath>
 #include <limits>
 #include <cstdlib>
-//#include "vld.h"
  
 
 /******************************************************************/
@@ -16,21 +15,6 @@ IncidenceMatrix::IncidenceMatrix(int numberOfTops, int numberOfEdges)
 	edge(numberOfEdges)
 {
 	matrix = allocateMatrix(numberOfTops, numberOfEdges);
-}
-/******************************************************************/
-IncidenceMatrix::IncidenceMatrix(int)
-	:top(1),
-	edge(0)
-{
-	while (top <= 1) {
-		std::cout << "\nPodaj ilosc wierzcholkow (liczbe >= 2): ";
-		cinSelectedInt(top);
-	}
-	while (edge <= 0) {
-		std::cout << "Podaj ilosc wszystkich krawedzi (liczbe >=1): ";
-		cinSelectedInt(edge);
-	}
-	matrix = allocateMatrix(top, edge);
 }
 /******************************************************************/
 IncidenceMatrix::IncidenceMatrix(const ConnectionMatrix<int>& conn)
@@ -45,50 +29,6 @@ IncidenceMatrix::IncidenceMatrix(const ConnectionMatrix<int>& conn)
 				setTopsOfEdge(e, i, j);
 				e++;
 			}
-}
-/******************************************************************/
-IncidenceMatrix::IncidenceMatrix(std::vector<int> original)
-{
-	if (checkIfSequenceIsGraphic(original)) {
-		std::vector<node1> sequence;
-		node1 tempnode;
-		int sum = 0;
-		for (size_t i = 0; i < original.size(); i++) {
-			sum += original[i];
-			tempnode.num = i;
-			tempnode.val = original[i];
-			sequence.push_back(tempnode);
-		}
-		top = original.size();
-		edge = sum / 2;
-		matrix = allocateMatrix(top, edge);
-		std::sort(sequence.begin(), sequence.end(), compareToSortNodes);
-		int i = sequence.size() - 1;
-		int enumber = 0;
-		while (i > 0) {
-			while (sequence.size() && sequence.front().val == 0) {
-				sequence.erase(sequence.begin());
-				i--;
-			}
-			if (!sequence.size())
-				break;
-
-			int j = i - 1;
-			int value = sequence[i].val;
-			sequence[i].val = 0;
-			while (value>0) {
-				sequence[j].val -= 1;
-				setTopsOfEdge(enumber++, sequence[i].num, sequence[j].num);
-				--j;
-				--value;
-			}
-			std::sort(sequence.begin(), sequence.end(), compareToSortNodes);
-		}
-	}
-	else{
-		std::cout << "SEKWENCJA NIE BYLA GRAFICZNA!" << std::endl;
-		std::abort();
-	}
 }
 /******************************************************************/
 bool IncidenceMatrix::setTopsOfEdge(int selectedEdge, int newOwner1, int newOwner2) {
@@ -393,266 +333,6 @@ bool IncidenceMatrix::setEntireMatrixFromFile(const char* Filename, int numberOf
 	return 1;
 }
 /******************************************************************/
-bool IncidenceMatrix::isSafe(int candidat, std::vector<int> path, int pos)
-{
-	//std::cout << "przed if:" << std::endl; //fdssdf
-	int debug = path[pos - 1];
-	//std::cout << "debug:" << debug << std::endl; //fdssdf
-	if (isThisEdgeFree(debug, candidat) == 0)
-		return false;
-	//std::cout << "po if:" << std::endl; //fdssdf
-
-	for (int i = 0; i <= pos; i++) {
-		//std::cout << "w ifsafe for nr:" << i << std::endl; //fdssdf
-		if (path[i] == candidat)
-			return false;
-	}
-	return true;
-}
-/******************************************************************/
-bool IncidenceMatrix::hamCycleUtil(std::vector<int>& path, int pos)
-{
-	path[0] = 0;
-	if (pos == top) {
-		//std::cout << "if" << std::endl;//fdssdf
-		if ((isThisEdgeFree(path[pos - 1], path[0]) == 1) && possibleEdge(path[pos -1], path[0])) {
-			path[top] = 0;
-			return true;
-		}
-		else
-			return false;
-	}
-
-	for (int v = 1; v < top; v++) {
-		//std::cout << "for nr:"<<v << std::endl; //fdssdf
-		if (isSafe(v, path, pos)) {
-			//std::cout << "is safe" << v << std::endl; //fdssdf
-			path[pos] = v;
-			if (hamCycleUtil(path, pos + 1) == true) {
-				return true;
-			path[pos] = -1;
-			}
-		}
-	}
-	return false;
-}
-/******************************************************************/
-bool IncidenceMatrix::hamPathUtil(std::vector<int>& path, int pos, int first)
-{
-	path[0] = first;
-	if (pos == top)
-		return true;
-
-	for (int v = 0; v < top; v++) {
-		if (isSafe(v, path, pos)) {
-			path[pos] = v;
-			if (hamPathUtil(path, pos + 1, first) == true) {
-				return true;
-				path[pos] = -1;
-			}
-		}
-	}
-	return false;
-}
-/******************************************************************/
-std::vector<int> IncidenceMatrix::findHamiltionianGraph()
-{
-	std::cout << std::endl;
-	std::vector<int> path;
-	for (int i = 0; i < top + 1; i++)
-		path.push_back(-1);
-	if (top < 3) {
-		std::cout << "Graf polhamiltonowski, sciezka 0,1." << std::endl;
-		path[0] = 0;
-		path[1] = 1;
-		return path;
-	}
-	if (edge < top - 1) {
-		std::cout << "Nie mozna utworzyc z tego grafu ani sciezki, ani cyklu (edge < top - 1)" << std::endl;
-		path.erase(path.begin(), path.end());
-		return path;
-	}
-
-	int i = 0, first = 0;
-	int *c = new int[top];
-	bool canBeHamilton = true;
-	bool isHamilton = true;
-	bool isHalf = false;
-	for (int i = 0; i < top; i++) {
-		c[i] = 0;
-		for (int j = 0; j < edge; j++) {
-			c[i] += matrix[i][j];
-		}
-		if (c[i] < 2) {
-			canBeHamilton = false;
-			std::cout << "Graf NIE moze byc hamiltonowski (liczba krawedzi przy choc 1 wierzcholku <2)" << std::endl;
-			i = top;
-			break;
-		}
-	}
-	delete[] c;
-
-	if (canBeHamilton) {
-		std::cout << "Graf moze byc hamiltonowski!" << std::endl;
-		if (hamCycleUtil(path, 1) == false) {
-			std::cout << "Graf NIE jest hamiltonowski (nie posiada cyklu Hamiltona)!" << std::endl;
-			isHamilton = false;
-		}
-	}
-	else
-		isHamilton = false;
-
-	if (!canBeHamilton || !isHamilton) { //polhamiltonowski
-		int first = 0;
-		std::cout << "Graf moze byc polhamiltonowski!" << std::endl;
-		isHalf = false;
-		while ((first < top) && (!isHalf)) {
-			//std::cout << "while dla first="<<first<< std::endl;
-			if (hamPathUtil(path, 1, first) == false) {
-				isHalf = false;
-				//std::cout << "poszedl if" << std::endl;
-			}
-			else {
-				isHalf = true;
-				//std::cout << "poszedl else" << std::endl;
-				break;
-			}
-			first++;
-		}
-	}
-
-
-	if (isHamilton && canBeHamilton) {
-		std::cout << "Graf jest hamiltonowski." << std::endl;
-		std::cout << "Cykl Hamiltona:  ";
-		for (int i = 0; i < top + 1; i++) {
-			std::cout << path[i];
-			if (i < top)
-				std::cout << ",";
-		}
-		std::cout << std::endl;
-	}
-
-	if (isHalf) {
-		std::cout << "Graf jest POLhamiltonowski." << std::endl;
-		std::cout << "Sciezka Hamiltona:  ";
-		for (int i = 0; i < top+1; i++) {
-			std::cout << path[i];
-			if (path[i + 1] < 0)
-				break;
-			if (i < top)
-				std::cout << ",";
-		}
-		std::cout << std::endl;
-	}
-
-	if (!isHalf && !isHamilton) {
-		std::cout << "Nie jest tez jednak polhamiltonowski" << std::endl;
-		path.erase(path.begin(), path.end());
-	}
-	return path;
-}
-/******************************************************************/
-bool IncidenceMatrix::graphRandomization() {
-	if (edge >= 2) {
-		std::cout << "\nRandomizacja..." << std::endl;
-		int a, b, c, d, rand1, rand2, count = 0;
-		a = b = c = d = 0;
-		bool error1, error2, error3, error4;
-		while ((isThisEdgeFree(a, d) || isThisEdgeFree(b, c)) || (isThisEdgeFree(a, c) || isThisEdgeFree(b, d))) {
-			if (count < 100000) {
-				count++;
-				rand1 = randomint(0, edge - 1);
-				rand2 = randomint(0, edge - 1);
-				while (rand1 == rand2) {
-					rand2 = randomint(0, edge - 1);
-				}
-				error1 = getTopsOfEdge(rand1, a, b);
-				error2 = getTopsOfEdge(rand2, c, d);
-				if (error1 || error2)
-					return 1;
-			}
-			else {
-				std::cout << "Nie da sie randomizowac tego grafu!" << std::endl;
-				return 1;
-			}
-		}
-		error3 = setTopsOfEdge(rand1, a, d);
-		error4 = setTopsOfEdge(rand2, b, c);
-		if (error3 || error4) {
-			setTopsOfEdge(rand2, c, d);
-			setTopsOfEdge(rand1, a, b);
-		}
-		else {
-			std::cout << "Randomizacja powiodla sie (przepieto krawedzie o indeksach " << rand1 << " i " << rand2 << ")\n" << std::endl;
-			return 0;
-		}
-		error3 = setTopsOfEdge(rand1, a, c);
-		error4 = setTopsOfEdge(rand2, b, d);
-		if (error3 || error4) {
-			setTopsOfEdge(rand2, c, d);
-			setTopsOfEdge(rand1, a, b);
-		}
-		else {
-			std::cout << "Randomizacja powiodla sie (przepieto krawedzie o indeksach " << rand1 << " i " << rand2 << ")\n" << std::endl;
-			return 0;
-		}
-		std::cout << "Wylosowana para krawedzi nie mogla zostac zamieniona" << std::endl;
-	}
-	else {
-		std::cout << "Nie da sie randomizowac grafu z mniej niz 2 krawedziami" << std::endl;
-		return 1;
-	}
-	return 1;
-}
-/******************************************************************/
-std::vector<int> IncidenceMatrix::adjForTop(int selectedTop) {
-	std::vector<int> adjForV;
-	int j = 0, x, y, temp;
-	while (j < top) {
-		if (matrix[selectedTop][j] == 1) {
-			getTopsOfEdge(j, x, y);
-			if (x == selectedTop)
-				temp = y;
-			else
-				temp = x;
-			adjForV.push_back(temp);
-		}
-		j++;
-	}
-	return adjForV;
-}
-/******************************************************************/
-std::vector<std::vector<int>> IncidenceMatrix::findAllConnectedComponents() {
-	std::vector<std::vector<int>> allCC;
-	bool *visited = new bool[top];
-	for (int v = 0; v < top; v++)
-		visited[v] = false;
-	int ilosc=0;
-	for (int v = 0; v < top; v++) {
-		if (visited[v] == false) {
-			allCC.push_back(std::vector< int >()); //dodawanie kolejnych skladowych
-			DFSUtilForACC(v, visited, allCC[ilosc]);
-			ilosc++;
-		}
-	}
-	delete visited;
-	return allCC;
-}
-/******************************************************************/
-void IncidenceMatrix::DFSUtilForACC(int v, bool visited[], std::vector<int>& actualComponent)
-{
-	visited[v] = true;
-	actualComponent.push_back(v); //dodawanie wierzcholka do skladowej
-
-	std::vector<int> adjForV = adjForTop(v);
-
-	std::vector<int>::iterator i;
-	for (i = adjForV.begin(); i != adjForV.end(); ++i)
-		if (!visited[*i])
-			DFSUtilForACC(*i, visited, actualComponent);
-}
-/******************************************************************/
 
 
 
@@ -679,10 +359,6 @@ bool cinSelectedInt(int& destination) {
 	}
 }
 /******************************************************************/
-float randomfloat(int A, int B) {
-	return (float)((double)rand() / (RAND_MAX + 1.0)*(B - A + 1) + A);
-}
-/******************************************************************/
 int randomint(int A, int B) {
 	return (int)((double)rand() / (RAND_MAX + 1.0)*(B - A + 1) + A);
 }
@@ -697,68 +373,3 @@ int** allocateMatrix(int top, int edge) {
 	return matrix;
 }
 /******************************************************************/
-bool checkIfSequenceIsGraphic(std::vector<int> originalsequence) {
-	std::vector<int> sequence(originalsequence);
-	int sum = 0;
-	for (size_t i = 0; i < sequence.size(); i++)
-		sum += sequence[i];
-	if (sum % 2 == 1) {
-		std::cout << "Sekwencja nie jest graficzna; nieparzysta liczba krawedzi" << std::endl;
-		return false;
-	}
-	if (!sequence.size()) {
-		std::cout << "Nie podano zadnych liczb do sekwencji!" << std::endl;
-		return false;
-	}
-	if (sequence.size() == 1) {
-		std::cout << "Jeden wierzcholek nie moze byc sekwencja graficzna!" << std::endl;
-		return false;
-	}
-	int i = sequence.size() - 1;
-	std::sort(sequence.begin(), sequence.end());
-	while (i > 0) {
-		//std::cout << "start while dla i=="<<i<<", size=="<< sequence.size()<<std::endl;
-		//for (size_t iter = 0; iter < (sequence.size()); iter++) {
-		//	std::cout << sequence[iter] << ", ";
-		//}
-		//std::cout << std::endl;
-
-		while (sequence.size() && sequence.front() == 0) {
-			sequence.erase(sequence.begin());
-			i--;
-		}
-		if (!sequence.size()) {
-			std::cout << "Sekwencja jest graficzna!" << std::endl;
-			return true;
-		}
-
-		if (sequence.back() > static_cast<int>(sequence.size() - 1)) {
-			std::cout << "Sekwencja NIE jest graficzna!" << std::endl;
-			//std::cout << "Ostatni element (" << sequence.back() << ") ma wieksza wartosc niz jest pozostalych wartosci (" << sequence.size() - 1 << ")" << std::endl;
-			return false;
-		}
-		int j = i - 1;
-		int val = sequence[i];
-		sequence[i] = 0;
-		while (val>0) {
-			sequence[j] -= 1;
-			--j;
-			--val;
-		}
-
-		//std::cout << "koniec while dla i==" << i << std::endl;
-		//for (size_t iter = 0; iter < (sequence.size()); iter++) {
-		//	std::cout << sequence[iter] << ", ";
-		//}
-		//std::cout << std::endl;
-
-		std::sort(sequence.begin(), sequence.end());
-	}
-
-	std::cout << "W sprawdzaniu sekwencji cos poszlo nie tak" << std::endl;
-	return false;
-}
-/******************************************************************/
-bool compareToSortNodes(node1& a, node1& b) {
-	return a.val < b.val;
-}

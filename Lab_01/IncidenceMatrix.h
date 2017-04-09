@@ -20,47 +20,12 @@ bool cinSelectedInt(int& selectedInt);
 static int** allocateMatrix(int top, int edge);
 	//zwraca losowy int z przedzialu <A,B>
 int randomint(int A, int B);
-	//zwraca losowy float z przedzalu <A,B>
-float randomfloat(int A, int B);
-	//porownanie dla sortowania struktur "node1" rosnaco
-bool compareToSortNodes(node1& a, node1& b);
-	//sprawdza czy sekwencja liczb jest ciagiem graficznym
-	//zwraca 1 gdy jest ciagiem graficznym
-	//zwraca 0 gdy nie jest ciagiem graficznym
-bool checkIfSequenceIsGraphic(std::vector<int> sequence);
 
 
 	//Macierz Indcydencji
 class IncidenceMatrix
 {
 public:
-		//randomizacja dwoch krawedzi grafu
-		//zwraca 1 gdy tego grafu nie da sie randomizowac (po 100.000 losowan krawedzi nadal nie dalo sie niczego przepiac)
-		//zwraca 0 gdy sie udalo
-	bool graphRandomization();
-		//zwraca liste polaczen dla danego wierzcholka (z ktorymi wierzcholkami laczy sie seletedTop)
-	std::vector<int> adjForTop(int selectedTop);
-		//_________________________________________________________________________________________________________
-		//znajduje spojne skladowe
-	std::vector<std::vector<int>> findAllConnectedComponents();
-		//DFS Utility for All Connected Components
-		//dfs
-	void DFSUtilForACC(int v, bool visited[], std::vector<int>& actualComponent);
-		//sprawdza rekurencyjna metoda Brute Force czy graf jest Hamiltonowski
-		//zwraca tablice o dlugosci (getTop()+1)z numerami kolejnych indeksow wierzcholkow,
-		//     ktore tworza cykl Hamiltona lub polHamiltona
-		//gdy jest polhamiltonowski, ostatenie pole tablicy wynikowej == -1
-		//zwraca pusty vector, gdy nie jest to ani graf hamiltonowski ani polhamiltonowski
-	std::vector<int> findHamiltionianGraph();
-					//sprawdza czy nie bylo juz wartosci 'v' w tablicy 'path' ponizej indeksu 'pos'
-				bool isSafe(int v, std::vector<int> path, int pos);
-					//do rekurencji dla cyklu
-				bool hamCycleUtil(std::vector<int>& path, int pos);
-					//do rekurencji dla sciezki
-				bool hamPathUtil(std::vector<int>& path, int pos, int first);
-		//tworzy macierz pytajac o ilosc wierzcholkow i krawedzi, wypelnia zerami
-		//CHCESZ JEJ UZYC TO JA WYPELNIJ!!!!!!!!
-	IncidenceMatrix(int taWartoscNicNieRobi);
 		//tworzy macierz o podanym rozmiarze, wypelnia zerami
 		//CHCESZ JEJ UZYC TO JA WYPELNIJ!!!!!!!!
 	IncidenceMatrix(int numberOfTops, int numberOfEdges); 
