@@ -3,6 +3,14 @@
 #include "connectionmatrix.h"
 //#include "vld.h"
 
+
+struct node1
+{
+	int val;
+	int num;
+};
+
+
 	//podstawia wpisana wartosc pod int tylko wtedy gdy strumien jest dobry
 	//zaleta1: nie stanie siê nic czego sie nie bedziemy spodziewac
 	//zaleta2: bez dodatkowych bibliotek (tylko <iostream> potrzebny)
@@ -15,10 +23,18 @@ bool cinSelectedInt(int& selectedInt);
 static int** allocateMatrix(int top, int edge);
 	//wypisuje macierz (nie obiektowa) na ekran
 void printNormalIncMatrix(int** matrix, int top, int edge);
-	//zwraca graf G(n, k)    gdzie k oznacza liczbe rzadanych przez nas losowych krawedzi
-	//IncidenceMatrix& getRandomGraph(int numberOfTops, int numberofRandomEdges); 
+	//zwraca losowy int z przedzialu <A,B>
+int randomint(int A, int B);
+	//zwraca losowy float z przedzalu <A,B>
+float randomfloat(int A, int B);
+	//porownanie dla sortowania struktur "node1" rosnaco
+bool compareToSortNodes(node1& a, node1& b);
 
 
+	//sprawdza czy sekwencja liczb jest ciagiem graficznym
+	//zwraca 1 gdy jest ciagiem graficznym
+	//zwraca 0 gdy nie jest ciagiem graficznym
+bool checkIfSequenceIsGraphic(std::vector<int> sequence);
 
 
 	//Macierz Indcydencji
@@ -32,16 +48,18 @@ public:
 		//zwraca tablice o dlugosci (getTop()+1)z numerami kolejnych indeksow wierzcholkow,
 		//     ktore tworza cykl Hamiltona lub polHamiltona
 		//gdy jest polhamiltonowski, ostatenie pole tablicy wynikowej == -1
-		//zwraca tablice z wszystkimi polami ==-100, gdy nie jest to ani graf hamiltonowski ani polhamiltonowski
-		//  wiec przez uzyciem "if(nazwatablicy[0] >=0)" lub skonsultuj sie z lekarzem lub farmaceuta
-		//pamietaj o usunieciu tablicy wynikowej
-	int* findHamiltionianGraph();
+		//zwraca pusty vector, gdy nie jest to ani graf hamiltonowski ani polhamiltonowski
+	std::vector<int> findHamiltionianGraph();
+		//randomizacja dwoch krawedzi grafu
+		//zwraca 1 gdy tego grafu nie da sie randomizowac (po 100.000 losowan krawedzi nadal nie dalo sie niczego przepiac)
+		//zwraca 0 gdy sie udalo
+	bool graphRandomization();
 					//sprawdza czy nie bylo juz wartosci 'v' w tablicy 'path' ponizej indeksu 'pos'
-				bool isSafe(int v, int * path, int pos);
+				bool isSafe(int v, std::vector<int> path, int pos);
 					//do rekurencji dla cyklu
-				bool hamCycleUtil(int * path, int pos);
+				bool hamCycleUtil(std::vector<int>& path, int pos);
 					//do rekurencji dla sciezki
-				bool hamPathUtil(int * path, int pos, int first);
+				bool hamPathUtil(std::vector<int>& path, int pos, int first);
 		//tworzy macierz pytajac o ilosc wierzcholkow i krawedzi, wypelnia zerami
 		//CHCESZ JEJ UZYC TO JA WYPELNIJ!!!!!!!!
 	IncidenceMatrix(int taWartoscNicNieRobi);
@@ -50,6 +68,10 @@ public:
 	IncidenceMatrix(int numberOfTops, int numberOfEdges); 
 		//konstruktor kopiujacy z klasy ConnectionMatrix
 	IncidenceMatrix(const ConnectionMatrix<int>& conn);
+		//kontruktor macierzy z podanej sekwencji graficznej
+		//jesli to nie bedzie sekwencja graficzna i tworzenie sie nie powiedzie: std::abort()
+		//najlepiej sprawdzic przedtem checkIfSequenceIsGraphic()
+	IncidenceMatrix(std::vector<int> sequence);
 		//ustawia elementy calej macierzy wpisanymi wartosciami
 		//wpisujesz po kolei pola do ca³ej macierzy, wiersz po wierszu
 		//zwraca 0 gdy jest poprawnie, 1 gdy jest niepoprawnie wpisana
@@ -70,13 +92,13 @@ public:
 		//zwraca 0 gdy w nie bylo bledow w reprezentacji
 		//gdy bledow nie uda sie naprawic (jakims cudem) to wczesniej wysypie sie program
 	bool eliminateAllMistakes();
-		//usuwa krawedzie ktore sie powtarzaja
-		//zwraca 0 gdy nie bylo zmultiplikowanych krawedzi
-		//nie wywoluj gdy moga istniec bledne krawedzie, nie usunie wtedy wszystkich
-	bool eliminateDuplicates();
-		//usuwa krawedzie z bledna liczba wierzcholkow lub liczbami wiekszymi niz 1
-		//zwraca 0 gdy nie bylo blednych krawedzi; zwraca 1 gdy usunieto bledne i wypisuje komunikat
-	bool eliminateInvalidEdges();
+					//usuwa krawedzie ktore sie powtarzaja
+					//zwraca 0 gdy nie bylo zmultiplikowanych krawedzi
+					//nie wywoluj gdy moga istniec bledne krawedzie, nie usunie wtedy wszystkich
+				bool eliminateDuplicates();
+					//usuwa krawedzie z bledna liczba wierzcholkow lub liczbami wiekszymi niz 1
+					//zwraca 0 gdy nie bylo blednych krawedzi; zwraca 1 gdy usunieto bledne i wypisuje komunikat
+				bool eliminateInvalidEdges();
 		//inforumuje o istnieniu indeksu krawedzi (gdy istnieje zwraca 1)
 	bool edgeIndexExist(int questionedEdge) const;
 		//informuje o mozliwosci istnienia/stworzenia krawedzi (poprawnosc indeksow wierzcholkow)

@@ -2,7 +2,10 @@
 #include <fstream>
 #include <time.h>
 #include <stdlib.h>
+#include <algorithm>
 #include "IncidenceMatrix.h"
+#include <cmath>
+#include <random>
 //#include "AdjacencyList.h"
 //#include "connectionmatrix.h"
 #include <limits>
@@ -65,6 +68,54 @@ IncidenceMatrix::IncidenceMatrix(const ConnectionMatrix<int>& conn)
 			}
 }
 /******************************************************************/
+IncidenceMatrix::IncidenceMatrix(std::vector<int> original)
+{
+	if (checkIfSequenceIsGraphic(original)) {
+		std::vector<node1> sequence;
+		node1 tempnode;
+		int sum = 0;
+		for (size_t i = 0; i < original.size(); i++) {
+			sum += original[i];
+			tempnode.num = i;
+			tempnode.val = original[i];
+			sequence.push_back(tempnode);
+		}
+		gType = 0;
+		top = original.size();
+		edge = sum / 2;
+		matrix = allocateMatrix(top, edge);
+		std::sort(sequence.begin(), sequence.end(), compareToSortNodes);
+		int i = sequence.size() - 1;
+		int enumber = 0;
+		while (i > 0) {
+			while (sequence.size() && sequence.front().val == 0) {
+				sequence.erase(sequence.begin());
+				i--;
+			}
+			if (!sequence.size()) {
+				break;
+			}
+
+			int j = i - 1;
+			int value = sequence[i].val;
+	
+			sequence[i].val = 0;
+			while (value>0) {
+				sequence[j].val -= 1;
+				//std::cout << "set:  enumber" << enumber<< " seq[i]=="<<sequence[i].num<<std::endl;
+				setTopsOfEdge(enumber++, sequence[i].num, sequence[j].num);
+				--j;
+				--value;
+			}
+			std::sort(sequence.begin(), sequence.end(), compareToSortNodes);
+		}
+	}
+	else{
+		std::cout << "SEKWENCJA NIE BYLA GRAFICZNA!" << std::endl;
+		std::abort();
+	}
+}
+/******************************************************************/
 bool IncidenceMatrix::setTopsOfEdge(int selectedEdge, int newOwner1, int newOwner2) {
 	if (possibleEdge(newOwner1, newOwner2)) {
 		if (edgeIndexExist(selectedEdge)) {
@@ -99,10 +150,12 @@ bool IncidenceMatrix::setTopsOfEdge(int selectedEdge, int newOwner1, int newOwne
 }
 /******************************************************************/
 bool IncidenceMatrix::possibleEdge(int firstTop, int secondTop) const{
+	//std::cout << "possibleedge" << std::endl; //fdssdf
 	return (firstTop < top && secondTop < top && firstTop >= 0 && secondTop >= 0 && firstTop != secondTop);
 }
 /******************************************************************/
 bool IncidenceMatrix::isThisEdgeFree(int firstTop, int secondTop) const{
+	//std::cout << "isthisedgefree" << std::endl; //fdssdf
 	if (possibleEdge(firstTop, secondTop)) {
 		bool ValueOccured = false;
 		if (gType == 0) {
@@ -419,15 +472,25 @@ IncidenceMatrix::~IncidenceMatrix(){
 void IncidenceMatrix::printEntireMatrix() const{
 	std::cout<<"\nMacierz Incydencji: "<<std::endl;
 	if (edge) {
-		std::cout << "    ";
+		int edgelenght = (int)log10(edge) + 1;
+		int toplenght = (int)log10(top) + 1;
+		for (int j = 0; j < toplenght + 2; j++) std::cout << " ";
 		for (int e = 0; e < edge; e++) std::cout << "E" << e << " "; std::cout << std::endl;
 		for (int t = 0; t < top; t++) {
-			std::cout << t << " |";
+			
+			int actualtoplenght = (int)log10(t) + 1;
+			if (actualtoplenght < 0) actualtoplenght = 1;
+			std::cout << t;
+			for (int i = 0; i <= toplenght-actualtoplenght; i++) std::cout << " ";
+			std::cout << "|";
 			for (int e = 0; e < edge; e++) {
+				int actualedgelenght = (int)log10(e+1) + 1;
+				if (actualedgelenght < 0) actualedgelenght = 1;
 				if (matrix[t][e] >= 0)
 					std::cout << " " << matrix[t][e] << " ";
 				else
 					std::cout << "" << matrix[t][e] << " ";
+				for (int i = 0; i < actualedgelenght - 1; i++) std::cout << " ";
 			}
 			std::cout << "|" << std::endl;
 		}
@@ -477,26 +540,29 @@ bool IncidenceMatrix::setEntireMatrixFromFile(const char* Filename, int numberOf
 	return 1;
 }
 /******************************************************************/
-
-
-
-
-
-bool IncidenceMatrix::isSafe(int candidat, int* path, int pos)
+bool IncidenceMatrix::isSafe(int candidat, std::vector<int> path, int pos)
 {
-	if (possibleEdge(path[pos - 1], candidat) && (isThisEdgeFree(path[pos - 1], candidat) == 0))
+	//std::cout << "przed if:" << std::endl; //fdssdf
+	int debug = path[pos - 1];
+	//std::cout << "debug:" << debug << std::endl; //fdssdf
+	if (isThisEdgeFree(debug, candidat) == 0)
 		return false;
-	for (int i = 0; i <= pos; i++)
+	//std::cout << "po if:" << std::endl; //fdssdf
+
+	for (int i = 0; i <= pos; i++) {
+		//std::cout << "w ifsafe for nr:" << i << std::endl; //fdssdf
 		if (path[i] == candidat)
 			return false;
+	}
 	return true;
 }
-
-bool IncidenceMatrix::hamCycleUtil(int* path, int pos)
+/******************************************************************/
+bool IncidenceMatrix::hamCycleUtil(std::vector<int>& path, int pos)
 {
 	path[0] = 0;
 	if (pos == top)
 	{
+		//std::cout << "if" << std::endl;//fdssdf
 		if ((isThisEdgeFree(path[pos - 1], path[0]) == 1) && possibleEdge(path[pos -1], path[0])) {
 			path[top] = 0;
 			return true;
@@ -507,8 +573,10 @@ bool IncidenceMatrix::hamCycleUtil(int* path, int pos)
 
 	for (int v = 1; v < top; v++)
 	{
+		//std::cout << "for nr:"<<v << std::endl; //fdssdf
 		if (isSafe(v, path, pos))
 		{
+			//std::cout << "is safe" << v << std::endl; //fdssdf
 			path[pos] = v;
 			if (hamCycleUtil(path, pos + 1) == true) {
 				return true;
@@ -519,8 +587,8 @@ bool IncidenceMatrix::hamCycleUtil(int* path, int pos)
 	return false;
 
 }
-
-bool IncidenceMatrix::hamPathUtil(int* path, int pos, int first)
+/******************************************************************/
+bool IncidenceMatrix::hamPathUtil(std::vector<int>& path, int pos, int first)
 {
 	path[0] = first;
 	if (pos == top)
@@ -542,13 +610,13 @@ bool IncidenceMatrix::hamPathUtil(int* path, int pos, int first)
 	return false;
 
 }
-
-int* IncidenceMatrix::findHamiltionianGraph()
+/******************************************************************/
+std::vector<int> IncidenceMatrix::findHamiltionianGraph()
 {
 	std::cout << std::endl;
-	int *path = new int[top + 1];
+	std::vector<int> path;
 	for (int i = 0; i < top + 1; i++)
-		path[i] = -1;
+		path.push_back(-1);
 	if (top < 3) {
 		std::cout << "Graf polhamiltonowski, sciezka 0,1." << std::endl;
 		path[0] = 0;
@@ -557,8 +625,7 @@ int* IncidenceMatrix::findHamiltionianGraph()
 	}
 	if (edge < top - 1) {
 		std::cout << "Nie mozna utworzyc z tego grafu ani sciezki, ani cyklu (edge < top - 1)" << std::endl;
-		for (int i = 0; i < top + 1; i++)
-			path[i] = -100;
+		path.erase(path.begin(), path.end());
 		return path;
 	}
 
@@ -576,15 +643,15 @@ int* IncidenceMatrix::findHamiltionianGraph()
 		if (c[i] < 2) {
 			canBeHamilton = false;
 			std::cout << "Graf NIE moze byc hamiltonowski (liczba krawedzi przy choc 1 wierzcholku <2)" << std::endl;
-			break; //nie wiem czy to zadziala tak jak chce
-			break; //xd
+			i = top;
+			break;
 		}
 	}
 	delete[] c;
 
 	if (canBeHamilton) {
 		std::cout << "Graf moze byc hamiltonowski!" << std::endl;
-		if (hamCycleUtil(path, 0) == false) {
+		if (hamCycleUtil(path, 1) == false) {
 			std::cout << "Graf NIE jest hamiltonowski (nie posiada cyklu Hamiltona)!" << std::endl;
 			isHamilton = false;
 		}
@@ -596,14 +663,6 @@ int* IncidenceMatrix::findHamiltionianGraph()
 		int first = 0;
 		std::cout << "Graf moze byc polhamiltonowski!" << std::endl;
 		isHalf = false;
-
-	//  delete[] path;
-	// jak dodasz te 2 linijki to zmien w forze na i<top bez +1
-	//	path = new int[top];
-	
-		for (int i = 0; i < top+1; i++)
-			path[i] = -1;
-
 		while ((first < top) && (!isHalf)) {
 			//std::cout << "while dla first="<<first<< std::endl;
 			if (hamPathUtil(path, 1, first) == false) {
@@ -618,8 +677,6 @@ int* IncidenceMatrix::findHamiltionianGraph()
 			first++;
 		}
 	}
-
-
 
 
 	if (isHamilton && canBeHamilton) {
@@ -648,18 +705,64 @@ int* IncidenceMatrix::findHamiltionianGraph()
 
 	if (!isHalf && !isHamilton) {
 		std::cout << "Nie jest tez jednak polhamiltonowski" << std::endl;
-		for (int i = 0; i < top + 1; i++)
-			path[i] = -100;
+		path.erase(path.begin(), path.end());
 	}
 	return path;
 }
-
-
-
-
-
-
-
+/******************************************************************/
+bool IncidenceMatrix::graphRandomization() {
+	if (edge >= 2) {
+		std::cout << "\nRandomizacja..." << std::endl;
+		int a, b, c, d, rand1, rand2, count = 0;
+		a = b = c = d = 0;
+		bool error1, error2, error3, error4;
+		while ((isThisEdgeFree(a, d) || isThisEdgeFree(b, c)) || (isThisEdgeFree(a, c) || isThisEdgeFree(b, d))) {
+			if (count < 100000) {
+				count++;
+				rand1 = randomint(0, edge - 1);
+				rand2 = randomint(0, edge - 1);
+				while (rand1 == rand2) {
+					rand2 = randomint(0, edge - 1);
+				}
+				error1 = getTopsOfEdge(rand1, a, b);
+				error2 = getTopsOfEdge(rand2, c, d);
+				if (error1 || error2)
+					return 1;
+			}
+			else {
+				std::cout << "Nie da sie randomizowac tego grafu!" << std::endl;
+				return 1;
+			}
+		}
+		error3 = setTopsOfEdge(rand1, a, d);
+		error4 = setTopsOfEdge(rand2, b, c);
+		if (error3 || error4) {
+			setTopsOfEdge(rand2, c, d);
+			setTopsOfEdge(rand1, a, b);
+		}
+		else {
+			std::cout << "Randomizacja powiodla sie (przepieto krawedzie o indeksach " << rand1 << " i " << rand2 << ")\n" << std::endl;
+			return 0;
+		}
+		error3 = setTopsOfEdge(rand1, a, c);
+		error4 = setTopsOfEdge(rand2, b, d);
+		if (error3 || error4) {
+			setTopsOfEdge(rand2, c, d);
+			setTopsOfEdge(rand1, a, b);
+		}
+		else {
+			std::cout << "Randomizacja powiodla sie (przepieto krawedzie o indeksach " << rand1 << " i " << rand2 << ")\n" << std::endl;
+			return 0;
+		}
+		std::cout << "Wylosowana para krawedzi nie mogla zostac zamieniona" << std::endl;
+	}
+	else {
+		std::cout << "Nie da sie randomizowac grafu z mniej niz 2 krawedziami" << std::endl;
+		return 1;
+	}
+	return 1;
+}
+/******************************************************************/
 
 
 /******************************************************************/
@@ -684,13 +787,11 @@ bool cinSelectedInt(int& destination) {
 }
 /******************************************************************/
 float randomfloat(int A, int B) {
-	srand((unsigned int)time(NULL));
-	return (float)(rand() / (RAND_MAX + 1.0)*(B - A) + A);
+	return (float)((double)rand() / (RAND_MAX + 1.0)*(B - A + 1) + A);
 }
 /******************************************************************/
 int randomint(int A, int B) {
-	srand((unsigned int)time(NULL));
-	return (int)(rand() / (RAND_MAX + 1.0)*(B - A) + A);
+	return (int)((double)rand() / (RAND_MAX + 1.0)*(B - A + 1) + A);
 }
 /******************************************************************/
 int** allocateMatrix(int top, int edge) {
@@ -755,3 +856,69 @@ IncidenceMatrix getRandomGraph(int tops, int edges) {
 	return *graph;
 }
 */
+
+bool checkIfSequenceIsGraphic(std::vector<int> originalsequence) {
+	std::vector<int> sequence(originalsequence);
+	int sum = 0;
+	for (size_t i = 0; i < sequence.size(); i++)
+		sum += sequence[i];
+	if (sum % 2 == 1) {
+		std::cout << "Sekwencja nie jest graficzna; nieparzysta liczba krawedzi" << std::endl;
+		return false;
+	}
+	if (!sequence.size()) {
+		std::cout << "Nie podano zadnych liczb do sekwencji!" << std::endl;
+		return false;
+	}
+	if (sequence.size() == 1) {
+		std::cout << "Jeden wierzcholek nie moze byc sekwencja graficzna!" << std::endl;
+		return false;
+	}
+	int i = sequence.size() - 1;
+	std::sort(sequence.begin(), sequence.end());
+	while (i > 0) {
+		//std::cout << "start while dla i=="<<i<<", size=="<< sequence.size()<<std::endl;
+		//for (size_t iter = 0; iter < (sequence.size()); iter++) {
+		//	std::cout << sequence[iter] << ", ";
+		//}
+		//std::cout << std::endl;
+
+		while (sequence.size() && sequence.front() == 0) {
+			sequence.erase(sequence.begin());
+			i--;
+		}
+		if (!sequence.size()) {
+			std::cout << "Sekwencja jest graficzna!" << std::endl;
+			return true;
+		}
+
+		if (sequence.back() > static_cast<int>(sequence.size() - 1)) {
+			std::cout << "Sekwencja NIE jest graficzna!" << std::endl;
+			//std::cout << "Ostatni element (" << sequence.back() << ") ma wieksza wartosc niz jest pozostalych wartosci (" << sequence.size() - 1 << ")" << std::endl;
+			return false;
+		}
+		int j = i - 1;
+		int val = sequence[i];
+		sequence[i] = 0;
+		while (val>0) {
+			sequence[j] -= 1;
+			--j;
+			--val;
+		}
+
+		//std::cout << "koniec while dla i==" << i << std::endl;
+		//for (size_t iter = 0; iter < (sequence.size()); iter++) {
+		//	std::cout << sequence[iter] << ", ";
+		//}
+		//std::cout << std::endl;
+
+		std::sort(sequence.begin(), sequence.end());
+	}
+
+	std::cout << "W sprawdzaniu sekwencji cos poszlo nie tak" << std::endl;
+	return false;
+}
+/******************************************************************/
+bool compareToSortNodes(node1& a, node1& b) {
+	return a.val < b.val;
+}
