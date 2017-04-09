@@ -10,10 +10,7 @@ struct node1
 	int num;
 };
 
-
 	//podstawia wpisana wartosc pod int tylko wtedy gdy strumien jest dobry
-	//zaleta1: nie stanie siê nic czego sie nie bedziemy spodziewac
-	//zaleta2: bez dodatkowych bibliotek (tylko <iostream> potrzebny)
 	//jesli wpiszesz tekst ustawi -2137
 	//jesli wpiszesz "123xxx..." to ustawi integer z poczatku strumienia
 	//zwraca 1 gdy sie udalo, 0 gdy sie nie udalo (ustawiono -2137)
@@ -21,16 +18,12 @@ bool cinSelectedInt(int& selectedInt);
 	//alokuje pamiec na macierz incydencji o 'top' wierzcholkach i 'edge' krawedziach
 	//zwraca wskaznik na stworzona macierz
 static int** allocateMatrix(int top, int edge);
-	//wypisuje macierz (nie obiektowa) na ekran
-void printNormalIncMatrix(int** matrix, int top, int edge);
 	//zwraca losowy int z przedzialu <A,B>
 int randomint(int A, int B);
 	//zwraca losowy float z przedzalu <A,B>
 float randomfloat(int A, int B);
 	//porownanie dla sortowania struktur "node1" rosnaco
 bool compareToSortNodes(node1& a, node1& b);
-
-
 	//sprawdza czy sekwencja liczb jest ciagiem graficznym
 	//zwraca 1 gdy jest ciagiem graficznym
 	//zwraca 0 gdy nie jest ciagiem graficznym
@@ -41,10 +34,6 @@ bool checkIfSequenceIsGraphic(std::vector<int> sequence);
 class IncidenceMatrix
 {
 public:
-		//konstuktor domyslny
-	//IncidenceMatrix();
-
-
 		//randomizacja dwoch krawedzi grafu
 		//zwraca 1 gdy tego grafu nie da sie randomizowac (po 100.000 losowan krawedzi nadal nie dalo sie niczego przepiac)
 		//zwraca 0 gdy sie udalo
@@ -86,11 +75,6 @@ public:
 		//zwraca 0 gdy jest poprawnie, 1 gdy jest niepoprawnie wpisana
 		//bledy w reprezentacji sa eliminowane; wypisywane jest co zostalo usuniete
 	bool setEntireMatrixByRows();
-		//ustawia elementy calej macierzy wpisanymi wartosciami
-		//wpisujesz po kolei pola do ca³ej macierzy, kolumna po kolumnie
-		//zwraca 0 gdy jest poprawnie, 1 gdy jest niepoprawnie wpisana
-		//bledy w reprezentacji sa eliminowane; wypisywane jest co zostalo usuniete
-	bool setEntireMatrixByColumns();
 		//ustawia elementy calej macierzy wartosciami wczytanymi z pliku 'Filename'
 		//zwraca 0 gdy wczyta poprawnie, 1 gdy wystapil jakis blad i wypisuje komunikat bledu
 		//bledy w reprezentacji sa eliminowane; wypisywane jest co zostalo usuniete
@@ -142,8 +126,6 @@ public:
 	bool deleteEdge(int selectedEdge);
 		//powoduje destrukcje wszechswiata oraz usuniecie macierzy
 	~IncidenceMatrix();
-		//ustawia typ grafu, zwraca 0 gdy sie udalo, zwraca 1 gdy sie nie udalo
-	bool setGraphType(int selectedType);
 		//zwraca liczbe wierzcholkow
 	const int getTop() const { return top; }
 		//zwraca liczbe krawedzi
@@ -154,8 +136,6 @@ public:
 	const int getL() const { return edge; }
 		//zwraca graf dla QT
 	int** getMatrix() const { return matrix; }
-		//zwraca liczbe informujaca o typie grafu
-	const int getGraphType() const { return gType; }
 private:
 		//wierzcholki
 	int top;  
@@ -163,11 +143,7 @@ private:
 	int	edge;	
 		//macierz incydencji
 	int** matrix;
-		//informuje o typie grafu (graf prosty, digraf)
-	int gType;
 };
-
-
 
 
 #endif // IncidenceMatrix_h
