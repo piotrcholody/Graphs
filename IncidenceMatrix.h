@@ -1,7 +1,7 @@
 #ifndef IncidenceMatrix_h
 #define IncidenceMatrix_h
 #include "connectionmatrix.h"
-#include "vld.h"
+//#include "vld.h"
 
 
 struct node1
