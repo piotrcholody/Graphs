@@ -5,40 +5,22 @@
 #include <algorithm>
 #include "IncidenceMatrix.h"
 #include <cmath>
-#include <random>
-//#include "AdjacencyList.h"
-//#include "connectionmatrix.h"
 #include <limits>
 #include <cstdlib>
 //#include "vld.h"
  
 
 /******************************************************************/
-bool IncidenceMatrix::setGraphType(int selectedType) {
-	if (selectedType == 0) {
-		gType = 0;
-		return 0;
-	}
-	if (selectedType == 1) {
-		gType = 1;
-		return 0;
-	}
-	return 1;
-}
-/******************************************************************/
 IncidenceMatrix::IncidenceMatrix(int numberOfTops, int numberOfEdges)
 	:top(numberOfTops),
-	edge(numberOfEdges),
-	gType(0)
+	edge(numberOfEdges)
 {
 	matrix = allocateMatrix(numberOfTops, numberOfEdges);
-	
 }
 /******************************************************************/
 IncidenceMatrix::IncidenceMatrix(int)
 	:top(1),
-	edge(0),
-	gType(0)
+	edge(0)
 {
 	while (top <= 1) {
 		std::cout << "\nPodaj ilosc wierzcholkow (liczbe >= 2): ";
@@ -51,11 +33,8 @@ IncidenceMatrix::IncidenceMatrix(int)
 	matrix = allocateMatrix(top, edge);
 }
 /******************************************************************/
-//IncidenceMatrix::IncidenceMatrix() {}
-/******************************************************************/
 IncidenceMatrix::IncidenceMatrix(const ConnectionMatrix<int>& conn)
 {
-	gType = 0;
 	top = conn.getN();
 	edge = conn.getL();
 	matrix = allocateMatrix(top, edge);
@@ -80,7 +59,6 @@ IncidenceMatrix::IncidenceMatrix(std::vector<int> original)
 			tempnode.val = original[i];
 			sequence.push_back(tempnode);
 		}
-		gType = 0;
 		top = original.size();
 		edge = sum / 2;
 		matrix = allocateMatrix(top, edge);
@@ -92,17 +70,14 @@ IncidenceMatrix::IncidenceMatrix(std::vector<int> original)
 				sequence.erase(sequence.begin());
 				i--;
 			}
-			if (!sequence.size()) {
+			if (!sequence.size())
 				break;
-			}
 
 			int j = i - 1;
 			int value = sequence[i].val;
-	
 			sequence[i].val = 0;
 			while (value>0) {
 				sequence[j].val -= 1;
-				//std::cout << "set:  enumber" << enumber<< " seq[i]=="<<sequence[i].num<<std::endl;
 				setTopsOfEdge(enumber++, sequence[i].num, sequence[j].num);
 				--j;
 				--value;
@@ -122,15 +97,9 @@ bool IncidenceMatrix::setTopsOfEdge(int selectedEdge, int newOwner1, int newOwne
 			if (!isThisEdgeFree(newOwner1, newOwner2)) {
 				for (int t = 0; t < top; t++)
 					matrix[t][selectedEdge] = 0;
-				if (gType == 0) {
-					matrix[newOwner1][selectedEdge] = 1;
-					matrix[newOwner2][selectedEdge] = 1;
-					return 0;
-				}
-				if (gType == 1) {
-					matrix[newOwner1][selectedEdge] = 1;
-					matrix[newOwner2][selectedEdge] = -1;
-				}
+				matrix[newOwner1][selectedEdge] = 1;
+				matrix[newOwner2][selectedEdge] = 1;
+				return 0;
 			}
 			else {
 				std::cout << "setTopsOfEdge(" << selectedEdge << ", " << newOwner1 << ", " << newOwner2 << "): ";
@@ -150,26 +119,15 @@ bool IncidenceMatrix::setTopsOfEdge(int selectedEdge, int newOwner1, int newOwne
 }
 /******************************************************************/
 bool IncidenceMatrix::possibleEdge(int firstTop, int secondTop) const{
-	//std::cout << "possibleedge" << std::endl; //fdssdf
 	return (firstTop < top && secondTop < top && firstTop >= 0 && secondTop >= 0 && firstTop != secondTop);
 }
 /******************************************************************/
 bool IncidenceMatrix::isThisEdgeFree(int firstTop, int secondTop) const{
-	//std::cout << "isthisedgefree" << std::endl; //fdssdf
 	if (possibleEdge(firstTop, secondTop)) {
 		bool ValueOccured = false;
-		if (gType == 0) {
-			for (int e = 0; e < edge; e++) {
-				if (matrix[firstTop][e] == 1 && matrix[secondTop][e] == 1) {
-					ValueOccured = true;
-				}
-			}
-		}
-		if (gType == 1) {
-			for (int e = 0; e < edge; e++) {
-				if ((matrix[firstTop][e] == 1 && matrix[secondTop][e] == -1) || (matrix[firstTop][e] == -1 && matrix[secondTop][e] == 1)) {
-					ValueOccured = true;
-				}
+		for (int e = 0; e < edge; e++) {
+			if (matrix[firstTop][e] == 1 && matrix[secondTop][e] == 1) {
+				ValueOccured = true;
 			}
 		}
 		return ValueOccured;
@@ -183,8 +141,6 @@ bool IncidenceMatrix::edgeIndexExist(int questionedEdge) const {
 }
 /******************************************************************/
 bool IncidenceMatrix::deleteEdge(int unwantedEdge) {
-	///std::cout << "deleteEdge(" << unwantedEdge << ") :" << std::endl;
-	///std::cout << "_____edgeIndexExist(unwantedEdge)==" << edgeIndexExist(unwantedEdge) << std::endl;
 	if (edgeIndexExist(unwantedEdge)) {
 		int** temp = allocateMatrix(top, edge - 1);
 		int e;
@@ -217,14 +173,8 @@ bool IncidenceMatrix::addNewEdge(int newOwner1, int newOwner2) {
 				temp[t][edge] = 0;
 			}
 			delete[] matrix;
-			if (gType == 0) {
-				temp[newOwner1][edge] = 1;
-				temp[newOwner2][edge] = 1;
-			}
-			if (gType == 1) {
-				temp[newOwner1][edge] = 1;
-				temp[newOwner2][edge] = -1;
-			}
+			temp[newOwner1][edge] = 1;
+			temp[newOwner2][edge] = 1;
 			matrix = temp;
 			edge++;
 			return 0;
@@ -242,7 +192,7 @@ bool IncidenceMatrix::addNewEdge(int newOwner1, int newOwner2) {
 	}
 }
 /******************************************************************/
-bool IncidenceMatrix::setEntireMatrixByRows(){
+bool IncidenceMatrix::setEntireMatrixByRows() {
 	std::cout<<"\nWpisuj kolejne pola oddzielajac enterem \n";
 	std::cout<<"Wprowadzasz wierszami (czyli 1 gdy do danego wierzcholka ma nalezec iterowana krawedz) \n";
 	int temp, t, e;
@@ -250,21 +200,11 @@ bool IncidenceMatrix::setEntireMatrixByRows(){
 		std::cout<<"Wiersz numer "<<t<<": \n";
 		for (e = 0; e < edge; e++) {
 			cinSelectedInt(temp);
-			if (gType == 0) {
-				if ((temp == 0) || (temp == 1))
-					matrix[t][e] = temp;
-				else {
-					std::cout << "Mozesz wpisac tylko 0 lub 1. Wpisz liczbe ponownie: ";
-					e--;
-				}
-			}
-			if (gType == 1) {
-				if ((temp == 0) || (temp == 1) || (temp == -1))
-					matrix[t][e] = temp;
-				else {
-					std::cout << "Mozesz wpisac tylko 0, 1, lub -1 Wpisz liczbe ponownie: ";
-					e--;
-				}
+			if ((temp == 0) || (temp == 1))
+				matrix[t][e] = temp;
+			else {
+				std::cout << "Mozesz wpisac tylko 0 lub 1. Wpisz liczbe ponownie: ";
+				e--;
 			}
 		}
 		std::cout<<std::endl;
@@ -275,92 +215,29 @@ bool IncidenceMatrix::setEntireMatrixByRows(){
 	return errorOccured;
 }
 /******************************************************************/
-bool IncidenceMatrix::setEntireMatrixByColumns() { 
-	std::cout << "\nWpisuj kolejne pola oddzielajac enterem \n";
-	std::cout << "Wprowadzasz kolumnami (czyli 1 gdy iterowany wierzcholek ma byc poczatkiem/koncem krawedzi) \n";
-	int temp, e, t;
-	for (e = 0; e < edge; e++) {
-		std::cout << "Kolumna numer " << e << ": \n";
-		for (t = 0; t < top; t++) {
-			cinSelectedInt(temp);
-			if (gType == 0) {
-				if ((temp == 0) || (temp == 1))
-					matrix[t][e] = temp;
-				else {
-					std::cout << "Mozesz wpisac tylko 0 lub 1. Wpisz liczbe ponownie: ";
-					t--;
-				}
-			}
-			if (gType == 1) {
-				if ((temp == 0) || (temp == 1) || (temp == -1))
-					matrix[t][e] = temp;
-				else {
-					std::cout << "Mozesz wpisac tylko 0, 1, lub -1 Wpisz liczbe ponownie: ";
-					t--;
-				}
-			}
-		}
-		std::cout << std::endl;
-	}
-	bool errorOccured = eliminateAllMistakes();
-	if (errorOccured)
-		std::cout << "\nMacierz byla zle wpisana. Naprawiono bledy." << std::endl;
-	return errorOccured;
-}
-/******************************************************************/
 bool IncidenceMatrix::eliminateInvalidEdges() {
 	bool errorOccured = false;
-	if (gType == 0) {
-		int counter, e, t, isnot01;
-		if (edge > 0) {
-			for (e = edge - 1; e >= 0; e--) {
-				counter = isnot01 = 0;
-				for (t = 0; t < top; t++) {
-					if (matrix[t][e])
-						counter++;
-					if (matrix[t][e] > 1)
-						isnot01++;
-				}
-				if (counter != 2) {
-					deleteEdge(e);
-					std::cout << "Pozbyto sie krawedzi o indeksie " << e;
-					std::cout << ": nalezala do blednej liczby wierzcholkow" << std::endl;
-					errorOccured = true;
-				}
-				else if (isnot01) {
-					deleteEdge(e);
-					std::cout << "Pozbyto sie krawedzi o indeksie " << e;
-					std::cout << ": posiadala w reprezentacji liczby wieksze niz 1" << std::endl;
-					errorOccured = true;
-				}
+	int counter, e, t, isnot01;
+	if (edge > 0) {
+		for (e = edge - 1; e >= 0; e--) {
+			counter = isnot01 = 0;
+			for (t = 0; t < top; t++) {
+				if (matrix[t][e])
+					counter++;
+				if (matrix[t][e] > 1)
+					isnot01++;
 			}
-		}
-	}
-	if (gType == 1) {
-		int counter, e, t, have1, have_1;
-		if (edge > 0) {
-			for (e = edge - 1; e >= 0; e--) {
-				counter = have1 = have_1 = 0;
-				for (t = 0; t < top; t++) {
-					if (matrix[t][e] != 0)
-						counter++;
-					if (matrix[t][e] == 1)
-						have1 = true;
-					if (matrix[t][e] == -1)
-						have_1 = true;
-				}
-				if (counter != 2) {
-					deleteEdge(e);
-					std::cout << "Pozbyto sie krawedzi o indeksie " << e;
-					std::cout << ": nalezala do blednej liczby wierzcholkow" << std::endl;
-					errorOccured = true;
-				}
-				else if (!(have1 && have_1)) {
-					deleteEdge(e);
-					std::cout << "Pozbyto sie krawedzi o indeksie " << e;
-					std::cout << ": posiadala w reprezentacji liczby inne niz para 1 i -1" << std::endl;
-					errorOccured = true;
-				}
+			if (counter != 2) {
+				deleteEdge(e);
+				std::cout << "Pozbyto sie krawedzi o indeksie " << e;
+				std::cout << ": nalezala do blednej liczby wierzcholkow" << std::endl;
+				errorOccured = true;
+			}
+			else if (isnot01) {
+				deleteEdge(e);
+				std::cout << "Pozbyto sie krawedzi o indeksie " << e;
+				std::cout << ": posiadala w reprezentacji liczby wieksze niz 1" << std::endl;
+				errorOccured = true;
 			}
 		}
 	}
@@ -412,45 +289,21 @@ bool IncidenceMatrix::getTopsOfEdge(int selectedEdge, int& first, int& second) c
 /******************************************************************/
 bool IncidenceMatrix::eliminateDuplicates() {
 	bool errorOccured = false;
-	if (gType == 0) {
-		if (edge >= 1) {
-			int e, k, index1, index2, EdgeOccured;
-			for (e = edge - 1; e >= 1; e--) {
-				getTopsOfEdge(e, index1, index2);
-				k = e - 1;
-				EdgeOccured = false;
-				while (k >= 0 && !EdgeOccured) {
-					if (matrix[index1][k] == 1 && matrix[index2][k] == 1)
-						EdgeOccured = true;
-					k--;
-				}
-				if (EdgeOccured) {
-					deleteEdge(e);
-					errorOccured = true;
-					std::cout << "Usunieto zmultiplikowana krawedz o indeksie " << e << std::endl;
-				}
+	if (edge >= 1) {
+		int e, k, index1, index2, EdgeOccured;
+		for (e = edge - 1; e >= 1; e--) {
+			getTopsOfEdge(e, index1, index2);
+			k = e - 1;
+			EdgeOccured = false;
+			while (k >= 0 && !EdgeOccured) {
+				if (matrix[index1][k] == 1 && matrix[index2][k] == 1)
+					EdgeOccured = true;
+				k--;
 			}
-		}
-	}
-	if (gType == 1) {
-		if (edge >= 1) {
-			int e, k, index1, index2, EdgeOccured;
-			for (e = edge - 1; e >= 1; e--) {
-				getTopsOfEdge(e, index1, index2);
-				k = e - 1;
-				EdgeOccured = false;
-				while (k >= 0 && !EdgeOccured) {
-					if ((matrix[index1][k] == 1) && (matrix[index2][k] == -1)) {
-						std::cout << "debug" << std::endl; //______________________________________
-						EdgeOccured = true;
-					}
-					k--;
-				}
-				if (EdgeOccured) {
-					deleteEdge(e);
-					errorOccured = true;
-					std::cout << "Usunieto zmultiplikowana krawedz skierowana o indeksie " << e << std::endl;
-				}
+			if (EdgeOccured) {
+				deleteEdge(e);
+				errorOccured = true;
+				std::cout << "Usunieto zmultiplikowana krawedz o indeksie " << e << std::endl;
 			}
 		}
 	}
@@ -560,8 +413,7 @@ bool IncidenceMatrix::isSafe(int candidat, std::vector<int> path, int pos)
 bool IncidenceMatrix::hamCycleUtil(std::vector<int>& path, int pos)
 {
 	path[0] = 0;
-	if (pos == top)
-	{
+	if (pos == top) {
 		//std::cout << "if" << std::endl;//fdssdf
 		if ((isThisEdgeFree(path[pos - 1], path[0]) == 1) && possibleEdge(path[pos -1], path[0])) {
 			path[top] = 0;
@@ -571,11 +423,9 @@ bool IncidenceMatrix::hamCycleUtil(std::vector<int>& path, int pos)
 			return false;
 	}
 
-	for (int v = 1; v < top; v++)
-	{
+	for (int v = 1; v < top; v++) {
 		//std::cout << "for nr:"<<v << std::endl; //fdssdf
-		if (isSafe(v, path, pos))
-		{
+		if (isSafe(v, path, pos)) {
 			//std::cout << "is safe" << v << std::endl; //fdssdf
 			path[pos] = v;
 			if (hamCycleUtil(path, pos + 1) == true) {
@@ -585,21 +435,16 @@ bool IncidenceMatrix::hamCycleUtil(std::vector<int>& path, int pos)
 		}
 	}
 	return false;
-
 }
 /******************************************************************/
 bool IncidenceMatrix::hamPathUtil(std::vector<int>& path, int pos, int first)
 {
 	path[0] = first;
 	if (pos == top)
-	{
 		return true;
-	}
 
-	for (int v = 0; v < top; v++)
-	{
-		if (isSafe(v, path, pos))
-		{
+	for (int v = 0; v < top; v++) {
+		if (isSafe(v, path, pos)) {
 			path[pos] = v;
 			if (hamPathUtil(path, pos + 1, first) == true) {
 				return true;
@@ -608,7 +453,6 @@ bool IncidenceMatrix::hamPathUtil(std::vector<int>& path, int pos, int first)
 		}
 	}
 	return false;
-
 }
 /******************************************************************/
 std::vector<int> IncidenceMatrix::findHamiltionianGraph()
@@ -628,7 +472,6 @@ std::vector<int> IncidenceMatrix::findHamiltionianGraph()
 		path.erase(path.begin(), path.end());
 		return path;
 	}
-
 
 	int i = 0, first = 0;
 	int *c = new int[top];
@@ -763,8 +606,7 @@ bool IncidenceMatrix::graphRandomization() {
 	return 1;
 }
 /******************************************************************/
-std::vector<int> IncidenceMatrix::adjForTop(int selectedTop)
-{
+std::vector<int> IncidenceMatrix::adjForTop(int selectedTop) {
 	std::vector<int> adjForV;
 	int j = 0, x, y, temp;
 	while (j < top) {
@@ -781,8 +623,7 @@ std::vector<int> IncidenceMatrix::adjForTop(int selectedTop)
 	return adjForV;
 }
 /******************************************************************/
-std::vector<std::vector<int>> IncidenceMatrix::findAllConnectedComponents()
-{
+std::vector<std::vector<int>> IncidenceMatrix::findAllConnectedComponents() {
 	std::vector<std::vector<int>> allCC;
 	bool *visited = new bool[top];
 	for (int v = 0; v < top; v++)
@@ -798,7 +639,7 @@ std::vector<std::vector<int>> IncidenceMatrix::findAllConnectedComponents()
 	delete visited;
 	return allCC;
 }
-
+/******************************************************************/
 void IncidenceMatrix::DFSUtilForACC(int v, bool visited[], std::vector<int>& actualComponent)
 {
 	visited[v] = true;
@@ -811,7 +652,6 @@ void IncidenceMatrix::DFSUtilForACC(int v, bool visited[], std::vector<int>& act
 		if (!visited[*i])
 			DFSUtilForACC(*i, visited, actualComponent);
 }
-
 /******************************************************************/
 
 
@@ -857,59 +697,6 @@ int** allocateMatrix(int top, int edge) {
 	return matrix;
 }
 /******************************************************************/
-void printNormalIncMatrix(int** matrix, int top, int edge){
-	std::cout << "Macierz Incydencji: " << std::endl;
-	if (edge) {
-		std::cout << "    ";
-		for (int e = 0; e < edge; e++) std::cout << "E" << e << " "; std::cout << std::endl;
-		for (int t = 0; t < top; t++) {
-			std::cout << t << " |";
-			for (int e = 0; e < edge; e++) {
-				if (matrix[t][e] >= 0)
-					std::cout << " " << matrix[t][e] << " ";
-				else
-					std::cout << "" << matrix[t][e] << " ";
-			}
-			std::cout << "|" << std::endl;
-		}
-	}
-	else std::cout << " nie posiada wierzcholkow!" << std::endl;
-}
-/******************************************************************/
-/*
-IncidenceMatrix getRandomGraph(int tops, int edges) {
-	int maxedges = (tops*(tops - 1) / 2);
-	IncidenceMatrix *graph = new IncidenceMatrix(tops, edges);
-	int** temp = allocateMatrix(2, maxedges);
-	int *losowe = new int[maxedges];
-	int i, counter = 0, rand, j, e = 0;
-	for (i = 0; i < edges; i++) {
-		losowe[i] = 0;
-	}
-	while (counter < edges) {
-		rand = randomint(0, maxedges - 1);
-		if (losowe[rand] == 0) {
-			losowe[rand] = 1;
-			counter++;
-		}
-	}
-
-	for (i = 0; i < tops; i++) {
-		for (j = i + 1; j < tops && e < maxedges; j++) {
-			if (losowe[e])
-				graph->setTopsOfEdge(e, i, j);			
-			e++;
-		}
-	}
-
-	delete[] temp[0];
-	delete[] temp[1];
-	delete[] temp;
-	delete[] losowe;
-	return *graph;
-}
-*/
-
 bool checkIfSequenceIsGraphic(std::vector<int> originalsequence) {
 	std::vector<int> sequence(originalsequence);
 	int sum = 0;
