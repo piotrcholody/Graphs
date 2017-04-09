@@ -1,7 +1,7 @@
 #ifndef IncidenceMatrix_h
 #define IncidenceMatrix_h
 #include "connectionmatrix.h"
-//#include "vld.h"
+#include "vld.h"
 
 
 struct node1
@@ -44,16 +44,25 @@ public:
 		//konstuktor domyslny
 	//IncidenceMatrix();
 
+
+		//randomizacja dwoch krawedzi grafu
+		//zwraca 1 gdy tego grafu nie da sie randomizowac (po 100.000 losowan krawedzi nadal nie dalo sie niczego przepiac)
+		//zwraca 0 gdy sie udalo
+	bool graphRandomization();
+		//zwraca liste polaczen dla danego wierzcholka (z ktorymi wierzcholkami laczy sie seletedTop)
+	std::vector<int> adjForTop(int selectedTop);
+		//_________________________________________________________________________________________________________
+		//znajduje spojne skladowe
+	std::vector<std::vector<int>> findAllConnectedComponents();
+		//DFS Utility for All Connected Components
+		//dfs
+	void DFSUtilForACC(int v, bool visited[], std::vector<int>& actualComponent);
 		//sprawdza rekurencyjna metoda Brute Force czy graf jest Hamiltonowski
 		//zwraca tablice o dlugosci (getTop()+1)z numerami kolejnych indeksow wierzcholkow,
 		//     ktore tworza cykl Hamiltona lub polHamiltona
 		//gdy jest polhamiltonowski, ostatenie pole tablicy wynikowej == -1
 		//zwraca pusty vector, gdy nie jest to ani graf hamiltonowski ani polhamiltonowski
 	std::vector<int> findHamiltionianGraph();
-		//randomizacja dwoch krawedzi grafu
-		//zwraca 1 gdy tego grafu nie da sie randomizowac (po 100.000 losowan krawedzi nadal nie dalo sie niczego przepiac)
-		//zwraca 0 gdy sie udalo
-	bool graphRandomization();
 					//sprawdza czy nie bylo juz wartosci 'v' w tablicy 'path' ponizej indeksu 'pos'
 				bool isSafe(int v, std::vector<int> path, int pos);
 					//do rekurencji dla cyklu
