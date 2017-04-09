@@ -763,6 +763,59 @@ bool IncidenceMatrix::graphRandomization() {
 	return 1;
 }
 /******************************************************************/
+std::vector<int> IncidenceMatrix::adjForTop(int selectedTop)
+{
+	std::vector<int> adjForV;
+	int j = 0, x, y, temp;
+	while (j < top) {
+		if (matrix[selectedTop][j] == 1) {
+			getTopsOfEdge(j, x, y);
+			if (x == selectedTop)
+				temp = y;
+			else
+				temp = x;
+			adjForV.push_back(temp);
+		}
+		j++;
+	}
+	return adjForV;
+}
+/******************************************************************/
+std::vector<std::vector<int>> IncidenceMatrix::findAllConnectedComponents()
+{
+	std::vector<std::vector<int>> allCC;
+	bool *visited = new bool[top];
+	for (int v = 0; v < top; v++)
+		visited[v] = false;
+	int ilosc=0;
+	for (int v = 0; v < top; v++) {
+		if (visited[v] == false) {
+			allCC.push_back(std::vector< int >()); //dodawanie kolejnych skladowych
+			DFSUtilForACC(v, visited, allCC[ilosc]);
+			ilosc++;
+		}
+	}
+	delete visited;
+	return allCC;
+}
+
+void IncidenceMatrix::DFSUtilForACC(int v, bool visited[], std::vector<int>& actualComponent)
+{
+	visited[v] = true;
+	actualComponent.push_back(v); //dodawanie wierzcholka do skladowej
+
+	std::vector<int> adjForV = adjForTop(v);
+
+	std::vector<int>::iterator i;
+	for (i = adjForV.begin(); i != adjForV.end(); ++i)
+		if (!visited[*i])
+			DFSUtilForACC(*i, visited, actualComponent);
+}
+
+/******************************************************************/
+
+
+
 
 
 /******************************************************************/

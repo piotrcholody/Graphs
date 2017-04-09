@@ -17,8 +17,17 @@ int main( void ){
 	IncidenceMatrix seq1(t1);
 	seq1.printEntireMatrix();
 
-	seq1.graphRandomization();
-	seq1.printEntireMatrix();
+	//seq1.graphRandomization();
+	//seq1.printEntireMatrix();
+	std::vector<std::vector<int>> allcomps;
+	allcomps = seq1.findAllConnectedComponents();
+	//std::cout << "allcomps.size() == " <<allcomps.size() << std::endl;
+	for (int i = 0; i < static_cast<int>(allcomps.size()); i++) {
+		//std::cout << "allcomps["<<i<<"].size() == " << allcomps[i].size() << std::endl;
+		for (int j = 0; j < static_cast<int>(allcomps[i].size()); j++)
+			std::cout << allcomps[i][j] << " ";
+		std::cout << std::endl;
+	}
 
 	/*
 	IncidenceMatrix dohamiltona(6, 9);
