@@ -85,7 +85,7 @@
       <x>660</x>
       <y>360</y>
       <width>621</width>
-      <height>321</height>
+      <height>301</height>
      </rect>
     </property>
     <property name="editTriggers">
@@ -98,7 +98,7 @@
       <x>10</x>
       <y>360</y>
       <width>641</width>
-      <height>321</height>
+      <height>301</height>
      </rect>
     </property>
     <property name="editTriggers">
