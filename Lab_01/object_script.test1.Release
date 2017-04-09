@@ -1,0 +1,12 @@
+INPUT(
+./release\main.o
+./release\adjacencylist.o
+./release\incidencematrix.o
+./release\gdraw.o
+./release\ggenerator.o
+./release\ggeneratorve.o
+./release\grafrysuj.o
+./release\moc_gdraw.o
+./release\moc_ggenerator.o
+./release\moc_ggeneratorve.o
+);

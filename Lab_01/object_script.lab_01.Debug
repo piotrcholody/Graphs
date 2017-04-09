@@ -1,0 +1,12 @@
+INPUT(
+./debug\main.o
+./debug\adjacencylist.o
+./debug\incidencematrix.o
+./debug\gdraw.o
+./debug\ggenerator.o
+./debug\ggeneratorve.o
+./debug\grafrysuj.o
+./debug\moc_gdraw.o
+./debug\moc_ggenerator.o
+./debug\moc_ggeneratorve.o
+);
