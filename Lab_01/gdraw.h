@@ -41,13 +41,7 @@ private slots:
     void on_actionGenerate_triggered();
 
     void on_actionGenerate_Vert_Edges_triggered();
-/*
-    void on_actionImport_Adjascency_triggered();
 
-    void on_actionImportIncidenceT_triggered();
-
-    void on_actionImportAdjascency_List_triggered();
-*/
 private:
     Ui::Gdraw *ui;
     std::vector<int>* v_ptr;
