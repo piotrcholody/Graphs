@@ -262,22 +262,21 @@ IncidenceMatrix::~IncidenceMatrix(){
 	delete [] matrix;
 }
 /******************************************************************/
-void IncidenceMatrix::printEntireMatrix() const{
-	std::cout<<"\nMacierz Incydencji: "<<std::endl;
+void IncidenceMatrix::printEntireMatrix() const {
+	std::cout << "\nMacierz Incydencji: " << std::endl;
 	if (edge) {
-		int edgelenght = (int)log10(edge) + 1;
-		int toplenght = (int)log10(top) + 1;
+		const int edgelenght = (int)log10(edge) + 1;
+		const int toplenght = (int)log10(top) + 1;
 		for (int j = 0; j < toplenght + 2; j++) std::cout << " ";
 		for (int e = 0; e < edge; e++) std::cout << "E" << e << " "; std::cout << std::endl;
 		for (int t = 0; t < top; t++) {
-			
 			int actualtoplenght = (int)log10(t) + 1;
 			if (actualtoplenght < 0) actualtoplenght = 1;
 			std::cout << t;
-			for (int i = 0; i <= toplenght-actualtoplenght; i++) std::cout << " ";
+			for (int i = 0; i <= toplenght - actualtoplenght; i++) std::cout << " ";
 			std::cout << "|";
 			for (int e = 0; e < edge; e++) {
-				int actualedgelenght = (int)log10(e+1) + 1;
+				int actualedgelenght = (int)log10(e + 1) + 1;
 				if (actualedgelenght < 0) actualedgelenght = 1;
 				if (matrix[t][e] >= 0)
 					std::cout << " " << matrix[t][e] << " ";
@@ -302,7 +301,7 @@ bool IncidenceMatrix::setEntireMatrixFromFile(const char* Filename, int numberOf
 			mystream.close();
 		}
 		else {
-			int i, j, error=0;
+			int i, j, error = 0;
 			for (i = 0; i < top; i++) {
 				for (j = 0; j < edge; j++)
 					if (!(mystream >> matrix[i][j]))
