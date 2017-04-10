@@ -17,10 +17,10 @@ int main( void ){
 	IncidenceMatrix seq1(t1);
 	seq1.printEntireMatrix();
 
-	//seq1.graphRandomization();
+	//graphRandomization(seq1);
 	//seq1.printEntireMatrix();
 	std::vector<std::vector<int>> allcomps;
-	allcomps = seq1.findAllConnectedComponents();
+	allcomps = findAllConnectedComponents(seq1);
 	//std::cout << "allcomps.size() == " <<allcomps.size() << std::endl;
 	for (int i = 0; i < static_cast<int>(allcomps.size()); i++) {
 		//std::cout << "allcomps["<<i<<"].size() == " << allcomps[i].size() << std::endl;
