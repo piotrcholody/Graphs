@@ -13,7 +13,7 @@ int main( void ){
 	t1.push_back(3);
 	t1.push_back(3);
 
-
+	/*
 	IncidenceMatrix seq1(t1);
 	seq1.printEntireMatrix();
 
@@ -28,13 +28,14 @@ int main( void ){
 			std::cout << allcomps[i][j] << " ";
 		std::cout << std::endl;
 	}
+	*/
 
-	/*
+	
 	IncidenceMatrix dohamiltona(6, 9);
 	dohamiltona.setEntireMatrixFromFile("hamiltonTest/Plik1.txt", 6, 9);
 	dohamiltona.printEntireMatrix();
 	std::cout << "____ma byc hamiltonowski" << std::endl;
-	std::vector<int> rpath = dohamiltona.findHamiltionianGraph();
+	std::vector<int> rpath = findHamiltionianGraph(dohamiltona);
 	for (int i = 0; i < rpath.size(); i++) {
 		std::cout << rpath[i];
 		if (i < rpath.size() - 1)
@@ -42,7 +43,7 @@ int main( void ){
 	}
 	std::cout << std::endl;
 	
-	
+	/*
 	IncidenceMatrix dohamiltona2(6, 8);
 	dohamiltona2.setEntireMatrixFromFile("hamiltonTest/Plik2.txt", 6, 8);
 	dohamiltona2.printEntireMatrix();
