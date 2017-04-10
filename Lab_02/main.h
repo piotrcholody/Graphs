@@ -5,7 +5,7 @@
 #include "IncidenceMatrix.h"
 #include "probGraph.h"
 #include "edgeGraph.h"
-//#include "hamiltonian.h"
+#include "hamiltonian.h"
 #include "randomization.h"
 #include "connected_components.h"
 #include <stdio.h>
