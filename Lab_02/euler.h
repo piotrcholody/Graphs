@@ -7,7 +7,7 @@
 #include "randomization.h"
 
 
-void createEulerGraph() {
+IncidenceMatrix* createEulerGraph() {
 	srand(static_cast<unsigned int>(time(NULL)));
 	int a, b;
 	bool status = true;
@@ -61,4 +61,52 @@ void createEulerGraph() {
 	
 	rewrited->printEntireMatrix();
 
+	std::vector<int> toDelete;
+	for (int i = 0; i < rewrited->getTop(); i++) {
+		std::vector<int> temp = rewrited->adjForTop(i);
+		if (temp.size() == 0) {
+			toDelete.push_back(i);
+		}
+	}
+	//std::cout <<"size "<< toDelete.size() << std::endl;
+	for (int i = toDelete.size() - 1; i >= 0; i--) {
+		//std::cout << "usuwam numer " << toDelete[i] << std::endl;
+		rewrited->deleteTop(toDelete[i]);
+	}
+
+	rewrited->printEntireMatrix();
+	return rewrited;
 }
+
+
+/*
+0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0
+0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1
+0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0
+0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0
+1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0
+1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1
+0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0
+*/
+
+
+/*
+0  0  0  0  1  0  1  0  0  0  0
+0  1  0  0  0  0  0  1  0  0  0
+0  0  0  0  0  0  0  0  0  1  1
+1  1  0  1  0  0  1  0  1  0  1
+0  0  0  1  0  1  0  0  0  0  0
+1  0  1  0  1  1  0  1  0  1  0
+0  0  1  0  0  0  0  0  1  0  0
+*/
+
+
+/*
+0  0  1  0  0  1  0  0  0  0  0
+0  0  0  0  0  0  1  0  0  1  0
+0  0  0  1  0  0  0  1  0  0  0
+0  1  0  0  1  0  0  0  0  0  0
+1  1  0  0  0  1  0  1  1  1  0
+1  0  1  1  1  0  1  0  0  0  1
+0  0  0  0  0  0  0  0  1  0  1
+*/

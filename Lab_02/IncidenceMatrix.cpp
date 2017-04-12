@@ -161,6 +161,31 @@ bool IncidenceMatrix::deleteEdge(int unwantedEdge) {
 	else return 1;
 }
 /******************************************************************/
+bool IncidenceMatrix::deleteTop(int unwantedTop) {
+	if (unwantedTop < top && unwantedTop >= 0) {
+		int** temp = allocateMatrix(top - 1, edge);
+		int t;
+		for (int e = 0; e < edge; e++) {
+			for (t = 0; t < unwantedTop; t++) {
+				temp[t][e] = matrix[t][e];
+			}
+			for (t = unwantedTop; t < top - 1; t++) {
+				temp[t][e] = matrix[t + 1][e];
+			}
+		}
+		for (int i = 0; i < top; i++) 
+			delete[] matrix[i];
+		delete[] matrix;
+		matrix = temp;
+		top--;
+		return 0;
+	}
+	else {
+		std::cout << "deleteTop(" << unwantedTop << ") failed" << std::endl;
+		return 1;
+	}
+}
+/******************************************************************/
 bool IncidenceMatrix::addNewEdge(int newOwner1, int newOwner2) {
 	if (possibleEdge(newOwner1, newOwner2)) {
 		if (!isThisEdgeFree(newOwner1, newOwner2)) {

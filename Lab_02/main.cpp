@@ -5,7 +5,8 @@
 
 int main( void ){
 	srand(static_cast<unsigned int>(time(NULL)));
-	createEulerGraph();
+	IncidenceMatrix* euler1 = createEulerGraph();
+	delete euler1;
 	
 	/*
 	std::vector<int> t1;

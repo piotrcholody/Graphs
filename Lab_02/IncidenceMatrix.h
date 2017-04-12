@@ -101,6 +101,9 @@ public:
 		//gdy krawedz nie istnieje zwraca 1
 		//gdy usunie pomyslnie zwraca 0
 	bool deleteEdge(int selectedEdge);
+		//gdy wierzcholek nie istnieje zwraca 1
+		//gdy usunie pomyslnie zwraca 0
+	bool deleteTop(int unwantedTop);
 		//powoduje destrukcje wszechswiata oraz usuniecie macierzy
 	~IncidenceMatrix();
 		//zwraca liczbe wierzcholkow
