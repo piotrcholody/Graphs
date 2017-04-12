@@ -11,8 +11,6 @@ void createEulerGraph() {
 	srand(static_cast<unsigned int>(time(NULL)));
 	int a, b;
 	bool status = true;
-	b = randomint(10, 12);
-		std::cout << b << std::endl;
 	std::vector<int> sequence;
 	IncidenceMatrix* seq;
 	IncidenceMatrix* rewrited;
@@ -21,6 +19,9 @@ void createEulerGraph() {
 
 
 	do {
+		b = randomint(10, 12);
+
+
 		while (sequence.size()) sequence.erase(sequence.begin());
 		for (int i = 0; i < b; i++) {
 			a = randomint(1, 4);
