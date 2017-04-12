@@ -396,9 +396,9 @@ bool IncidenceMatrix::setEntireMatrixFromFile(const char* Filename, int numberOf
 std::vector<int> IncidenceMatrix::adjForTop(int selectedTop) {
 	std::vector<int> adjForV;
 	int j = 0, x, y, temp;
-	while (j < top) {
-		if (matrix[selectedTop][j] == 1) {
-			getTopsOfEdge(j, x, y);
+	while (j < edge) {
+			if (matrix[selectedTop][j] == 1) {
+				getTopsOfEdge(j, x, y);
 			if (x == selectedTop)
 				temp = y;
 			else

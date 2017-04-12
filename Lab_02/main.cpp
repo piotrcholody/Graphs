@@ -13,43 +13,39 @@ int main( void ){
 	t1.push_back(3);
 	t1.push_back(3);
 
-	/*
-	IncidenceMatrix seq1(t1);
-	seq1.printEntireMatrix();
 
-	//graphRandomization(seq1);
-	//seq1.printEntireMatrix();
 	std::vector<std::vector<int>> allcomps;
-	allcomps = findAllConnectedComponents(seq1);
-	//std::cout << "allcomps.size() == " <<allcomps.size() << std::endl;
+	allcomps = findAllConnectedComponents(IncidenceMatrix(t1));
 	for (int i = 0; i < static_cast<int>(allcomps.size()); i++) {
-		//std::cout << "allcomps["<<i<<"].size() == " << allcomps[i].size() << std::endl;
 		for (int j = 0; j < static_cast<int>(allcomps[i].size()); j++)
 			std::cout << allcomps[i][j] << " ";
 		std::cout << std::endl;
 	}
-	*/
+	std::vector<int> ddd = findTheLargestConnectedComponent(IncidenceMatrix(t1));
+	for (int i = 0; i < static_cast<int>(ddd.size()); i++)
+		std::cout << ddd[i] << ", ";
+	std::cout << std::endl;
 
-	
+/*
 	IncidenceMatrix dohamiltona(6, 9);
 	dohamiltona.setEntireMatrixFromFile("hamiltonTest/Plik1.txt", 6, 9);
 	dohamiltona.printEntireMatrix();
 	std::cout << "____ma byc hamiltonowski" << std::endl;
 	std::vector<int> rpath = findHamiltionianGraph(dohamiltona);
-	for (int i = 0; i < rpath.size(); i++) {
+	for (unsigned int i = 0; i < rpath.size(); i++) {
 		std::cout << rpath[i];
 		if (i < rpath.size() - 1)
 			std::cout << ",";
 	}
 	std::cout << std::endl;
 	
-	/*
+	
 	IncidenceMatrix dohamiltona2(6, 8);
 	dohamiltona2.setEntireMatrixFromFile("hamiltonTest/Plik2.txt", 6, 8);
 	dohamiltona2.printEntireMatrix();
 	std::cout << "____ma byc POLhamiltonowski" << std::endl;
 	std::vector<int> rpath2 = dohamiltona2.findHamiltionianGraph();
-	for (int i = 0; i < rpath2.size(); i++) {
+	for (unsigned int i = 0; i < rpath2.size(); i++) {
 		std::cout << rpath2[i];
 		if (i < rpath2.size() - 1)
 			std::cout << ",";

@@ -44,4 +44,15 @@ std::vector<std::vector<int>> findAllConnectedComponents(IncidenceMatrix& graph)
 	return allCC;
 }
 /******************************************************************/
-	
+
+	//znajduje najwieksza spojna skladowa i zwraca ja w postaci vectora
+std::vector<int> findTheLargestConnectedComponent(IncidenceMatrix & graph) {
+	std::vector<std::vector<int>> temp = findAllConnectedComponents(graph);
+	unsigned int max = 0;
+	for (unsigned int i = 0; i < static_cast<int>(temp.size()); i++) {
+		if (max < temp[i].size())
+			max = i;
+	}
+	return temp[max];
+}
+/******************************************************************/
