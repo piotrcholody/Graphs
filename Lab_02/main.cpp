@@ -5,6 +5,9 @@
 
 int main( void ){
 	srand(static_cast<unsigned int>(time(NULL)));
+	createEulerGraph();
+	
+	/*
 	std::vector<int> t1;
 	t1.push_back(1);
 	t1.push_back(1);
@@ -26,7 +29,7 @@ int main( void ){
 		std::cout << ddd[i] << ", ";
 	std::cout << std::endl;
 
-/*
+
 	IncidenceMatrix dohamiltona(6, 9);
 	dohamiltona.setEntireMatrixFromFile("hamiltonTest/Plik1.txt", 6, 9);
 	dohamiltona.printEntireMatrix();
