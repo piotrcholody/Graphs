@@ -4,7 +4,74 @@
 #include <vector>
 #include "IncidenceMatrix.h"
 #include "connected_components.h"
-#include "randomization.h"
+
+
+
+
+void DFSUtil(IncidenceMatrix& graph, int v, bool visited[])
+{
+	visited[v] = true;
+
+	std::vector<int> adj = graph.adjForTop(v);
+	std::vector<int>::iterator i;
+	for (i = adj.begin(); i != adj.end(); ++i)
+	{
+		if (!visited[*i])
+		{
+			std::cout << v << ", ";
+			DFSUtil(graph, *i, visited);
+		}
+	}
+}
+
+
+
+bool isConnected(IncidenceMatrix& graph, std::vector<int>& result)
+{
+	bool* visited = new bool[graph.getTop()];
+	std::vector<int> adj;
+	int i;
+	for (i = 0; i < graph.getTop(); i++)
+	{
+		visited[i] = false;
+	}
+	for (i = 0; i < graph.getTop(); i++)
+	{
+		adj = graph.adjForTop(i);
+		if (adj.size() != 0)
+		{
+			break;
+		}
+	}
+	if (i == graph.getTop())
+	{
+		return true;
+	}
+	DFSUtil(graph, i, visited);
+	for (i = 0; i < graph.getTop(); i++)
+	{
+		if (visited[i] == false && adj.size() > 0)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+std::vector<int> isEulerGraph(IncidenceMatrix& graph) {
+	std::vector<int> result;
+	std::vector<int> adj;
+	if (isConnected(graph, result)){
+		return result;	
+	}
+	else {
+		std::cout << "Nie udalo sie";
+		return result;
+	}
+}
+
+
+
 
 
 IncidenceMatrix* createEulerGraph() {
@@ -21,7 +88,6 @@ IncidenceMatrix* createEulerGraph() {
 	do {
 		b = randomint(10, 12);
 
-
 		while (sequence.size()) sequence.erase(sequence.begin());
 		for (int i = 0; i < b; i++) {
 			a = randomint(1, 4);
@@ -29,7 +95,6 @@ IncidenceMatrix* createEulerGraph() {
 			sequence.push_back(a);
 		}
 		
-
 		if (checkIfSequenceIsGraphic(sequence)) {
 			seq = new IncidenceMatrix(sequence);
 			largestComp = findTheLargestConnectedComponent(IncidenceMatrix(sequence));
