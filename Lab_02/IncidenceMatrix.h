@@ -43,6 +43,8 @@ public:
 	IncidenceMatrix(int numberOfTops, int numberOfEdges); 
 		//konstruktor kopiujacy z klasy ConnectionMatrix
 	IncidenceMatrix(const ConnectionMatrix<int>& conn);
+		//kontruktor kopiujacy
+	IncidenceMatrix(const IncidenceMatrix& org);
 		//kontruktor macierzy z podanej sekwencji graficznej
 		//jesli to nie bedzie sekwencja graficzna i tworzenie sie nie powiedzie: std::abort()
 		//najlepiej sprawdzic przedtem checkIfSequenceIsGraphic()

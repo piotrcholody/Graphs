@@ -47,6 +47,17 @@ IncidenceMatrix::IncidenceMatrix(const ConnectionMatrix<int>& conn)
 			}
 }
 /******************************************************************/
+IncidenceMatrix::IncidenceMatrix(const IncidenceMatrix& org)
+{
+	top = org.getN();
+	edge = org.getL();
+	matrix = allocateMatrix(top, edge);
+	int i, j, e = 0;
+	for (i = 0; i < top; i++)
+		for (j = 0; j < edge; j++)
+			matrix[i][j] = org.matrix[i][j];
+}
+/******************************************************************/
 IncidenceMatrix::IncidenceMatrix(std::vector<int> original)
 {
 	if (checkIfSequenceIsGraphic(original)) {

@@ -5,9 +5,10 @@
 
 int main( void ){
 	srand(static_cast<unsigned int>(time(NULL)));
-	IncidenceMatrix* euler1 = createUndirectedEulerGraph();
-	//isUndirectedEulerGraph(*euler1);
-
+	IncidenceMatrix* euler1 = createUndirectedEulerGraph(16,16);
+	
+	isUndirectedEulerGraph(*euler1); //do sprawdzenia
+	
 	delete euler1;
 	
 	/*

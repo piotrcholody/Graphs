@@ -19,7 +19,7 @@ int isUndirectedEulerGraph(IncidenceMatrix& original){
 	}
 	std::cout <<"Wierzcholkow izolowanych jest: "<< toDelete.size() << std::endl;
 	for (int i = toDelete.size() - 1; i >= 0; i--) {
-		std::cout << "usuwam numer " << toDelete[i] << std::endl;
+		//std::cout << "usuwam numer " << toDelete[i] << std::endl;
 		graph.deleteTop(toDelete[i]);
 	}
 	int odd = 0;
@@ -30,8 +30,6 @@ int isUndirectedEulerGraph(IncidenceMatrix& original){
 	}
 	bool isCC = false;
 	std::vector<int> largestComp = findTheLargestConnectedComponent(graph);
-	std::cout << "largest size "<<largestComp.size() << std::endl;
-	std::cout << "graph.getEdge()= "<<graph.getTop() << std::endl;
 	if (largestComp.size() == graph.getTop())
 		isCC = true;
 	if (isCC) {
@@ -58,9 +56,16 @@ int isUndirectedEulerGraph(IncidenceMatrix& original){
 
 /******************************************************************/
 
-
-	//zwraca losowy Eulerowski graf nieskierowany
-IncidenceMatrix* createUndirectedEulerGraph() {
+	//zwraca losowy Eulerowski graf nieskierowany 
+	//min i max oznaczaja zakres z jakiego losowane jest ilosc wierzcholkow
+	//jednak nie uwzglednia to wierzcholkow izolowanych, ktore zostana usuniete
+IncidenceMatrix* createUndirectedEulerGraph(int min, int max) {
+	if (!(min <= max && min >= 0 && max > 0)) {
+		std::cout << "Podano zle wartosci do losowania ilosci wierzcholkow (pamietaj ze wierzcholki izolowane zostana usuniete)" << std::endl;
+		std::cout << "Losuje z przedzialu (10, 12)" << std::endl;
+		min = 10;
+		max = 12;
+	}
 	srand(static_cast<unsigned int>(time(NULL)));
 	int a, b;
 	bool status = true;
@@ -68,15 +73,16 @@ IncidenceMatrix* createUndirectedEulerGraph() {
 	IncidenceMatrix* seq;
 	IncidenceMatrix* rewrited;
 	std::vector<int> largestComp;
-	int min = 10;
-	int max = 12;
 
 	do {
 		b = randomint(min, max);
 
 		while (sequence.size()) sequence.erase(sequence.begin());
 		for (int i = 0; i < b; i++) {
-			a = randomint(2, (int)(min-1)/2);
+			int rmax = (int)(max - 1) / 2;
+			if (rmax > 8)
+				rmax = 8;
+			a = randomint(2, rmax);
 			//a = a * 2;
 			sequence.push_back(a);
 		}
@@ -129,6 +135,16 @@ IncidenceMatrix* createUndirectedEulerGraph() {
 	return rewrited;
 }
 /******************************************************************/
+
+//zwraca losowy Eulerowski graf nieskierowany, zazwyczaj 5-7 wierzcholkow
+IncidenceMatrix* createUndirectedEulerGraph() {
+	int min = 10, max = 12;
+	return createUndirectedEulerGraph(min, max);
+}
+/******************************************************************/
+
+
+
 
 /*
 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0
