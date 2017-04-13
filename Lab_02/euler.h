@@ -5,76 +5,62 @@
 #include "IncidenceMatrix.h"
 #include "connected_components.h"
 
-
-
-
-void DFSUtil(IncidenceMatrix& graph, int v, bool visited[])
-{
-	visited[v] = true;
-
-	std::vector<int> adj = graph.adjForTop(v);
-	std::vector<int>::iterator i;
-	for (i = adj.begin(); i != adj.end(); ++i)
-	{
-		if (!visited[*i])
-		{
-			std::cout << v << ", ";
-			DFSUtil(graph, *i, visited);
+	//zwraca 2 gdy jest Eulerowski i posiada cykl Eulera
+	//zwraca 1 gdy jest Poleulerowski i posiada sciezke Eulera
+	//zwraca 0 gdy nie jest Eulerowski
+int isUndirectedEulerGraph(IncidenceMatrix& original){
+	IncidenceMatrix graph(original);
+	std::vector<int> toDelete;
+	for (int i = 0; i < graph.getTop(); i++) {
+		std::vector<int> temp = graph.adjForTop(i);
+		if (temp.size() == 0) {
+			toDelete.push_back(i);
 		}
 	}
-}
-
-
-
-bool isConnected(IncidenceMatrix& graph, std::vector<int>& result)
-{
-	bool* visited = new bool[graph.getTop()];
-	std::vector<int> adj;
-	int i;
-	for (i = 0; i < graph.getTop(); i++)
-	{
-		visited[i] = false;
+	std::cout <<"Wierzcholkow izolowanych jest: "<< toDelete.size() << std::endl;
+	for (int i = toDelete.size() - 1; i >= 0; i--) {
+		std::cout << "usuwam numer " << toDelete[i] << std::endl;
+		graph.deleteTop(toDelete[i]);
 	}
-	for (i = 0; i < graph.getTop(); i++)
-	{
-		adj = graph.adjForTop(i);
-		if (adj.size() != 0)
-		{
-			break;
+	int odd = 0;
+	for (int i = 0; i < graph.getTop(); i++) {
+		std::vector<int> temp = graph.adjForTop(i);
+		if (temp.size()%2 == 1)
+			odd += 1;
+	}
+	bool isCC = false;
+	std::vector<int> largestComp = findTheLargestConnectedComponent(graph);
+	std::cout << "largest size "<<largestComp.size() << std::endl;
+	std::cout << "graph.getEdge()= "<<graph.getTop() << std::endl;
+	if (largestComp.size() == graph.getTop())
+		isCC = true;
+	if (isCC) {
+		if (odd == 0) {
+			std::cout << "Graf jest Eulerowski; posiada cykl Eulera" << std::endl;
+			return 2;
 		}
-	}
-	if (i == graph.getTop())
-	{
-		return true;
-	}
-	DFSUtil(graph, i, visited);
-	for (i = 0; i < graph.getTop(); i++)
-	{
-		if (visited[i] == false && adj.size() > 0)
-		{
-			return false;
+		if (odd <= 2) {
+			std::cout << "Graf jest Poleulerowski; posiada sciezke Eulera" << std::endl;
+			return 1;
 		}
-	}
-	return true;
-}
-
-std::vector<int> isEulerGraph(IncidenceMatrix& graph) {
-	std::vector<int> result;
-	std::vector<int> adj;
-	if (isConnected(graph, result)){
-		return result;	
+		if (odd > 2) {
+			std::cout << "Graf nie jest Eulerowski, ani Poleulerowski, poniewaz ma wiecej niz 2 wierzcholki o stopniu wiekszym niz 2" << std::endl;
+			return 0;
+		}
 	}
 	else {
-		std::cout << "Nie udalo sie";
-		return result;
+		std::cout << "Graf nie jest Eulerowski ani Poleulerowski, gdyz mimo wyrzucenia wierzcholkow izolowanych ma wiecej niz jedna spojna skladowa" << std::endl;
+		return 0;
 	}
+	return 0;
 }
 
 
+/******************************************************************/
 
 
-
-IncidenceMatrix* createEulerGraph() {
+	//zwraca losowy Eulerowski graf nieskierowany
+IncidenceMatrix* createUndirectedEulerGraph() {
 	srand(static_cast<unsigned int>(time(NULL)));
 	int a, b;
 	bool status = true;
@@ -82,16 +68,16 @@ IncidenceMatrix* createEulerGraph() {
 	IncidenceMatrix* seq;
 	IncidenceMatrix* rewrited;
 	std::vector<int> largestComp;
-
-
+	int min = 10;
+	int max = 12;
 
 	do {
-		b = randomint(10, 12);
+		b = randomint(min, max);
 
 		while (sequence.size()) sequence.erase(sequence.begin());
 		for (int i = 0; i < b; i++) {
-			a = randomint(1, 4);
-			a = a * 2;
+			a = randomint(2, (int)(min-1)/2);
+			//a = a * 2;
 			sequence.push_back(a);
 		}
 		
@@ -142,7 +128,7 @@ IncidenceMatrix* createEulerGraph() {
 	rewrited->printEntireMatrix();
 	return rewrited;
 }
-
+/******************************************************************/
 
 /*
 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0

@@ -40,7 +40,7 @@ std::vector<std::vector<int>> findAllConnectedComponents(IncidenceMatrix& graph)
 			ilosc++;
 		}
 	}
-	delete visited;
+	delete[] visited;
 	return allCC;
 }
 /******************************************************************/
