@@ -5,10 +5,12 @@
 
 int main( void ){
 	srand(static_cast<unsigned int>(time(NULL)));
-	IncidenceMatrix* euler1 = createUndirectedEulerGraph(16,16);
+	IncidenceMatrix* euler1 = createUndirectedEulerGraph(10,12);
 	
-	isUndirectedEulerGraph(*euler1); //do sprawdzenia
-	
+	//isUndirectedEulerGraph(*euler1); //do sprawdzenia
+	std::vector<int> f= findCycleInUndirectedEuler(*euler1);
+
+
 	delete euler1;
 	
 	/*

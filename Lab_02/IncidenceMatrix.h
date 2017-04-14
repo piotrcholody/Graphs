@@ -49,6 +49,10 @@ public:
 		//jesli to nie bedzie sekwencja graficzna i tworzenie sie nie powiedzie: std::abort()
 		//najlepiej sprawdzic przedtem checkIfSequenceIsGraphic()
 	IncidenceMatrix(std::vector<int> sequence);
+		//ustawia w kolumnie (w krawedzi) same zera; krawedz przestaje miec wlascicieli
+		//zwraca 0 gdy sie uda
+		//zwraca 1 gdy nie ma takiej krawedzi
+	bool resetTopsOfEdge(int selectedEdge);
 		//ustawia elementy calej macierzy wpisanymi wartosciami
 		//wpisujesz po kolei pola do ca³ej macierzy, wiersz po wierszu
 		//zwraca 0 gdy jest poprawnie, 1 gdy jest niepoprawnie wpisana
@@ -73,6 +77,9 @@ public:
 				bool eliminateInvalidEdges();
 		//inforumuje o istnieniu indeksu krawedzi (gdy istnieje zwraca 1)
 	bool edgeIndexExist(int questionedEdge) const;
+		//zwraca numer krawedzi ktora jest tworzona przez podane przez nas wierzcholki
+		//zwraca -1 gdy nie ma takiej krawedzi
+	int whichEdge(int firstTop, int secondTop);
 		//informuje o mozliwosci istnienia/stworzenia krawedzi (poprawnosc indeksow wierzcholkow)
 		//zwraca 0 gdy nie moze istniec taka krawedz
 		//zwraca 1 gdy taka krawedz moze istniec

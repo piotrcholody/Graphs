@@ -79,7 +79,7 @@ IncidenceMatrix* createUndirectedEulerGraph(int min, int max) {
 
 		while (sequence.size()) sequence.erase(sequence.begin());
 		for (int i = 0; i < b; i++) {
-			int rmax = (int)(max - 1) / 2;
+			int rmax = (int)b / 2;
 			if (rmax > 8)
 				rmax = 8;
 			a = randomint(2, rmax);
@@ -143,7 +143,72 @@ IncidenceMatrix* createUndirectedEulerGraph() {
 }
 /******************************************************************/
 
+std::vector<int> findCycleInUndirectedEuler(IncidenceMatrix& original) {
+	IncidenceMatrix graph(original);
+	std::vector<int> result;
+	std::vector<int> visited;
+	int edge = graph.getEdge();
+	int added = 0;
+	int cand;
+	int best;
+	int bestsize;
+	bool correct = true;
+	if (!added) {
+		result.push_back(0);
+		int last = 0;
+		int current = 0;
+		std::cout << "0, "; //dasdsadsadasd
+		while (added < edge) {
+			std::vector<int> temp = graph.adjForTop(current);
+			for (int i = 0; i < temp.size(); i++) {
+				cand = temp[i];
+				if (i == 0) { best = cand; bestsize = graph.adjForTop(cand).size(); }
+				std::cout << "For na i==" << i << std::endl;
+				correct = true;
+				for (int j = 0; j < visited.size(); j++) {
+					cand = temp[i];
+					std::cout << "For na j==" << j << ";  temp[" << i << "]==" << cand << ", visited[" << j << "]==" << visited[j] << std::endl;
+					std::cout << "graph.whichEdge(temp[i], current) == " << graph.whichEdge(cand, current) << std::endl;
+					if (graph.whichEdge(cand, current) == visited[j]) {
+						correct = false;
+					}
+					if (graph.adjForTop(cand).size() == 1)
+						correct = false;
+				}
+				if (correct) {
+					if (graph.adjForTop(cand).size() > bestsize) {
+						std::cout << "stary bestsize==" << bestsize << std::endl;
+						bestsize = graph.adjForTop(cand).size();
+						best = cand;
+					}
+				}
+			}			
+			last = current;
+			current = best;
+			if (graph.whichEdge(last, current) >= 0) {
+				result.push_back(current);
+				visited.push_back(graph.whichEdge(last, current));
+				std::cout << "push bestsize==" << bestsize << std::endl;
+				std::cout << "_______Push:" << current << ", Visited:" << graph.whichEdge(last, current) << std::endl;
+				graph.resetTopsOfEdge(graph.whichEdge(last, current));
+				added++;
+			}
+			else break;
+		}
 
+
+		std::cout << "Visited: ";
+		for (int i = 0; i < visited.size(); i++) {
+			std::cout << visited[i] << ",";
+		}
+		std::cout << "Result: ";
+		for (int i = 0; i < result.size(); i++) {
+			std::cout << result[i] << ",";
+		}
+		graph.printEntireMatrix();
+	}
+	return result;
+}
 
 
 /*

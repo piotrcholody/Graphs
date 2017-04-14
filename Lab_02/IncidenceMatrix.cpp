@@ -102,6 +102,19 @@ IncidenceMatrix::IncidenceMatrix(std::vector<int> original)
 	}
 }
 /******************************************************************/
+bool IncidenceMatrix::resetTopsOfEdge(int selectedEdge) {
+	if (edgeIndexExist(selectedEdge)) {
+		for (int t = 0; t < top; t++)
+			matrix[t][selectedEdge] = 0;
+		return 0;
+	}
+	else {
+		std::cout << "resetTopsOfEdge(" << selectedEdge <<"): ";
+		std::cout << "Indeks krawedzi jest bledny!" << std::endl;
+		return 1;
+	}
+}
+/******************************************************************/
 bool IncidenceMatrix::setTopsOfEdge(int selectedEdge, int newOwner1, int newOwner2) {
 	if (possibleEdge(newOwner1, newOwner2)) {
 		if (edgeIndexExist(selectedEdge)) {
@@ -150,6 +163,16 @@ bool IncidenceMatrix::isThisEdgeFree(int firstTop, int secondTop) const{
 bool IncidenceMatrix::edgeIndexExist(int questionedEdge) const {
 	return ((questionedEdge < this->edge) && (questionedEdge >= 0));
 }
+/******************************************************************/
+int IncidenceMatrix::whichEdge(int firstTop, int secondTop) {
+	for (int e = 0; e < edge; e++) {
+		if (matrix[firstTop][e] == 1 && matrix[secondTop][e] == 1)
+			return e;
+	}
+	std::cout << "whichEdge(" << firstTop << "," << secondTop << "): nie ma takiej krawedzi!" << std::endl;
+	return -1;
+}
+
 /******************************************************************/
 bool IncidenceMatrix::deleteEdge(int unwantedEdge) {
 	if (edgeIndexExist(unwantedEdge)) {
