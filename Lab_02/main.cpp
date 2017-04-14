@@ -5,13 +5,37 @@
 
 int main( void ){
 	srand(static_cast<unsigned int>(time(NULL)));
-	IncidenceMatrix* euler1 = createUndirectedEulerGraph(10,12);
+	//IncidenceMatrix* euler1 = createUndirectedEulerGraph(12,13);
 	
 	//isUndirectedEulerGraph(*euler1); //do sprawdzenia
-	std::vector<int> f= findCycleInUndirectedEuler(*euler1);
+	//delete euler1;
 
+	/*
+		0 | 0  0  0  1  0  0  0  0  0  1   0   0 |
+		1 | 0  1  0  1  0  0  0  0  0  0   0   0 |
+		2 | 0  0  0  0  1  0  0  0  0  0   0   1 |
+		3 | 0  0  0  0  0  0  0  1  0  0   1   0 |
+		4 | 0  0  0  0  0  0  1  0  1  0   0   0 |
+		5 | 0  0  1  0  0  1  0  0  0  0   0   0 |
+		6 | 1  0  1  0  1  0  0  0  1  1   1   0 |
+		7 | 1  1  0  0  0  1  1  1  0  0   0   1 |
+	*/	
+	IncidenceMatrix* errorsample = new IncidenceMatrix(8, 12);
+	errorsample->setTopsOfEdge(0,6,7);
+	errorsample->setTopsOfEdge(1,1,7);
+	errorsample->setTopsOfEdge(2,5,6);
+	errorsample->setTopsOfEdge(3,0,1);
+	errorsample->setTopsOfEdge(4,2,6);
+	errorsample->setTopsOfEdge(5,5,7);
+	errorsample->setTopsOfEdge(6,4,7);
+	errorsample->setTopsOfEdge(7,3,7);
+	errorsample->setTopsOfEdge(8,4,6);
+	errorsample->setTopsOfEdge(9,0,6);
+	errorsample->setTopsOfEdge(10,3,6);
+	errorsample->setTopsOfEdge(11,2,7);
 
-	delete euler1;
+	std::vector<int> f = findCycleInUndirectedEuler(*errorsample);
+	delete errorsample;
 	
 	/*
 	std::vector<int> t1;
