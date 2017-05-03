@@ -55,14 +55,17 @@ void GraphDraw2::on_PBInsertData_clicked()
 }
 void GraphDraw2::on_PBEulerian_clicked()
 {
-    if(isUndirectedEulerGraph(*gGraf) == 2){
-        if(gGraf->getL() > 0)
-             gRysuj->rysujEuler(findCycleInUndirectedEuler(*gGraf), gGraf->getN());
-    }
-    else if(isUndirectedEulerGraph(*gGraf) == 1)
-        QMessageBox::information(0, "error","graf jest poleulerowski");
-    else if(isUndirectedEulerGraph(*gGraf) == 0)
+    if(!gGraf->getL())
         QMessageBox::information(0, "error","graf nie jest eulerowski");
+    else
+        if(isUndirectedEulerGraph(*gGraf) == 2){
+            if(gGraf->getL() > 0)
+                gRysuj->rysujEuler(findCycleInUndirectedEuler(*gGraf), gGraf->getN());
+        }
+        else if(isUndirectedEulerGraph(*gGraf) == 1)
+            QMessageBox::information(0, "error","graf jest poleulerowski");
+        else if(isUndirectedEulerGraph(*gGraf) == 0)
+            QMessageBox::information(0, "error","graf nie jest eulerowski");
 }
 
 void GraphDraw2::on_PBHamiltonianC_clicked()
