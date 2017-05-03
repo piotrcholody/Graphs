@@ -9,7 +9,7 @@
 	//randomizacja dwoch krawedzi grafu
 	//zwraca 1 gdy tego grafu nie da sie randomizowac (po 100.000 losowan krawedzi nadal nie dalo sie niczego przepiac)
 	//zwraca 0 gdy sie udalo
-bool graphRandomization(IncidenceMatrix graph) {
+bool graphRandomization(IncidenceMatrix& graph) {
 	if (graph.getEdge() >= 2) {
 		std::cout << "\nRandomizacja..." << std::endl;
 		int a, b, c, d, rand1, rand2, count = 0;
