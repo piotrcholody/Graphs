@@ -1,0 +1,17 @@
+INPUT(
+./debug\main.o
+./debug\graphdraw2.o
+./debug\insertdatawindow.o
+./debug\grafrysuj.o
+./debug\ggenerator.o
+./debug\ggeneratorve.o
+./debug\ggeneratork.o
+./debug\IncidenceMatrix.o
+./debug\AdjacencyList.o
+./debug\regGraphGen.o
+./debug\moc_graphdraw2.o
+./debug\moc_insertdatawindow.o
+./debug\moc_ggenerator.o
+./debug\moc_ggeneratorve.o
+./debug\moc_ggeneratork.o
+);
