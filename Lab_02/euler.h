@@ -1,5 +1,4 @@
 #pragma once
-
 #include <iostream>
 #include <vector>
 #include "IncidenceMatrix.h"
@@ -22,14 +21,14 @@ int isUndirectedEulerGraph(IncidenceMatrix& original){
 		//std::cout << "usuwam numer " << toDelete[i] << std::endl;
 		graph.deleteTop(toDelete[i]);
 	}
-	int odd = 0;
+    int odd = 0;
 	for (int i = 0; i < graph.getTop(); i++) {
 		std::vector<int> temp = graph.adjForTop(i);
 		if (temp.size()%2 == 1)
 			odd += 1;
 	}
-	bool isCC = false;
-	std::vector<int> largestComp = findTheLargestConnectedComponent(graph);
+    bool isCC = false;
+    std::vector<int> largestComp = findTheLargestConnectedComponent(graph);
 	if (largestComp.size() == graph.getTop())
 		isCC = true;
 	if (isCC) {
@@ -59,7 +58,7 @@ int isUndirectedEulerGraph(IncidenceMatrix& original){
 	//zwraca losowy Eulerowski graf nieskierowany 
 	//min i max oznaczaja zakres z jakiego losowane jest ilosc wierzcholkow
 	//jednak nie uwzglednia to wierzcholkow izolowanych, ktore zostana usuniete
-IncidenceMatrix* createUndirectedEulerGraph(int min, int max) {
+/*IncidenceMatrix* createUndirectedEulerGraph(int min, int max) {
 	if (!(min <= max && min >= 0 && max > 0)) {
 		std::cout << "Podano zle wartosci do losowania ilosci wierzcholkow (pamietaj ze wierzcholki izolowane zostana usuniete)" << std::endl;
 		std::cout << "Losuje z przedzialu (10, 12)" << std::endl;
@@ -133,14 +132,14 @@ IncidenceMatrix* createUndirectedEulerGraph(int min, int max) {
 
 	rewrited->printEntireMatrix();
 	return rewrited;
-}
+}*/
 /******************************************************************/
 
 //zwraca losowy Eulerowski graf nieskierowany, zazwyczaj 5-7 wierzcholkow
-IncidenceMatrix* createUndirectedEulerGraph() {
+/*IncidenceMatrix* createUndirectedEulerGraph() {
 	int min = 10, max = 12;
 	return createUndirectedEulerGraph(min, max);
-}
+}*/
 /******************************************************************/
 
 std::vector<int> findCycleInUndirectedEuler(IncidenceMatrix& original) {

@@ -33,7 +33,7 @@ std::vector< std::vector< int > > getMatrixOfPairs(int edges_counter, int degree
 }
 /*****************************************************************************************/
 bool isCreatingGraphPossible(int vertex_counter, int degree) {
-	return !(vertex_counter * degree) % 2 || vertex_counter >= degree + 1;
+	return !((vertex_counter * degree) % 2) && vertex_counter >= degree + 1;
 }
 /*****************************************************************************************/
 bool isThisPairExist(int vertex_one, int vertex_two, std::vector< std::vector< int > > pairs, int index) {

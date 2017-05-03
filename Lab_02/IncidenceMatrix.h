@@ -1,6 +1,6 @@
 #pragma once
 #include "connectionmatrix.h"
-#include "vld.h"
+//#include "vld.h"
 
 
 struct node1
@@ -33,6 +33,7 @@ bool checkIfSequenceIsGraphic(std::vector<int> sequence);
 class IncidenceMatrix
 {
 public:
+	IncidenceMatrix() = default;
 		//zwraca liste polaczen dla danego wierzcholka (z ktorymi wierzcholkami laczy sie seletedTop)
 	std::vector<int> adjForTop(int selectedTop);
 		//tworzy macierz pytajac o ilosc wierzcholkow i krawedzi, wypelnia zerami

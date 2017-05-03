@@ -3,8 +3,6 @@
 #include "connectionmatrix.h"
 #include "AdjacencyList.h"
 #include "IncidenceMatrix.h"
-#include "probGraph.h"
-#include "edgeGraph.h"
 #include "hamiltonian.h"
 #include "randomization.h"
 #include "euler.h"
