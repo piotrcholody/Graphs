@@ -1,7 +1,6 @@
 #include<grafrysuj.h>
-#ifndef M_PI
-#define M_PI 3.14159265358979323846
-#endif
+#define _USE_MATH_DEFINES
+#include <math.h>
 GrafRysuj::GrafRysuj(QGraphicsScene *scene,const double r)
   	:_scene(scene),_r(r),_brush(Qt::black),_pen(Qt::black){
   	if(scene==0||scene==NULL)
