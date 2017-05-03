@@ -1,6 +1,7 @@
 #include "ggeneratork.h"
 #include "ui_ggeneratork.h"
-
+#include <utility>
+#include <iostream>
 
 GGeneratork::GGeneratork(QWidget *parent) :
     QDialog(parent),

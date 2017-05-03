@@ -2,8 +2,7 @@
 #define GGENERATORK_H
 
 #include <QDialog>
-#include <utility>
-#include <iostream>
+
 
 namespace Ui {
 class GGeneratork;

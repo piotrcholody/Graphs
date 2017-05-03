@@ -1,6 +1,11 @@
-#include<grafrysuj.h>
 #define _USE_MATH_DEFINES
-#include <math.h>
+//#include <math.h>
+#include <cmath>
+#include <grafrysuj.h>
+#include <QGraphicsTextItem>
+#include <sstream>
+#include <stdexcept>
+
 GrafRysuj::GrafRysuj(QGraphicsScene *scene,const double r)
   	:_scene(scene),_r(r),_brush(Qt::black),_pen(Qt::black){
   	if(scene==0||scene==NULL)

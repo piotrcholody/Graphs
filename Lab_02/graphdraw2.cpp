@@ -3,7 +3,10 @@
 #include "euler.h"
 #include "regGraphGen.h"
 #include "hamiltonian.h"
-
+#include "insertdatawindow.h"
+#include "ggenerator.h"
+#include "ggeneratorve.h"
+#include "ggeneratork.h"
 GraphDraw2::GraphDraw2(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::GraphDraw2),

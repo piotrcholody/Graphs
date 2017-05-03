@@ -1,6 +1,7 @@
 #include "ggenerator.h"
 #include "ui_ggenerator.h"
-
+#include <utility>
+#include <iostream>
 
 GGenerator::GGenerator(QWidget *parent) :
     QDialog(parent),

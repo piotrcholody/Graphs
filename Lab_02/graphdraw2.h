@@ -3,16 +3,10 @@
 
 #include <QMainWindow>
 #include <vector>
-
-#include <grafrysuj.h>
-#include <ggenerator.h>
-#include <ggeneratorve.h>
-#include <ggeneratork.h>
+#include "grafrysuj.h"
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QFileDialog>
-#include <insertdatawindow.h>
-#include <vector>
 #include "IncidenceMatrix.h"
 
 namespace Ui {

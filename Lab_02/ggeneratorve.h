@@ -2,7 +2,7 @@
 #define GGENERATORVE_H
 
 #include <QDialog>
-#include <utility>
+
 
 namespace Ui {
 class GGeneratorVE;

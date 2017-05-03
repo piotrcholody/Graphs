@@ -1,12 +1,9 @@
 #ifndef GRAFRYSUJ
 #define GRAFRYSUJ
 #include <QGraphicsScene>
-#include <QGraphicsTextItem>
 #include <QFont>
-#include <cmath>
-#include <sstream>
-#include <stdexcept>
 #include "connectionmatrix.h"
+
 class GrafRysuj{
 	public:
 	  /**
