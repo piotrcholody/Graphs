@@ -83,7 +83,25 @@ void GraphDraw2::on_PBHamiltonianC_clicked()
 /*
 void GraphDraw2::on_PBRandomize_clicked()
 {
-    gGraf->generujGrafRand();
+    Randomize gen;
+    gen.setModal(true);
+    gen.exec();
+    ConnectionMatrix<int> *lista = NULL;
+    AdjacencyList* list = NULL;
+    try {
+        int tmp = gen.on_buttonBox_accepted();
+        for(int i = 0; i < tmp; i++){
+            graphRandomization(*gGraf);
+        }
+        AdjacencyList* list = new AdjacencyList(*gGraf);
+        ConnectionMatrix<int>* lista = new ConnectionMatrix<int>(*list);
+        gRysuj->rysuj(lista);
+    }
+    catch(std::exception& e){
+          QMessageBox::information(0, "error",e.what());
+    }
+    delete list;
+    delete lista;
 }
 */
 void GraphDraw2::on_PBDraw_clicked()

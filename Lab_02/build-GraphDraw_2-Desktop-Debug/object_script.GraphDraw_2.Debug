@@ -9,9 +9,11 @@ INPUT(
 ./debug\IncidenceMatrix.o
 ./debug\AdjacencyList.o
 ./debug\regGraphGen.o
+./debug\randomize.o
 ./debug\moc_graphdraw2.o
 ./debug\moc_insertdatawindow.o
 ./debug\moc_ggenerator.o
 ./debug\moc_ggeneratorve.o
 ./debug\moc_ggeneratork.o
+./debug\moc_randomize.o
 );

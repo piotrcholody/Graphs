@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     ggeneratork.cpp \
     IncidenceMatrix.cpp \
     AdjacencyList.cpp \
-    regGraphGen.cpp
+    regGraphGen.cpp \
+    randomize.cpp
 
 HEADERS  += graphdraw2.h \
     insertdatawindow.h \
@@ -38,10 +39,14 @@ HEADERS  += graphdraw2.h \
     main.h \
     MyExceptions.h \
     randomization.h \
-    regGraphGen.h
+    regGraphGen.h \
+    randomize.h
 
 FORMS    += graphdraw2.ui \
     insertdatawindow.ui \
     ggenerator.ui \
     ggeneratorve.ui \
-    ggeneratork.ui
+    ggeneratork.ui \
+    randomize.ui
+
+DISTFILES +=
