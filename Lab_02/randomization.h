@@ -9,7 +9,7 @@
 	//randomizacja dwoch krawedzi grafu
 	//zwraca 1 gdy tego grafu nie da sie randomizowac (po 100.000 losowan krawedzi nadal nie dalo sie niczego przepiac)
 	//zwraca 0 gdy sie udalo
-bool graphRandomization(IncidenceMatrix& graph) {
+IncidenceMatrix graphRandomization(IncidenceMatrix graph) {
 	if (graph.getEdge() >= 2) {
 		std::cout << "\nRandomizacja..." << std::endl;
 		int a, b, c, d, rand1, rand2, count = 0;
@@ -26,11 +26,11 @@ bool graphRandomization(IncidenceMatrix& graph) {
 				error1 = graph.getTopsOfEdge(rand1, a, b);
 				error2 = graph.getTopsOfEdge(rand2, c, d);
 				if (error1 || error2)
-					return 1;
+					 throw std::runtime_error("Randomizacja nie powiodla sie!");
 			}
 			else {
 				std::cout << "Nie da sie randomizowac tego grafu!" << std::endl;
-				return 1;
+				throw std::runtime_error("Randomizacja nie powiodla sie!");
 			}
 		}
 		error3 = graph.setTopsOfEdge(rand1, a, d);
@@ -41,7 +41,7 @@ bool graphRandomization(IncidenceMatrix& graph) {
 		}
 		else {
 			std::cout << "Randomizacja powiodla sie (przepieto krawedzie o indeksach " << rand1 << " i " << rand2 << ")\n" << std::endl;
-			return 0;
+			return graph;
 		}
 		error3 = graph.setTopsOfEdge(rand1, a, c);
 		error4 = graph.setTopsOfEdge(rand2, b, d);
@@ -51,14 +51,14 @@ bool graphRandomization(IncidenceMatrix& graph) {
 		}
 		else {
 			std::cout << "Randomizacja powiodla sie (przepieto krawedzie o indeksach " << rand1 << " i " << rand2 << ")\n" << std::endl;
-			return 0;
+			return graph;
 		}
 		std::cout << "Wylosowana para krawedzi nie mogla zostac zamieniona" << std::endl;
 	}
 	else {
 		std::cout << "Nie da sie randomizowac grafu z mniej niz 2 krawedziami" << std::endl;
-		return 1;
+		throw std::runtime_error("Randomizacja nie powiodla sie!");
 	}
-	return 1;
+	throw std::runtime_error("Randomizacja nie powiodla sie!");
 }
 /******************************************************************/
