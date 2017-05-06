@@ -16,8 +16,15 @@ GGeneratorVE::~GGeneratorVE()
 
 std::pair<int,int> GGeneratorVE::on_buttonBox_accepted()
 {
-    return std::pair<int,int>(this->ui->spinBox_2->value(),this->ui->spinBox->value());
+    update();
+    return std::pair<int,double>(this->ui->spinBox_2->value(),this->ui->spinBox->value());
 }
+
+void GGeneratorVE::on_buttonBox_rejected()
+{
+    this->close();
+}
+
 
 void GGeneratorVE::update(){
   int n = ui->spinBox_2->value();

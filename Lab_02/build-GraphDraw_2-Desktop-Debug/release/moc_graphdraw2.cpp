@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_GraphDraw2_t {
-    QByteArrayData data[10];
-    char stringdata0[250];
+    QByteArrayData data[11];
+    char stringdata0[273];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,16 +34,18 @@ QT_MOC_LITERAL(1, 11, 23), // "on_PBInsertData_clicked"
 QT_MOC_LITERAL(2, 35, 0), // ""
 QT_MOC_LITERAL(3, 36, 21), // "on_PBEulerian_clicked"
 QT_MOC_LITERAL(4, 58, 25), // "on_PBHamiltonianC_clicked"
-QT_MOC_LITERAL(5, 84, 17), // "on_PBDraw_clicked"
-QT_MOC_LITERAL(6, 102, 27), // "on_PBConsistentSubG_clicked"
-QT_MOC_LITERAL(7, 130, 37), // "on_actionGenerate_Vert_Edge_t..."
-QT_MOC_LITERAL(8, 168, 44), // "on_actionFrom_vertices_probab..."
-QT_MOC_LITERAL(9, 213, 36) // "on_actionFrom_k_regularity_tr..."
+QT_MOC_LITERAL(5, 84, 22), // "on_PBRandomize_clicked"
+QT_MOC_LITERAL(6, 107, 17), // "on_PBDraw_clicked"
+QT_MOC_LITERAL(7, 125, 27), // "on_PBConsistentSubG_clicked"
+QT_MOC_LITERAL(8, 153, 37), // "on_actionGenerate_Vert_Edge_t..."
+QT_MOC_LITERAL(9, 191, 44), // "on_actionFrom_vertices_probab..."
+QT_MOC_LITERAL(10, 236, 36) // "on_actionFrom_k_regularity_tr..."
 
     },
     "GraphDraw2\0on_PBInsertData_clicked\0\0"
     "on_PBEulerian_clicked\0on_PBHamiltonianC_clicked\0"
-    "on_PBDraw_clicked\0on_PBConsistentSubG_clicked\0"
+    "on_PBRandomize_clicked\0on_PBDraw_clicked\0"
+    "on_PBConsistentSubG_clicked\0"
     "on_actionGenerate_Vert_Edge_triggered\0"
     "on_actionFrom_vertices_probability_triggered\0"
     "on_actionFrom_k_regularity_triggered"
@@ -56,7 +58,7 @@ static const uint qt_meta_data_GraphDraw2[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       8,   14, // methods
+       9,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -64,16 +66,18 @@ static const uint qt_meta_data_GraphDraw2[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   54,    2, 0x08 /* Private */,
-       3,    0,   55,    2, 0x08 /* Private */,
-       4,    0,   56,    2, 0x08 /* Private */,
-       5,    0,   57,    2, 0x08 /* Private */,
-       6,    0,   58,    2, 0x08 /* Private */,
-       7,    0,   59,    2, 0x08 /* Private */,
-       8,    0,   60,    2, 0x08 /* Private */,
-       9,    0,   61,    2, 0x08 /* Private */,
+       1,    0,   59,    2, 0x08 /* Private */,
+       3,    0,   60,    2, 0x08 /* Private */,
+       4,    0,   61,    2, 0x08 /* Private */,
+       5,    0,   62,    2, 0x08 /* Private */,
+       6,    0,   63,    2, 0x08 /* Private */,
+       7,    0,   64,    2, 0x08 /* Private */,
+       8,    0,   65,    2, 0x08 /* Private */,
+       9,    0,   66,    2, 0x08 /* Private */,
+      10,    0,   67,    2, 0x08 /* Private */,
 
  // slots: parameters
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -95,11 +99,12 @@ void GraphDraw2::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 0: _t->on_PBInsertData_clicked(); break;
         case 1: _t->on_PBEulerian_clicked(); break;
         case 2: _t->on_PBHamiltonianC_clicked(); break;
-        case 3: _t->on_PBDraw_clicked(); break;
-        case 4: _t->on_PBConsistentSubG_clicked(); break;
-        case 5: _t->on_actionGenerate_Vert_Edge_triggered(); break;
-        case 6: _t->on_actionFrom_vertices_probability_triggered(); break;
-        case 7: _t->on_actionFrom_k_regularity_triggered(); break;
+        case 3: _t->on_PBRandomize_clicked(); break;
+        case 4: _t->on_PBDraw_clicked(); break;
+        case 5: _t->on_PBConsistentSubG_clicked(); break;
+        case 6: _t->on_actionGenerate_Vert_Edge_triggered(); break;
+        case 7: _t->on_actionFrom_vertices_probability_triggered(); break;
+        case 8: _t->on_actionFrom_k_regularity_triggered(); break;
         default: ;
         }
     }
@@ -131,13 +136,13 @@ int GraphDraw2::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 8)
+        if (_id < 9)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 8;
+        _id -= 9;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 8)
+        if (_id < 9)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 8;
+        _id -= 9;
     }
     return _id;
 }

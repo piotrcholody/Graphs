@@ -19,10 +19,12 @@ public:
 
 private slots:
     std::pair<int,int> on_buttonBox_accepted();
+    void on_buttonBox_rejected();
     void update();
 
 private:
     Ui::GGeneratorVE *ui;
+    std::pair<int,int> values;
 };
 
 #endif // GGENERATORVE_H

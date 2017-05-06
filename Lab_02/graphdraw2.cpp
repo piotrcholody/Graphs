@@ -7,6 +7,9 @@
 #include "ggenerator.h"
 #include "ggeneratorve.h"
 #include "ggeneratork.h"
+#include "randomize.h"
+#include "randomization.h"
+
 GraphDraw2::GraphDraw2(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::GraphDraw2),
@@ -80,22 +83,24 @@ void GraphDraw2::on_PBHamiltonianC_clicked()
      else
          QMessageBox::information(0, "error","graf nie jest hamiltonowski");
 }
-/*
+
 void GraphDraw2::on_PBRandomize_clicked()
 {
     Randomize gen;
     gen.setModal(true);
     gen.exec();
-    ConnectionMatrix<int> *lista = NULL;
-    AdjacencyList* list = NULL;
+    ConnectionMatrix<int> *lista = nullptr;
+    AdjacencyList* list = nullptr;
     try {
         int tmp = gen.on_buttonBox_accepted();
         for(int i = 0; i < tmp; i++){
-            graphRandomization(*gGraf);
+            *gGraf = graphRandomization(*gGraf);
         }
+        /*gGraf->printEntireMatrix();
         AdjacencyList* list = new AdjacencyList(*gGraf);
         ConnectionMatrix<int>* lista = new ConnectionMatrix<int>(*list);
-        gRysuj->rysuj(lista);
+        std::cout << "test";
+        gRysuj->rysuj(lista);*/
     }
     catch(std::exception& e){
           QMessageBox::information(0, "error",e.what());
@@ -103,7 +108,7 @@ void GraphDraw2::on_PBRandomize_clicked()
     delete list;
     delete lista;
 }
-*/
+
 void GraphDraw2::on_PBDraw_clicked()
 {
     AdjacencyList* list = new AdjacencyList(*gGraf);
@@ -116,10 +121,9 @@ void GraphDraw2::on_PBDraw_clicked()
 void GraphDraw2::on_PBConsistentSubG_clicked()
 {
     std::vector <int> tmp = findTheLargestConnectedComponent(*gGraf);
-    for (auto it = tmp.begin(); it != tmp.end(); ++it) {
-        std::cout << tmp[*it] << std::endl;
+    for (int i = 0; i < tmp.size(); ++i) {
+        std::cout << tmp[i] << std::endl;
     }
-    tmp.push_back(tmp[0]);
     AdjacencyList* list = new AdjacencyList(*gGraf);
     ConnectionMatrix<int>* lista = new ConnectionMatrix<int>(*list);
     gRysuj->rysujSkladowa(lista, tmp);
@@ -140,6 +144,13 @@ void GraphDraw2::on_actionGenerate_Vert_Edge_triggered()
         testCM->edgeGraph(ve_count.first,ve_count.second);
         IncidenceMatrix* matrix = new IncidenceMatrix(*testCM);
         delete gGraf;
+        gGraf = nullptr;
+        gRysuj->clear();
+        ui->PBDraw->setEnabled(false);
+        ui->PBEulerian->setEnabled(false);
+        ui->PBRandomize->setEnabled(false);
+        ui->PBHamiltonianC->setEnabled(false);
+        ui->PBConsistentSubG->setEnabled(false);
         this->gGraf = matrix;
         ui->PBDraw->setEnabled(true);
         ui->PBEulerian->setEnabled(true);
@@ -167,6 +178,13 @@ void GraphDraw2::on_actionFrom_vertices_probability_triggered()
         testCM = new ConnectionMatrix<int>();
         testCM->probGraph(values.first,values.second);
         delete gGraf;
+        gGraf = nullptr;
+        gRysuj->clear();
+        ui->PBDraw->setEnabled(false);
+        ui->PBEulerian->setEnabled(false);
+        ui->PBRandomize->setEnabled(false);
+        ui->PBHamiltonianC->setEnabled(false);
+        ui->PBConsistentSubG->setEnabled(false);
         IncidenceMatrix* matrix = new IncidenceMatrix(*testCM);
         this->gGraf = matrix;
         ui->PBDraw->setEnabled(true);
@@ -195,6 +213,13 @@ void GraphDraw2::on_actionFrom_k_regularity_triggered()
         if(gSvec.empty())
             throw std::runtime_error("nie wpisano wartosci k");
         delete gGraf;
+        gGraf = nullptr;
+        gRysuj->clear();
+        ui->PBDraw->setEnabled(false);
+        ui->PBEulerian->setEnabled(false);
+        ui->PBRandomize->setEnabled(false);
+        ui->PBHamiltonianC->setEnabled(false);
+        ui->PBConsistentSubG->setEnabled(false);
         gGraf = &regGraphGen(values.first, values.second);
         ui->PBDraw->setEnabled(true);
         ui->PBEulerian->setEnabled(true);

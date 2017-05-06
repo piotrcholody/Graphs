@@ -17,7 +17,13 @@ GGeneratork::~GGeneratork()
 
 std::pair<int, int> GGeneratork::on_buttonBox_accepted()
 {
+  update();
   return std::pair<int,int>(this->ui->spinBox->value(),this->ui->spinBox_2->value());
+}
+
+void GGeneratork::on_buttonBox_rejected()
+{
+    this->close();
 }
 
 void GGeneratork::update(){

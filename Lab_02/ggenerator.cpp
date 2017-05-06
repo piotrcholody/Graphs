@@ -17,5 +17,11 @@ GGenerator::~GGenerator()
 
 std::pair<int, double> GGenerator::on_buttonBox_accepted()
 {
-  return std::pair<int,double>(this->ui->spinBox->value(),this->ui->doubleSpinBox->value());
+    return std::pair<int,double>(this->ui->spinBox->value(),this->ui->doubleSpinBox->value());
 }
+
+void GGenerator::on_buttonBox_rejected()
+{
+    this->close();
+}
+

@@ -29,7 +29,7 @@ class Ui_GGenerator
 {
 public:
     QDialogButtonBox *buttonBox;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
     QLabel *label;
@@ -48,24 +48,24 @@ public:
         buttonBox->setGeometry(QRect(0, 70, 221, 41));
         buttonBox->setOrientation(Qt::Horizontal);
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
-        widget = new QWidget(GGenerator);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(40, 0, 184, 66));
-        verticalLayout = new QVBoxLayout(widget);
+        layoutWidget = new QWidget(GGenerator);
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+        layoutWidget->setGeometry(QRect(40, 0, 184, 66));
+        verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        label = new QLabel(widget);
+        label = new QLabel(layoutWidget);
         label->setObjectName(QStringLiteral("label"));
 
         horizontalLayout->addWidget(label);
 
-        spinBox = new QSpinBox(widget);
+        spinBox = new QSpinBox(layoutWidget);
         spinBox->setObjectName(QStringLiteral("spinBox"));
-        spinBox->setMinimum(1);
+        spinBox->setMinimum(0);
         spinBox->setMaximum(30);
-        spinBox->setValue(6);
+        spinBox->setValue(0);
 
         horizontalLayout->addWidget(spinBox);
 
@@ -74,16 +74,16 @@ public:
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        label_2 = new QLabel(widget);
+        label_2 = new QLabel(layoutWidget);
         label_2->setObjectName(QStringLiteral("label_2"));
 
         horizontalLayout_2->addWidget(label_2);
 
-        doubleSpinBox = new QDoubleSpinBox(widget);
+        doubleSpinBox = new QDoubleSpinBox(layoutWidget);
         doubleSpinBox->setObjectName(QStringLiteral("doubleSpinBox"));
         doubleSpinBox->setMaximum(1);
         doubleSpinBox->setSingleStep(0.01);
-        doubleSpinBox->setValue(0.5);
+        doubleSpinBox->setValue(0);
 
         horizontalLayout_2->addWidget(doubleSpinBox);
 

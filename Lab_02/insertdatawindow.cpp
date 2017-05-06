@@ -30,6 +30,7 @@ void InsertDataWindow::on_Check_clicked()
     }
     else{
         IDWseq.clear();
+        QMessageBox::information(0, "error","sekwencja nie tworzy ciagu graficznego");
     }
 }
 void InsertDataWindow::on_tableWidget_cellChanged(int row, int column)
@@ -46,6 +47,7 @@ std::vector<int> InsertDataWindow::on_PBAccept_clicked()
 
 void InsertDataWindow::on_PBAbort_clicked()
 {
+    IDWseq.clear();
     this->close();
 }
 

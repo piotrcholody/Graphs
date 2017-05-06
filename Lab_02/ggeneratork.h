@@ -19,9 +19,11 @@ public:
 
 private slots:
     std::pair<int,int> on_buttonBox_accepted();
+    void on_buttonBox_rejected();
     void update();
 private:
     Ui::GGeneratork *ui;
+    std::pair<int,int> values;
 };
 
 #endif // GGENERATORK_H

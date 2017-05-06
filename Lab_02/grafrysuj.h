@@ -25,6 +25,9 @@ class GrafRysuj{
           void rysujHamilton(std::vector<int> listN);
 
           void rysujSkladowa(ConnectionMatrix<int> *graf, std::vector<int> listN);
+
+		  void clear();
+
           QPen& getPen(){return _pen;}
           QBrush& getBrush(){return _brush;}
           double getR()const{return _r;}

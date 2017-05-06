@@ -2,7 +2,7 @@
 #define GGENERATOR_H
 
 #include <QDialog>
-
+#include <QPushButton>
 
 namespace Ui {
 class GGenerator;
@@ -19,9 +19,11 @@ public:
 
 private slots:
     std::pair<int,double> on_buttonBox_accepted();
+    void on_buttonBox_rejected();
 
 private:
     Ui::GGenerator *ui;
+    std::pair<int,double> values;
 };
 
 #endif // GGENERATOR_H

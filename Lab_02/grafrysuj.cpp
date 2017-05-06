@@ -30,6 +30,10 @@ for(int i=0;i<n;i++){
     }
 }
 }
+
+void GrafRysuj::clear() {
+	_scene->clear();
+}
 void GrafRysuj::rysujEuler(std::vector<int> listN,const int n){
   if(listN.empty())
     throw std::runtime_error("GrafRysuj::rysujEuler : Niezainicjalizowana sciezka");
@@ -77,13 +81,12 @@ void GrafRysuj::rysujSkladowa(ConnectionMatrix<int> *graf, std::vector<int> list
   int n = graf->getN(), w=8;
   std::vector< std::vector<int> > tab = graf->getMatrix();
   double d = (2*M_PI)/n, temp = M_PI/2;
-  _scene->clear();
   for(int i = 0; i < n; ++i){
       std::stringstream str;
       str << i;
       QGraphicsTextItem *text = _scene->addText(str.str().c_str(), QFont());
-      for (auto it = listN.begin(); it != listN.end(); ++it) {
-          if (listN[*it] == i) {
+      for (int it = 0; it < listN.size(); ++it) {
+          if (listN[it] == i) {
               text->setDefaultTextColor(Qt::red);
               _brush.setColor(Qt::red);
               break;

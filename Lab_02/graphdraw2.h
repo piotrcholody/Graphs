@@ -30,7 +30,7 @@ private slots:
 
     void on_PBHamiltonianC_clicked();
 
-   // void on_PBRandomize_clicked();
+    void on_PBRandomize_clicked();
 
     void on_PBDraw_clicked();
 
