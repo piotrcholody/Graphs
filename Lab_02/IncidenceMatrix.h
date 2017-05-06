@@ -33,7 +33,7 @@ bool checkIfSequenceIsGraphic(std::vector<int> sequence);
 class IncidenceMatrix
 {
 public:
-	IncidenceMatrix() = default;
+	IncidenceMatrix() { matrix = nullptr; };
 		//zwraca liste polaczen dla danego wierzcholka (z ktorymi wierzcholkami laczy sie seletedTop)
 	std::vector<int> adjForTop(int selectedTop);
 		//tworzy macierz pytajac o ilosc wierzcholkow i krawedzi, wypelnia zerami

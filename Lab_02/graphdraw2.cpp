@@ -124,6 +124,7 @@ void GraphDraw2::on_PBConsistentSubG_clicked()
     for (int i = 0; i < tmp.size(); ++i) {
         std::cout << tmp[i] << std::endl;
     }
+    //tmp.push_back(tmp[0]);
     AdjacencyList* list = new AdjacencyList(*gGraf);
     ConnectionMatrix<int>* lista = new ConnectionMatrix<int>(*list);
     gRysuj->rysujSkladowa(lista, tmp);
