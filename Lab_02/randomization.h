@@ -9,7 +9,7 @@
 	//randomizacja dwoch krawedzi grafu
 	//zwraca 1 gdy tego grafu nie da sie randomizowac (po 100.000 losowan krawedzi nadal nie dalo sie niczego przepiac)
 	//zwraca 0 gdy sie udalo
-IncidenceMatrix graphRandomization(IncidenceMatrix graph) {
+IncidenceMatrix& graphRandomization(IncidenceMatrix& graph) {
 	if (graph.getEdge() >= 2) {
 		std::cout << "\nRandomizacja..." << std::endl;
 		int a, b, c, d, rand1, rand2, count = 0;
@@ -41,7 +41,7 @@ IncidenceMatrix graphRandomization(IncidenceMatrix graph) {
 		}
 		else {
 			std::cout << "Randomizacja powiodla sie (przepieto krawedzie o indeksach " << rand1 << " i " << rand2 << ")\n" << std::endl;
-			return graph;
+            return graph;
 		}
 		error3 = graph.setTopsOfEdge(rand1, a, c);
 		error4 = graph.setTopsOfEdge(rand2, b, d);
@@ -51,7 +51,7 @@ IncidenceMatrix graphRandomization(IncidenceMatrix graph) {
 		}
 		else {
 			std::cout << "Randomizacja powiodla sie (przepieto krawedzie o indeksach " << rand1 << " i " << rand2 << ")\n" << std::endl;
-			return graph;
+            return graph;
 		}
 		std::cout << "Wylosowana para krawedzi nie mogla zostac zamieniona" << std::endl;
 	}

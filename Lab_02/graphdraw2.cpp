@@ -93,14 +93,18 @@ void GraphDraw2::on_PBRandomize_clicked()
     AdjacencyList* list = nullptr;
     try {
         int tmp = gen.on_buttonBox_accepted();
+        std::cout << "test";
         for(int i = 0; i < tmp; i++){
-            *gGraf = graphRandomization(*gGraf);
+            std::cout << i;
+           // delete gGraf;
+            gGraf = nullptr;
+            gGraf = &graphRandomization(*gGraf);
         }
-        /*gGraf->printEntireMatrix();
+        gGraf->printEntireMatrix();
         AdjacencyList* list = new AdjacencyList(*gGraf);
         ConnectionMatrix<int>* lista = new ConnectionMatrix<int>(*list);
         std::cout << "test";
-        gRysuj->rysuj(lista);*/
+        gRysuj->rysuj(lista);
     }
     catch(std::exception& e){
           QMessageBox::information(0, "error",e.what());
@@ -124,7 +128,6 @@ void GraphDraw2::on_PBConsistentSubG_clicked()
     for (int i = 0; i < tmp.size(); ++i) {
         std::cout << tmp[i] << std::endl;
     }
-    //tmp.push_back(tmp[0]);
     AdjacencyList* list = new AdjacencyList(*gGraf);
     ConnectionMatrix<int>* lista = new ConnectionMatrix<int>(*list);
     gRysuj->rysujSkladowa(lista, tmp);
