@@ -17,7 +17,7 @@ int isUndirectedEulerGraph(IncidenceMatrix& original){
 		}
 	}
 	std::cout <<"Wierzcholkow izolowanych jest: "<< toDelete.size() << std::endl;
-	for (size_t i = toDelete.size() - 1; i >= 0; i--) {
+    for (int i = toDelete.size() - 1; i >= 0; i--) {
 		//std::cout << "usuwam numer " << toDelete[i] << std::endl;
 		graph.deleteTop(toDelete[i]);
 	}

@@ -93,18 +93,14 @@ void GraphDraw2::on_PBRandomize_clicked()
     AdjacencyList* list = nullptr;
     try {
         int tmp = gen.on_buttonBox_accepted();
-        std::cout << "test";
-        for(int i = 0; i < tmp; i++){
-            std::cout << i;
-           // delete gGraf;
-            gGraf = nullptr;
-            gGraf = &graphRandomization(*gGraf);
+        for(int i = 0; i < tmp; ++i){
+            graphRandomization(*gGraf);
         }
         gGraf->printEntireMatrix();
         AdjacencyList* list = new AdjacencyList(*gGraf);
         ConnectionMatrix<int>* lista = new ConnectionMatrix<int>(*list);
-        std::cout << "test";
         gRysuj->rysuj(lista);
+
     }
     catch(std::exception& e){
           QMessageBox::information(0, "error",e.what());
