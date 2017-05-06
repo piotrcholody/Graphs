@@ -52,7 +52,7 @@ IncidenceMatrix::IncidenceMatrix(const IncidenceMatrix& org)
 	top = org.getN();
 	edge = org.getL();
 	matrix = allocateMatrix(top, edge);
-	int i, j, e = 0;
+	int i, j;
 	for (i = 0; i < top; i++)
 		for (j = 0; j < edge; j++)
 			matrix[i][j] = org.matrix[i][j];
@@ -66,15 +66,15 @@ IncidenceMatrix::IncidenceMatrix(std::vector<int> original)
 		int sum = 0;
 		for (size_t i = 0; i < original.size(); i++) {
 			sum += original[i];
-			tempnode.num = i;
+			tempnode.num = static_cast<int>(i);
 			tempnode.val = original[i];
 			sequence.push_back(tempnode);
 		}
-		top = original.size();
+		top = static_cast<int>(original.size());
 		edge = sum / 2;
 		matrix = allocateMatrix(top, edge);
 		std::sort(sequence.begin(), sequence.end(), compareToSortNodes);
-		int i = sequence.size() - 1;
+		int i = static_cast<int>(sequence.size() - 1);
 		int enumber = 0;
 		while (i > 0) {
 			while (sequence.size() && sequence.front().val == 0) {
@@ -384,7 +384,7 @@ IncidenceMatrix::~IncidenceMatrix(){
 void IncidenceMatrix::printEntireMatrix() const{
 	std::cout<<"\nMacierz Incydencji: "<<std::endl;
 	if (edge) {
-		int edgelenght = (int)log10(edge) + 1;
+//		int edgelenght = (int)log10(edge) + 1;
 		int toplenght = (int)log10(top) + 1;
 		for (int j = 0; j < toplenght + 2; j++) std::cout << " ";
 		for (int e = 0; e < edge; e++) std::cout << "E" << e << " "; std::cout << std::endl;
@@ -531,7 +531,7 @@ bool checkIfSequenceIsGraphic(std::vector<int> originalsequence) {
 		std::cout << "Jeden wierzcholek nie moze byc sekwencja graficzna!" << std::endl;
 		return false;
 	}
-	int i = sequence.size() - 1;
+	int i = static_cast<int>(sequence.size() - 1);
 	std::sort(sequence.begin(), sequence.end());
 	while (i > 0) {
 		//std::cout << "start while dla i=="<<i<<", size=="<< sequence.size()<<std::endl;

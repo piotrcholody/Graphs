@@ -25,7 +25,7 @@ for(int i=0;i<n;i++){
     text->setDefaultTextColor(Qt::black);
     text->setPos(std::sin(i*d+temp)*(_r+15)-w,std::cos(i*d+temp)*(_r+15)-w);
     for(int j=i+1;j<n;j++){
-            if(tab[i][j]==true)
+            if(tab[i][j] == 1)
                 _scene->addLine(std::sin(i*d+temp)*_r+w/2,std::cos(i*d+temp)*_r+w/2,std::sin(j*d+temp)*_r+w/2,std::cos(j*d+temp)*_r+w/2,_pen);
     }
 }
@@ -95,7 +95,7 @@ void GrafRysuj::rysujSkladowa(ConnectionMatrix<int> *graf, std::vector<int> list
       _scene->addEllipse(std::sin(i*d+temp)*_r,std::cos(i*d+temp)*_r,w,w,_pen,_brush);
       text->setPos(std::sin(i*d+temp)*(_r+15)-w,std::cos(i*d+temp)*(_r+15)-w);
       for(int j=i+1;j<n;j++){
-              if(tab[i][j]==true)
+              if(tab[i][j] == 1)
                   _scene->addLine(std::sin(i*d+temp)*_r+w/2,std::cos(i*d+temp)*_r+w/2,std::sin(j*d+temp)*_r+w/2,std::cos(j*d+temp)*_r+w/2,_pen);
       }
       text->setDefaultTextColor(Qt::black);

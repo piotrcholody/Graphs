@@ -94,11 +94,11 @@ public:
     {
         std::vector< std::vector<int> > tmp;
         tmp = lista.retAdjacencyList();
-        size = tmp.size();
+        size = static_cast<int>(tmp.size());
         matrix.resize(size);
         for(int i = 0; i < size; ++i) {
             matrix[i].resize(size);
-            for (int j = 1; j < tmp[i].size(); ++j) {
+            for (int j = 1; j < static_cast<int>(tmp[i].size()); ++j) {
                 int tmpint = tmp[i][j];
                 matrix[i][tmpint] = 1;
             }
