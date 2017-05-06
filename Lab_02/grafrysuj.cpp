@@ -1,6 +1,5 @@
 #define _USE_MATH_DEFINES
-//#include <math.h>
-#include <cmath>
+#include <math.h>
 #include "grafrysuj.h"
 #include <QGraphicsTextItem>
 #include <sstream>
