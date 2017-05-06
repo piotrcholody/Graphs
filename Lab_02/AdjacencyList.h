@@ -49,7 +49,7 @@ public:
 	*/
 	bool delEdge(int, int);
 	//metoda zwracająca ilość wierzchołków
-	int getN() { return _vertTable.size(); }
+	int getN() { return static_cast<int>(_vertTable.size()); }
 	//metoda zwracająca ilość krawędzi
 	int getL();
 	//metoda zwracająca wektor

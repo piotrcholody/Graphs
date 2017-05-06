@@ -53,7 +53,7 @@ std::vector<int> findTheLargestConnectedComponent(IncidenceMatrix & graph) {
 	unsigned int max = 0, index = 0;
 	for (unsigned int i = 0; i < temp.size(); i++) {
 		if (max < temp[i].size()) {
-			max = temp[i].size();
+			max = static_cast<unsigned int>(temp[i].size());
 			index = i;
 		}
 	}

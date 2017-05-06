@@ -60,8 +60,8 @@ IncidenceMatrix& regGraphGen(int vertex_counter, int degree) {
 		// sprawdza czy oba punkty nie nale¿¹ do jednego wierzcho³ka
 		// przejdzie dalej dopiero kiedy oba punkty bêda ró¿ne
 		do {
-			point_one = randomint(0, buckets.size() - 1);
-			point_two = randomint(0, buckets.size() - 1);
+			point_one = randomint(0, static_cast<int>(buckets.size()) - 1);
+			point_two = randomint(0, static_cast<int>(buckets.size()) - 1);
 			std::cout << "Jestem w while: " << point_one << " i " << point_two << std::endl;
 		} while (point_one == point_two);
 		std::cout << "Za while" << std::endl;

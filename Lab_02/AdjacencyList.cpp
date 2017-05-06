@@ -148,7 +148,7 @@ bool AdjacencyList::delEdge (int vert1, int vert2) {
 int AdjacencyList::getL() {
 	int counter = 0;
 	for (int i = 0; i < (int)_vertTable.size(); ++i)
-		counter += _vertTable[i].size();
+		counter += static_cast<int>(_vertTable[i].size());
 	return counter / 2;
 }
 /******************************************************************/
@@ -156,7 +156,7 @@ int AdjacencyList::maxL() {
 	int max = 0;
 	for (int i = 0; i < (int)_vertTable.size() && max != (int)_vertTable.size(); i++) {
 		if ((int)_vertTable[i].size() > max)
-			max = _vertTable[i].size();
+			max = static_cast<int>(_vertTable[i].size());
 
 	}
 	return max - 1;

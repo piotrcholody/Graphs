@@ -103,13 +103,13 @@ std::vector<int> findHamiltionianGraph(IncidenceMatrix& graph)
 		return path;
 	}
 
-	int i = 0, first = 0, c = 0;
+	int c = 0;
 	bool canBeHamilton = true;
 	bool isHamilton = true;
 	bool isHalf = false;
 	for (int i = 0; i < graph.getTop(); i++) {
 		std::vector<int> t = graph.adjForTop(i);
-		c = t.size();
+		c = static_cast<int>(t.size());
 		if (c < 2) {
 			canBeHamilton = false;
 			std::cout << "Graf NIE moze byc hamiltonowski (liczba krawedzi przy choc 1 wierzcholku <2)" << std::endl;

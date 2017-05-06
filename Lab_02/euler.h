@@ -17,7 +17,7 @@ int isUndirectedEulerGraph(IncidenceMatrix& original){
 		}
 	}
 	std::cout <<"Wierzcholkow izolowanych jest: "<< toDelete.size() << std::endl;
-	for (int i = toDelete.size() - 1; i >= 0; i--) {
+	for (size_t i = toDelete.size() - 1; i >= 0; i--) {
 		//std::cout << "usuwam numer " << toDelete[i] << std::endl;
 		graph.deleteTop(toDelete[i]);
 	}
@@ -167,7 +167,7 @@ std::vector<int> findCycleInUndirectedEuler(IncidenceMatrix& original) {
 				std::vector<int> temp = graph.adjForTop(current);
 				for (int i = 0; i < temp.size(); i++) {
 					cand = temp[i];
-					if (i == 0) { best = cand; bestsize = graph.adjForTop(cand).size(); }
+					if (i == 0) { best = cand; bestsize = static_cast<int>(graph.adjForTop(cand).size()); }
 					//std::cout << "For na i==" << i << std::endl;
 					correct = true;
 					for (int j = 0; j < visited.size(); j++) {
@@ -183,7 +183,7 @@ std::vector<int> findCycleInUndirectedEuler(IncidenceMatrix& original) {
 					if (correct) {
 						if (graph.adjForTop(cand).size() > bestsize) {
 							//std::cout << "stary bestsize==" << bestsize << std::endl;
-							bestsize = graph.adjForTop(cand).size();
+							bestsize = static_cast<int>(graph.adjForTop(cand).size());
 							best = cand;
 						}
 					}
