@@ -14,14 +14,21 @@ GGeneratorVE::~GGeneratorVE()
     delete ui;
 }
 
-std::pair<int,int> GGeneratorVE::on_buttonBox_accepted()
+std::pair<int,int> GGeneratorVE::returnFunc()
 {
-    update();
-    return std::pair<int,double>(this->ui->spinBox_2->value(),this->ui->spinBox->value());
+    //update();
+    return values;
+}
+
+void GGeneratorVE::on_buttonBox_accepted()
+{
+    values = std::make_pair(this->ui->spinBox_2->value(),this->ui->spinBox->value());
+    this->close();
 }
 
 void GGeneratorVE::on_buttonBox_rejected()
 {
+    values = std::make_pair(-100,-100);
     this->close();
 }
 

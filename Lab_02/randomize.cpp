@@ -15,7 +15,20 @@ Randomize::~Randomize()
     delete ui;
 }
 
-int Randomize::on_buttonBox_accepted()
+int Randomize::returnFunc()
 {
-  return int(this->ui->spinBox->value());
+    return values;
+  //return int(this->ui->spinBox->value());
+}
+
+void Randomize::on_buttonBox_accepted()
+{
+    values = int(this->ui->spinBox->value());
+    this->close();
+}
+
+void Randomize::on_buttonBox_rejected()
+{
+    values = -100;
+    this->close();
 }

@@ -92,14 +92,17 @@ void GraphDraw2::on_PBRandomize_clicked()
     ConnectionMatrix<int> *lista = nullptr;
     AdjacencyList* list = nullptr;
     try {
-        int tmp = gen.on_buttonBox_accepted();
-        for(int i = 0; i < tmp; ++i){
-            graphRandomization(*gGraf);
+        int tmp = gen.returnFunc();
+        if (tmp != -100)
+        {
+            for(int i = 0; i < tmp; ++i){
+                graphRandomization(*gGraf);
+            }
+            gGraf->printEntireMatrix();
+            AdjacencyList* list = new AdjacencyList(*gGraf);
+            ConnectionMatrix<int>* lista = new ConnectionMatrix<int>(*list);
+            gRysuj->rysuj(lista);
         }
-        gGraf->printEntireMatrix();
-        AdjacencyList* list = new AdjacencyList(*gGraf);
-        ConnectionMatrix<int>* lista = new ConnectionMatrix<int>(*list);
-        gRysuj->rysuj(lista);
 
     }
     catch(std::exception& e){
@@ -136,27 +139,30 @@ void GraphDraw2::on_actionGenerate_Vert_Edge_triggered()
     GGeneratorVE gen;
     gen.setModal(true);
     gen.exec();
-    std::pair<int,int> ve_count = gen.on_buttonBox_accepted();
     ConnectionMatrix<int> *testCM = NULL;
     IncidenceMatrix* matrix = NULL;
     try{
-        testCM = new ConnectionMatrix<int>();
-        testCM->edgeGraph(ve_count.first,ve_count.second);
-        IncidenceMatrix* matrix = new IncidenceMatrix(*testCM);
-        delete gGraf;
-        gGraf = nullptr;
-        gRysuj->clear();
-        ui->PBDraw->setEnabled(false);
-        ui->PBEulerian->setEnabled(false);
-        ui->PBRandomize->setEnabled(false);
-        ui->PBHamiltonianC->setEnabled(false);
-        ui->PBConsistentSubG->setEnabled(false);
-        this->gGraf = matrix;
-        ui->PBDraw->setEnabled(true);
-        ui->PBEulerian->setEnabled(true);
-        ui->PBRandomize->setEnabled(true);
-        ui->PBHamiltonianC->setEnabled(true);
-        ui->PBConsistentSubG->setEnabled(true);
+        std::pair<int,int> ve_count = gen.returnFunc();
+        if(ve_count.first != -100 || ve_count.second != -100)
+        {
+            testCM = new ConnectionMatrix<int>();
+            testCM->edgeGraph(ve_count.first,ve_count.second);
+            IncidenceMatrix* matrix = new IncidenceMatrix(*testCM);
+            delete gGraf;
+            gGraf = nullptr;
+            gRysuj->clear();
+            ui->PBDraw->setEnabled(false);
+            ui->PBEulerian->setEnabled(false);
+            ui->PBRandomize->setEnabled(false);
+            ui->PBHamiltonianC->setEnabled(false);
+            ui->PBConsistentSubG->setEnabled(false);
+            this->gGraf = matrix;
+            ui->PBDraw->setEnabled(true);
+            ui->PBEulerian->setEnabled(true);
+            ui->PBRandomize->setEnabled(true);
+            ui->PBHamiltonianC->setEnabled(true);
+            ui->PBConsistentSubG->setEnabled(true);
+        }
     }
     catch(std::exception& e){
           QMessageBox::information(0, "error",e.what());
@@ -171,27 +177,30 @@ void GraphDraw2::on_actionFrom_vertices_probability_triggered()
     GGenerator gen;
     gen.setModal(true);
     gen.exec();
-    std::pair<int,double> values = gen.on_buttonBox_accepted();
     ConnectionMatrix<int> *testCM = NULL;
     IncidenceMatrix* matrix = NULL;
     try{
-        testCM = new ConnectionMatrix<int>();
-        testCM->probGraph(values.first,values.second);
-        delete gGraf;
-        gGraf = nullptr;
-        gRysuj->clear();
-        ui->PBDraw->setEnabled(false);
-        ui->PBEulerian->setEnabled(false);
-        ui->PBRandomize->setEnabled(false);
-        ui->PBHamiltonianC->setEnabled(false);
-        ui->PBConsistentSubG->setEnabled(false);
-        IncidenceMatrix* matrix = new IncidenceMatrix(*testCM);
-        this->gGraf = matrix;
-        ui->PBDraw->setEnabled(true);
-        ui->PBEulerian->setEnabled(true);
-        ui->PBRandomize->setEnabled(true);
-        ui->PBHamiltonianC->setEnabled(true);
-        ui->PBConsistentSubG->setEnabled(true);
+        std::pair<int,double> values = gen.returnFunc();
+        if(values.first != -100 || values.second != -100)
+        {
+            testCM = new ConnectionMatrix<int>();
+            testCM->probGraph(values.first,values.second);
+            delete gGraf;
+            gGraf = nullptr;
+            gRysuj->clear();
+            ui->PBDraw->setEnabled(false);
+            ui->PBEulerian->setEnabled(false);
+            ui->PBRandomize->setEnabled(false);
+            ui->PBHamiltonianC->setEnabled(false);
+            ui->PBConsistentSubG->setEnabled(false);
+            IncidenceMatrix* matrix = new IncidenceMatrix(*testCM);
+            this->gGraf = matrix;
+            ui->PBDraw->setEnabled(true);
+            ui->PBEulerian->setEnabled(true);
+            ui->PBRandomize->setEnabled(true);
+            ui->PBHamiltonianC->setEnabled(true);
+            ui->PBConsistentSubG->setEnabled(true);
+        }
     }
     catch(std::exception& e){
           QMessageBox::information(0, "error",e.what());
@@ -205,27 +214,31 @@ void GraphDraw2::on_actionFrom_k_regularity_triggered()
     GGeneratork gen;
     gen.setModal(true);
     gen.exec();
-    std::pair<int,int> values = gen.on_buttonBox_accepted();
+
     gSvec.clear();
-    for(int i=0; i<values.first; i++)
-        gSvec.push_back(values.second);
     try{
-        if(gSvec.empty())
-            throw std::runtime_error("nie wpisano wartosci k");
-        delete gGraf;
-        gGraf = nullptr;
-        gRysuj->clear();
-        ui->PBDraw->setEnabled(false);
-        ui->PBEulerian->setEnabled(false);
-        ui->PBRandomize->setEnabled(false);
-        ui->PBHamiltonianC->setEnabled(false);
-        ui->PBConsistentSubG->setEnabled(false);
-        gGraf = &regGraphGen(values.first, values.second);
-        ui->PBDraw->setEnabled(true);
-        ui->PBEulerian->setEnabled(true);
-        ui->PBRandomize->setEnabled(true);
-        ui->PBHamiltonianC->setEnabled(true);
-        ui->PBConsistentSubG->setEnabled(true);
+        std::pair<int,int> values = gen.returnFunc();
+        if(values.first != -100 || values.second != -100)
+        {
+            for(int i=0; i<values.first; i++)
+                gSvec.push_back(values.second);
+            if(gSvec.empty())
+                throw std::runtime_error("nie wpisano wartosci k");
+            delete gGraf;
+            gGraf = nullptr;
+            gRysuj->clear();
+            ui->PBDraw->setEnabled(false);
+            ui->PBEulerian->setEnabled(false);
+            ui->PBRandomize->setEnabled(false);
+            ui->PBHamiltonianC->setEnabled(false);
+            ui->PBConsistentSubG->setEnabled(false);
+            gGraf = &regGraphGen(values.first, values.second);
+            ui->PBDraw->setEnabled(true);
+            ui->PBEulerian->setEnabled(true);
+            ui->PBRandomize->setEnabled(true);
+            ui->PBHamiltonianC->setEnabled(true);
+            ui->PBConsistentSubG->setEnabled(true);
+        }
     }
     catch(std::exception& e){
           QMessageBox::information(0, "error",e.what());

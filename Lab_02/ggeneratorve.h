@@ -18,7 +18,8 @@ public:
     ~GGeneratorVE();
 
 private slots:
-    std::pair<int,int> on_buttonBox_accepted();
+    std::pair<int,int> returnFunc();
+    void on_buttonBox_accepted();
     void on_buttonBox_rejected();
     void update();
 

@@ -15,14 +15,20 @@ GGeneratork::~GGeneratork()
     delete ui;
 }
 
-std::pair<int, int> GGeneratork::on_buttonBox_accepted()
+std::pair<int, int> GGeneratork::returnFunc()
 {
-  update();
-  return std::pair<int,int>(this->ui->spinBox->value(),this->ui->spinBox_2->value());
+  return values;
+}
+
+void GGeneratork::on_buttonBox_accepted()
+{
+    values = std::make_pair(this->ui->spinBox->value(),this->ui->spinBox_2->value());
+    this->close();
 }
 
 void GGeneratork::on_buttonBox_rejected()
 {
+    values = std::make_pair(-100,-100);
     this->close();
 }
 

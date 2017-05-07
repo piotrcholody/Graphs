@@ -17,10 +17,13 @@ public:
     ~Randomize();
 
 private slots:
-    int on_buttonBox_accepted();
+    int returnFunc();
+    void on_buttonBox_accepted();
+    void on_buttonBox_rejected();
 
 private:
     Ui::Randomize *ui;
+    int values;
 };
 
 #endif // RANDOMIZE_H

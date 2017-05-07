@@ -63,9 +63,9 @@ public:
 
         spinBox = new QSpinBox(layoutWidget);
         spinBox->setObjectName(QStringLiteral("spinBox"));
-        spinBox->setMinimum(0);
+        spinBox->setMinimum(1);
         spinBox->setMaximum(30);
-        spinBox->setValue(0);
+        spinBox->setValue(6);
 
         horizontalLayout->addWidget(spinBox);
 
@@ -83,7 +83,7 @@ public:
         doubleSpinBox->setObjectName(QStringLiteral("doubleSpinBox"));
         doubleSpinBox->setMaximum(1);
         doubleSpinBox->setSingleStep(0.01);
-        doubleSpinBox->setValue(0);
+        doubleSpinBox->setValue(0.5);
 
         horizontalLayout_2->addWidget(doubleSpinBox);
 
