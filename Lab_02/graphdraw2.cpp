@@ -245,3 +245,27 @@ void GraphDraw2::on_actionFrom_k_regularity_triggered()
         }
 }
 
+
+void GraphDraw2::on_PBEuler_clicked()
+{
+    //IncidenceMatrix* createUndirectedEulerGraph(int min, int max)
+    delete gGraf;
+    gGraf = nullptr;
+    gRysuj->clear();
+    ui->PBDraw->setEnabled(false);
+    ui->PBEulerian->setEnabled(false);
+    ui->PBRandomize->setEnabled(false);
+    ui->PBHamiltonianC->setEnabled(false);
+    ui->PBConsistentSubG->setEnabled(false);
+    gGraf = createUndirectedEulerGraph(14,16);
+    AdjacencyList* list = new AdjacencyList(*gGraf);
+    ConnectionMatrix<int>* lista = new ConnectionMatrix<int>(*list);
+    gRysuj->rysuj(lista);
+    ui->PBDraw->setEnabled(true);
+    ui->PBEulerian->setEnabled(true);
+    ui->PBRandomize->setEnabled(true);
+    ui->PBHamiltonianC->setEnabled(true);
+    ui->PBConsistentSubG->setEnabled(true);
+    delete list;
+    delete lista;
+}

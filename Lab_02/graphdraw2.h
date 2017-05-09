@@ -42,6 +42,8 @@ private slots:
 
     void on_actionFrom_k_regularity_triggered();
 
+    void on_PBEuler_clicked();
+
 private:
     Ui::GraphDraw2 *ui;
     QGraphicsScene* scene;

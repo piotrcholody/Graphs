@@ -16,7 +16,7 @@ void DFSUtilForACC(IncidenceMatrix& graph, int v, bool visited[], std::vector<in
 {
 	visited[v] = true;
 	actualComponent.push_back(v); //dodawanie wierzcholka do skladowej
-	std::cout << "DFS( pushed v==" << v << std::endl;
+    //std::cout << "DFS( pushed v==" << v << std::endl;
 	std::vector<int> adjForV = graph.adjForTop(v);
 
 	std::vector<int>::iterator i;

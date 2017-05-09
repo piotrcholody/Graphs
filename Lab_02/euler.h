@@ -58,7 +58,7 @@ int isUndirectedEulerGraph(IncidenceMatrix& original){
 	//zwraca losowy Eulerowski graf nieskierowany 
 	//min i max oznaczaja zakres z jakiego losowane jest ilosc wierzcholkow
 	//jednak nie uwzglednia to wierzcholkow izolowanych, ktore zostana usuniete
-/*IncidenceMatrix* createUndirectedEulerGraph(int min, int max) {
+IncidenceMatrix* createUndirectedEulerGraph(int min, int max) {
 	if (!(min <= max && min >= 0 && max > 0)) {
 		std::cout << "Podano zle wartosci do losowania ilosci wierzcholkow (pamietaj ze wierzcholki izolowane zostana usuniete)" << std::endl;
 		std::cout << "Losuje z przedzialu (10, 12)" << std::endl;
@@ -88,7 +88,7 @@ int isUndirectedEulerGraph(IncidenceMatrix& original){
 		
 		if (checkIfSequenceIsGraphic(sequence)) {
 			seq = new IncidenceMatrix(sequence);
-			largestComp = findTheLargestConnectedComponent(IncidenceMatrix(sequence));
+            largestComp = findTheLargestConnectedComponent(*seq);
 			for (int i = 0; i < static_cast<int>(largestComp.size()); i++)
 				std::cout << largestComp[i] << ", ";
 			std::cout << std::endl;
@@ -132,7 +132,7 @@ int isUndirectedEulerGraph(IncidenceMatrix& original){
 
 	rewrited->printEntireMatrix();
 	return rewrited;
-}*/
+}
 /******************************************************************/
 
 //zwraca losowy Eulerowski graf nieskierowany, zazwyczaj 5-7 wierzcholkow

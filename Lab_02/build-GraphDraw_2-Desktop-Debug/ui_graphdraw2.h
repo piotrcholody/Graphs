@@ -41,6 +41,7 @@ public:
     QPushButton *PBInsertData;
     QPushButton *PBDraw;
     QPushButton *PBConsistentSubG;
+    QPushButton *PBEuler;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuGenerate_Graph;
@@ -72,15 +73,15 @@ public:
         PBEulerian = new QPushButton(centralWidget);
         PBEulerian->setObjectName(QStringLiteral("PBEulerian"));
         PBEulerian->setEnabled(false);
-        PBEulerian->setGeometry(QRect(30, 180, 141, 51));
+        PBEulerian->setGeometry(QRect(30, 160, 141, 51));
         PBHamiltonianC = new QPushButton(centralWidget);
         PBHamiltonianC->setObjectName(QStringLiteral("PBHamiltonianC"));
         PBHamiltonianC->setEnabled(false);
-        PBHamiltonianC->setGeometry(QRect(30, 230, 141, 51));
+        PBHamiltonianC->setGeometry(QRect(30, 210, 141, 51));
         PBRandomize = new QPushButton(centralWidget);
         PBRandomize->setObjectName(QStringLiteral("PBRandomize"));
         PBRandomize->setEnabled(false);
-        PBRandomize->setGeometry(QRect(30, 280, 141, 51));
+        PBRandomize->setGeometry(QRect(30, 260, 141, 51));
         PBInsertData = new QPushButton(centralWidget);
         PBInsertData->setObjectName(QStringLiteral("PBInsertData"));
         PBInsertData->setGeometry(QRect(30, 10, 141, 51));
@@ -91,7 +92,10 @@ public:
         PBConsistentSubG = new QPushButton(centralWidget);
         PBConsistentSubG->setObjectName(QStringLiteral("PBConsistentSubG"));
         PBConsistentSubG->setEnabled(false);
-        PBConsistentSubG->setGeometry(QRect(30, 130, 141, 51));
+        PBConsistentSubG->setGeometry(QRect(30, 110, 141, 51));
+        PBEuler = new QPushButton(centralWidget);
+        PBEuler->setObjectName(QStringLiteral("PBEuler"));
+        PBEuler->setGeometry(QRect(30, 310, 141, 51));
         GraphDraw2->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(GraphDraw2);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -134,6 +138,7 @@ public:
         PBInsertData->setText(QApplication::translate("GraphDraw2", "Insert data", 0));
         PBDraw->setText(QApplication::translate("GraphDraw2", "Draw", 0));
         PBConsistentSubG->setText(QApplication::translate("GraphDraw2", "Consistent subgraph", 0));
+        PBEuler->setText(QApplication::translate("GraphDraw2", "Random euler graph", 0));
         menuFile->setTitle(QApplication::translate("GraphDraw2", "File", 0));
         menuGenerate_Graph->setTitle(QApplication::translate("GraphDraw2", "Generate Graph", 0));
     } // retranslateUi

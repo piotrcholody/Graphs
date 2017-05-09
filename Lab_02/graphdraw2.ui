@@ -37,7 +37,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>180</y>
+      <y>160</y>
       <width>141</width>
       <height>51</height>
      </rect>
@@ -53,7 +53,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>230</y>
+      <y>210</y>
       <width>141</width>
       <height>51</height>
      </rect>
@@ -69,7 +69,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>280</y>
+      <y>260</y>
       <width>141</width>
       <height>51</height>
      </rect>
@@ -114,13 +114,26 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>130</y>
+      <y>110</y>
       <width>141</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
      <string>Consistent subgraph</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="PBEuler">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>310</y>
+      <width>141</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Random euler graph</string>
     </property>
    </widget>
   </widget>
