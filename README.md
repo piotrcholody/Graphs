@@ -6,7 +6,7 @@ Simple random graphs generator by propability or amount of edges. All graphs can
 
 # Lab_02
 
-Generator for graphs with given ranks of vertexes or sequence, random euler graphs, random regular graphs. Option to check if graph is euler or hamilton.
+Generator for graphs with given ranks of vertexes or sequence, random eulerian graphs, random regular graphs. Option to check if graph is eulerian or hamiltonian.
 
 # Lab_03
 
